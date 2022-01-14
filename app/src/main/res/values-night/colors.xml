@@ -8,20 +8,20 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 
-    <color name="primary">#E0E0E0</color>
-    <color name="primary_dark">#BDBDBD</color>
+    <color name="primary">#616161</color>
+    <color name="primary_dark">#757575</color>
     <color name="input_background">#ececec</color>
     <color name="icon_background">#20ffffff</color>
     <color name="error">#b00020</color>
     <color name="received_message_background">#090d16</color>
 
-    <color name="main_background">#FFFFFF</color>
-    <color name="second_background">#F5F5F5</color>
-    <color name="third_background">#EEEEEE</color>
-    <color name="four_background">#E0E0E0</color>
-    <color name="five_background">#BDBDBD</color>
-    <color name="primary_text">#000000</color>
-    <color name="secondary_text">#212121</color>
-    <color name="main_icon">#000000</color>
-    <color name="second_icon">#212121</color>
+    <color name="main_background">#000000</color>
+    <color name="second_background">#212121</color>
+    <color name="third_background">#424242</color>
+    <color name="four_background">#616161</color>
+    <color name="five_background">#757575</color>
+    <color name="primary_text">#ffffff</color>
+    <color name="secondary_text">#FAFAFA</color>
+    <color name="main_icon">#ffffff</color>
+    <color name="second_icon">#FAFAFA</color>
 </resources>
