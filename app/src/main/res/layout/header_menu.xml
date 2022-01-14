@@ -15,7 +15,7 @@
             android:layout_width="@dimen/_80sdp"
             android:layout_height="@dimen/_80sdp"
             android:id="@+id/img_avatar"
-            android:src="@drawable/cap"
+            android:src="@drawable/avatar"
             android:scaleType="centerCrop"/>
         <TextView
             android:id="@+id/txt_edit_profile"
