@@ -1,8 +1,10 @@
 <resources>
     <string name="app_name">OneRead</string>
     <string name="register">Đăng ký</string>
+    <string name="login">Đăng nhập</string>
     <string name="first_name">Họ</string>
     <string name="last_name">Tên</string>
+    <string name="username">Username</string>
     <string name="phone">SĐT</string>
     <string name="birthday">Ngày sinh</string>
     <string name="gender">Giới tính</string>
@@ -24,4 +26,26 @@
     <string name="search">Search</string>
     <string name="history_search">Lịch sử tìm kiếm</string>
     <string name="list_people">Danh sách người dùng</string>
+    <string name="password">Password</string>
+    <string name="email">Email</string>
+    <string name="delete">Xoá</string>
+
+    <!-- ACTION -->
+    <string name="delete_success">Xoá thành công</string>
+    <string name="insert_success">Thêm thành công</string>
+    <string name="update_success">Cập nhật thành công</string>
+    <string name="login_success">Đăng nhập thành công</string>
+    <string name="logout_success">Đăng xuất thành công</string>
+    <string name="register_success">Đăng ký thành công</string>
+    <string name="upload_success">Upload file thành công</string>
+
+    <string name="delete_fail">Xoá thất bại</string>
+    <string name="insert_fail">Thêm thất bại</string>
+    <string name="update_fail">Cập nhật thất bại</string>
+    <string name="login_fail">Đăng nhập thất bại</string>
+    <string name="logout_fail">Đăng xuất thất bại</string>
+    <string name="register_fail">Đăng ký thất bại</string>
+    <string name="upload_fail">Upload file thất bại</string>
+
+    <string name="something_wrong">Something went wrong</string>
 </resources>
