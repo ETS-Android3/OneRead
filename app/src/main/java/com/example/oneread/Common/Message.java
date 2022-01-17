@@ -1,23 +1,26 @@
 package com.example.oneread.Common;
 
 public class Message {
-    public static String delete_success= "Xoá thành công";
-    public static String insert_success= "Thêm thành công";
-    public static String update_success= "Cập nhật thành công";
-    public static String login_success= "Đăng nhập thành công";
-    public static String logout_success= "Đăng xuất thành công";
-    public static String register_success= "Đăng ký thành công";
-    public static String upload_success= "Upload file thành công";
+    public static String deleteSuccess= "Xoá thành công";
+    public static String insertSuccess= "Thêm thành công";
+    public static String updateSuccess= "Cập nhật thành công";
+    public static String loginSuccess= "Đăng nhập thành công";
+    public static String logoutSuccess= "Đăng xuất thành công";
+    public static String registerSuccess= "Đăng ký thành công";
+    public static String uploadSuccess= "Upload file thành công";
     
-    public static String delete_fail= "Xoá thất bại";
-    public static String insert_fail= "Thêm thất bại";
-    public static String update_fail= "Cập nhật thất bại";
-    public static String login_fail= "Đăng nhập thất bại";
-    public static String logout_fail= "Đăng xuất thất bại";
-    public static String register_fail= "Đăng ký thất bại";
-    public static String upload_fail= "Upload file thất bại";
+    public static String deleteFail= "Xoá thất bại";
+    public static String insertFail= "Thêm thất bại";
+    public static String updateFail= "Cập nhật thất bại";
+    public static String loginFail= "Đăng nhập thất bại";
+    public static String logoutFail= "Đăng xuất thất bại";
+    public static String registerFail= "Đăng ký thất bại";
+    public static String uploadFail= "Upload file thất bại";
     
-    public static String something_wrong= "Something went wrong";
+    public static String somethingWrong= "Something went wrong";
+    public static String emailInvalid = "Tên email từ 5 ký tự trở lên và bao gồm @example.com(.vn)";
+    public static String passwordInvalid = "Password ít nhất 8 ký tự bao gồm số và chữ cái và kí tự đặc biệt";
+    public static String nameInvalid = "Tên chỉ bao gồm kí tự chữ hoa hoặc chữ thường";
 }
 
 

@@ -9,12 +9,19 @@
   tools:context=".Activity.MainActivity">
 
   <!--
-  drawer need a layout to auto hide the navigation when click outside
-  https://stackoverflow.com/questions/54508419/android-navigation-drawer-does-not-close-when-click-outside-the-drawer-a-fragme
+  FIXED: drawer need a layout to auto hide the navigation when click outside
+   https://stackoverflow.com/questions/54508419/android-navigation-drawer-does-not-close-when-click-outside-the-drawer-a-fragme
   -->
   <RelativeLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
+    <com.makeramen.roundedimageview.RoundedImageView
+      android:layout_width="@dimen/_50sdp"
+      android:layout_height="@dimen/_50sdp"
+      app:riv_corner_radius="@dimen/_200sdp"
+      android:src="@drawable/avatar"
+      android:id="@+id/avatar"/>
 
   </RelativeLayout>
 

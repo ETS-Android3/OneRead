@@ -2,6 +2,7 @@ package com.example.oneread.Activity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -12,8 +13,10 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatDelegate;
+import androidx.drawerlayout.widget.DrawerLayout;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import com.example.oneread.R;
 import com.google.android.material.navigation.NavigationView;
 import com.makeramen.roundedimageview.RoundedImageView;
@@ -21,7 +24,11 @@ import com.makeramen.roundedimageview.RoundedImageView;
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
 
     @BindView(R.id.navigation_view)
-    public NavigationView navigationView;
+    NavigationView navigationView;
+    @BindView(R.id.avatar)
+    RoundedImageView avatar;
+    @BindView(R.id.drawer_layout)
+    DrawerLayout drawerLayout;
 
     private LinearLayout headerMenu;
     private RoundedImageView img_avatar;
@@ -32,6 +39,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     int NightMode;
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
+
+    @OnClick(R.id.avatar)
+    void OnAvatarClick() {
+        drawerLayout.openDrawer(Gravity.LEFT);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

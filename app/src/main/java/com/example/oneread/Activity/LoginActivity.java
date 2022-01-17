@@ -1,21 +1,21 @@
 package com.example.oneread.Activity;
 
-import android.widget.Switch;
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import androidx.appcompat.app.AppCompatDelegate;
-import androidx.lifecycle.Lifecycle;
-import androidx.lifecycle.LifecycleObserver;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager2.widget.ViewPager2;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.example.oneread.Adapter.ViewPagerAdapter;
+import com.example.oneread.Fragment.LoginFragment;
+import com.example.oneread.Fragment.RegisterFragment;
 import com.example.oneread.R;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 
+
 public class LoginActivity extends AppCompatActivity {
+
+    private ViewPagerAdapter viewPagerAdapter;
 
     @BindView(R.id.viewpager)
     public ViewPager2 viewpager;
@@ -34,23 +34,10 @@ public class LoginActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         //region main
-        viewpager.setAdapter(new ViewPagerAdapter(getSupportFragmentManager(), new Lifecycle() {
-            @Override
-            public void addObserver(@NonNull LifecycleObserver observer) {
-
-            }
-
-            @Override
-            public void removeObserver(@NonNull LifecycleObserver observer) {
-
-            }
-
-            @NonNull
-            @Override
-            public State getCurrentState() {
-                return null;
-            }
-        }));
+        viewPagerAdapter = new ViewPagerAdapter(this);
+        viewPagerAdapter.addFragment(LoginFragment.getInstance());
+        viewPagerAdapter.addFragment(RegisterFragment.getInstance());
+        viewpager.setAdapter(viewPagerAdapter);
         new TabLayoutMediator(tabLayout, viewpager, (tab, position) -> {
             switch (position) {
                 case 0: {
