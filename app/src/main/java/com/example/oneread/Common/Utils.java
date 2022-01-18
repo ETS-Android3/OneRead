@@ -3,11 +3,14 @@ package com.example.oneread.Common;
 import android.annotation.SuppressLint;
 import android.content.ContentResolver;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.net.Uri;
 import android.provider.OpenableColumns;
 import android.widget.EditText;
 import android.widget.Toast;
+import androidx.appcompat.app.AppCompatDelegate;
+import com.example.oneread.Model.User;
 
 
 import static com.example.oneread.Common.Common.toast;
@@ -28,16 +31,92 @@ public class Utils {
     public static void showToast (Context context, String content, int length) {
         if (toast != null) {
             toast.cancel();
-        }
+        } else toast = new Toast(context);
         toast = Toast.makeText(context, content, length);
         toast.show();
     }
 
+    public static void resetObjects(Object[] objects) {
+        for(Object o : objects){
+            if(o instanceof EditText){
+                ((EditText) o).setText("");
+            }
+        }
+    }
 
 
+    //region shareReference
+    public static void saveDarkMode(Context context, int state) {
+//        SharedPreferences sharedPreferences = context.getSharedPreferences(Common.shareRef, Context.MODE_PRIVATE);
+//        SharedPreferences.Editor editor = sharedPreferences.edit();
+//        editor.putInt(Common.shareRefKeyDarkMode, state);
+//        editor.apply();
+
+        SharedPrefs.getInstance(context).put(Common.shareRefKeyDarkMode, state);
+    }
+
+    public static int getDarkMode(Context context) {
+//        SharedPreferences sharedPreferences = context.getSharedPreferences(Common.shareRef, Context.MODE_PRIVATE);
+//        return sharedPreferences.getInt(Common.shareRefKeyDarkMode, AppCompatDelegate.MODE_NIGHT_NO); // (key, default value)
+
+        return SharedPrefs.getInstance(context).get(Common.shareRefKeyDarkMode, AppCompatDelegate.MODE_NIGHT_NO);
+    }
+
+    public static void saveUsername(Context context, String username) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences(Common.shareRef, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString(Common.shareRefKeyUsername, username);
+        editor.apply();
+    }
+
+    public static String getUsername(Context context) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences(Common.shareRef, Context.MODE_PRIVATE);
+        return sharedPreferences.getString(Common.shareRefKeyUsername, null); // (key, default value)
+    }
+
+    public static void savePassword(Context context, String password) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences(Common.shareRef, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString(Common.shareRefKeyPassword, password);
+        editor.apply();
+    }
+
+    public static String getPassword(Context context) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences(Common.shareRef, Context.MODE_PRIVATE);
+        return sharedPreferences.getString(Common.shareRefKeyPassword, null); // (key, default value)
+    }
+
+    public static void saveAccessToken(Context context, String token) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences(Common.shareRef, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString(Common.shareRefKeyAccessToken, token);
+        editor.apply();
+    }
+
+    public static String getAccessToken(Context context) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences(Common.shareRef, Context.MODE_PRIVATE);
+        return sharedPreferences.getString(Common.shareRefKeyAccessToken, null); // (key, default value)
+    }
+
+    public static void saveRefreshToken(Context context, String token) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences(Common.shareRef, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString(Common.shareRefKeyRefreshToken, token);
+        editor.apply();
+    }
+
+    public static String getRefreshToken(Context context) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences(Common.shareRef, Context.MODE_PRIVATE);
+        return sharedPreferences.getString(Common.shareRefKeyRefreshToken, null); // (key, default value)
+    }
+    //endregion
+
+
+
+    //region file
     /*
-    * get file name: if it a picture from camera (not saved yet and dont have name) the fileuri scheme is "content"
-    * */
+     * get file name: if it a picture from camera (not saved yet and dont have name) the fileuri scheme is "content"
+     * */
     @SuppressLint("Range")
     public static String getFileName(ContentResolver contentResolver, Uri fileUri){
         String result = null;
@@ -62,22 +141,7 @@ public class Utils {
 
         return result;
     }
-
-    //region file
-
     //endregion
-
-
-    public static void resetObject(Object[] objects) {
-        for(Object o : objects){
-            if(o instanceof EditText){
-                ((EditText) o).setText("");
-            }
-        }
-    }
-
-
-
 
     //region firebase
 

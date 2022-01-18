@@ -2,6 +2,7 @@ package com.example.oneread.Activity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
@@ -10,6 +11,7 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatDelegate;
@@ -17,9 +19,13 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import com.example.oneread.Common.Common;
+import com.example.oneread.Common.SharedPrefs;
+import com.example.oneread.Common.Utils;
 import com.example.oneread.R;
 import com.google.android.material.navigation.NavigationView;
 import com.makeramen.roundedimageview.RoundedImageView;
+import com.squareup.picasso.Picasso;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
 
@@ -35,10 +41,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private TextView username;
     private Switch btn_dark_mode;
 
-
-    int NightMode;
-    SharedPreferences sharedPreferences;
-    SharedPreferences.Editor editor;
 
     @OnClick(R.id.avatar)
     void OnAvatarClick() {
@@ -68,10 +70,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         //endregion
 
         //region night mode
-        sharedPreferences = getSharedPreferences("SharedPrefs", MODE_PRIVATE);
-        NightMode = sharedPreferences.getInt("NightModeInt", 1);
-        AppCompatDelegate.setDefaultNightMode(NightMode);
-        if (NightMode == AppCompatDelegate.MODE_NIGHT_YES) {
+        AppCompatDelegate.setDefaultNightMode(SharedPrefs.getInstance(this).get(Common.shareRefKeyDarkMode, AppCompatDelegate.MODE_NIGHT_NO));
+        if (SharedPrefs.getInstance(this).get(Common.shareRefKeyDarkMode, AppCompatDelegate.MODE_NIGHT_NO) == AppCompatDelegate.MODE_NIGHT_YES) {
             btn_dark_mode.setChecked(true);
         } else btn_dark_mode.setChecked(false);
         //endregion
@@ -94,13 +94,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         } else if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         }
-        NightMode = AppCompatDelegate.getDefaultNightMode();
-
-        sharedPreferences = getSharedPreferences("SharedPrefs", MODE_PRIVATE);
-        editor = sharedPreferences.edit();
-
-        editor.putInt("NightModeInt", NightMode);
-        editor.apply();
+        int state = AppCompatDelegate.getDefaultNightMode();
+        SharedPrefs.getInstance(this).put(Common.shareRefKeyDarkMode, state);
     }
 
     @Override
@@ -111,10 +106,20 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 break;
             }
             case R.id.login: {
-                startActivity(new Intent(MainActivity.this, LoginActivity.class));
+                startActivityForResult(new Intent(MainActivity.this, LoginActivity.class), Common.LOGIN_REQUEST_CODE);
                 break;
             }
         }
         return false;
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == Common.LOGIN_REQUEST_CODE
+            && resultCode == RESULT_OK) {
+            System.out.println(Common.currentUser.getAvatar());
+            Picasso.get().load(Common.currentUser.getAvatar()).into(avatar);
+        }
     }
 }

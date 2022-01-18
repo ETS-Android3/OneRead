@@ -34,9 +34,8 @@ import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
 import retrofit2.HttpException;
 
-
 import static android.app.Activity.RESULT_OK;
-import static com.example.oneread.Common.Common.storageReference;
+
 
 @SuppressLint("NonConstantResourceId")
 public class RegisterFragment extends Fragment {
@@ -204,7 +203,7 @@ public class RegisterFragment extends Fragment {
     }
 
     private void deleteImage(String path) {
-        StorageReference avatarRef = storageReference.child(path);
+        StorageReference avatarRef = Common.storageReference.child(path);
         avatarRef.delete().addOnCompleteListener(task -> {
             if (task.isComplete()) {
                 Utils.showToast(this.getContext(), Message.deleteSuccess, Toast.LENGTH_SHORT);
@@ -217,6 +216,6 @@ public class RegisterFragment extends Fragment {
     }
 
     private void reset() {
-        Utils.resetObject(new Object[]{username, password, email});
+        Utils.resetObjects(new Object[]{username, password, email});
     }
 }

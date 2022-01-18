@@ -14,6 +14,9 @@ public interface IServiceAPI {
     @POST("user/register")
     Observable<JsonObject> registerAccount(@Body User user);
 
+    @POST("user/login")
+    Observable<JsonObject> login(@Body User user);
+
     @GET("book/all")
     Observable<JsonObject> getBooks();
 
