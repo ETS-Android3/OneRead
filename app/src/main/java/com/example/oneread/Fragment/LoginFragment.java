@@ -54,35 +54,37 @@ public class LoginFragment extends Fragment {
 
     @OnClick(R.id.btn_login)
     void onButtonLoginClick() {
-        Common.currentUser = SharedPrefs.getInstance(getContext()).get(Common.shareRefKeyUser, User.class, null);
-        getActivity().setResult(Activity.RESULT_OK);
-        getActivity().finish();
-
-//        if (!Utils.checkEmptyComponents(new Object[]{username, password})) {
-//            return;
-//        }
-//        try {
-//            compositeDisposable.add(Common.iServiceAPI.login(new User(username.getText().toString(),
-//                            password.getText().toString()))
-//                    .subscribeOn(Schedulers.io())
-//                    .observeOn(AndroidSchedulers.mainThread())
-//                    .subscribe(jsonObject -> {
-//                        String accessToken = jsonObject.get("accessToken").toString();
-//                        User user = new Gson().fromJson(jsonObject.get("user").toString(), User.class);
-//                        SharedPrefs.getInstance(getContext()).put(Common.shareRefKeyUser, user);
-//                        SharedPrefs.getInstance(getContext()).put(Common.shareRefKeyAccessToken, accessToken);
-//                        Utils.showToast(getContext(), Message.loginSuccess, Toast.LENGTH_SHORT);
-//
-//                    }, err -> {
-//                        HttpException response = (HttpException) err;
-//                        err.printStackTrace();
-//                        String message = String.valueOf(JsonParser.parseString(response.response().errorBody().string()).getAsJsonObject().get("message"));
-//                        Utils.showToast(getContext(), Message.loginFail + "\n" + message, Toast.LENGTH_SHORT);
-//                    }));
-//        } catch (Exception e) {
-//            System.out.println(e.getMessage());
-//            e.printStackTrace();
-//        }
+        if (!Utils.checkEmptyComponents(new Object[]{username, password})) {
+            return;
+        }
+        try {
+            compositeDisposable.add(Common.iServiceAPI.login(new User(username.getText().toString(),
+                            password.getText().toString()))
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(jsonObject -> {
+                        String accessToken = jsonObject.get("accessToken").toString();
+                        User user = new Gson().fromJson(jsonObject.get("user").toString(), User.class);
+                        SharedPrefs.getInstance(getContext()).put(Common.shareRefKeyUser, user);
+                        SharedPrefs.getInstance(getContext()).put(Common.shareRefKeyAccessToken, accessToken);
+                        Utils.showToast(getContext(), Message.loginSuccess, Toast.LENGTH_SHORT);
+                        Common.currentUser = SharedPrefs.getInstance(getContext()).get(Common.shareRefKeyUser, User.class, null);
+                        getActivity().setResult(Activity.RESULT_OK);
+                        getActivity().finish();
+                    }, err -> {
+                        if (err instanceof HttpException) {
+                            HttpException response = (HttpException) err;
+                            String message = String.valueOf(JsonParser.parseString(response.response().errorBody().string()).getAsJsonObject().get("message"));
+                            Utils.showToast(getContext(), Message.loginFail + "\n" + message, Toast.LENGTH_SHORT);
+                        } else {
+                            err.printStackTrace();
+                            Utils.showToast(getContext(), Message.loginFail + "\n" + err.getMessage(), Toast.LENGTH_SHORT);
+                        }
+                    }));
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -92,9 +94,10 @@ public class LoginFragment extends Fragment {
     }
 
     @Override
-    public void onDestroy() {
+    public void onDestroyView() {
+        unbinder.unbind();
         compositeDisposable.dispose();
-        super.onDestroy();
+        super.onDestroyView();
     }
 
     @Override

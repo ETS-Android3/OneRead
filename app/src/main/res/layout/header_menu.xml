@@ -14,7 +14,7 @@
             app:riv_corner_radius="@dimen/_200sdp"
             android:layout_width="@dimen/_80sdp"
             android:layout_height="@dimen/_80sdp"
-            android:id="@+id/img_avatar"
+            android:id="@+id/avatar"
             android:src="@drawable/avatar"
             android:scaleType="centerCrop"/>
         <TextView
@@ -23,7 +23,6 @@
             android:gravity="center"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@color/primary_text"
-            android:text="@string/username"/>
+            android:textColor="@color/primary_text"/>
     </LinearLayout>
 </LinearLayout>

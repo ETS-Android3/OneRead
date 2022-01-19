@@ -29,11 +29,15 @@ public class Utils {
     }
 
     public static void showToast (Context context, String content, int length) {
-        if (toast != null) {
-            toast.cancel();
-        } else toast = new Toast(context);
-        toast = Toast.makeText(context, content, length);
-        toast.show();
+        try {
+            if (toast != null) {
+                toast.cancel();
+            }
+            toast = Toast.makeText(context, content, length);
+            toast.show();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     public static void resetObjects(Object[] objects) {

@@ -48,4 +48,5 @@
     <string name="upload_fail">Upload file thất bại</string>
 
     <string name="something_wrong">Something went wrong</string>
+  <string name="logout">Đăng xuất</string>
 </resources>

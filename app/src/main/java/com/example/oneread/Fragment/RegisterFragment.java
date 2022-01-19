@@ -121,6 +121,13 @@ public class RegisterFragment extends Fragment {
         super.onPause();
     }
 
+    @Override
+    public void onDestroyView() {
+        unbinder.unbind();
+        compositeDisposable.dispose();
+        super.onDestroyView();
+    }
+
     public RegisterFragment() {
     }
 
@@ -133,12 +140,6 @@ public class RegisterFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-    }
-
-    @Override
-    public void onDestroy() {
-        compositeDisposable.dispose();
-        super.onDestroy();
     }
 
     @Override

@@ -60,4 +60,12 @@ public class SharedPrefs {
     public void clear() {
         sharedPreferences.edit().clear().apply();
     }
+
+    public void remove(String[] item) {
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        for (String s : item) {
+            editor.remove(s);
+        }
+        editor.apply();
+    }
 }
