@@ -102,12 +102,16 @@ public class RegisterFragment extends Fragment {
                         reset();
                         ((ViewPager2) getActivity().findViewById(R.id.viewpager)).setCurrentItem(0);
                     }, err -> {
-                        HttpException response = (HttpException) err;
-                        err.printStackTrace();
                         // FIXED: get response body onError
                         //  https://github.com/square/retrofit/issues/1218
-                        String message = String.valueOf(JsonParser.parseString(response.response().errorBody().string()).getAsJsonObject().get("message"));
-                        Utils.showToast(getContext(), Message.registerFail + "\n" + message, Toast.LENGTH_SHORT);
+                        if (err instanceof HttpException) {
+                            HttpException response = (HttpException) err;
+                            String message = String.valueOf(JsonParser.parseString(response.response().errorBody().string()).getAsJsonObject().get("message"));
+                            Utils.showToast(getContext(), Message.registerFail + "\n" + message, Toast.LENGTH_SHORT);
+                        } else {
+                            err.printStackTrace();
+                            Utils.showToast(getContext(), Message.registerFail + "\n" + err.getMessage(), Toast.LENGTH_SHORT);
+                        }
                     }));
         } catch (Exception e) {
             System.out.println(e.getMessage());

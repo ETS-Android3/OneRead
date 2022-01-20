@@ -12,18 +12,52 @@
   FIXED: drawer need a layout to auto hide the navigation when click outside
    https://stackoverflow.com/questions/54508419/android-navigation-drawer-does-not-close-when-click-outside-the-drawer-a-fragme
   -->
-  <RelativeLayout
+  <ScrollView
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:scrollbars="none"
+    android:fillViewport="true">
 
-    <com.makeramen.roundedimageview.RoundedImageView
-      android:layout_width="@dimen/_50sdp"
-      android:layout_height="@dimen/_50sdp"
-      app:riv_corner_radius="@dimen/_200sdp"
-      android:src="@drawable/avatar"
-      android:id="@+id/avatar"/>
+    <LinearLayout
+      android:orientation="vertical"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content">
 
-  </RelativeLayout>
+      <com.makeramen.roundedimageview.RoundedImageView
+        android:layout_width="@dimen/_50sdp"
+        android:layout_height="@dimen/_50sdp"
+        app:riv_corner_radius="@dimen/_200sdp"
+        android:src="@drawable/avatar"
+        android:id="@+id/avatar"/>
+      <fragment
+        android:id="@+id/recommend"
+        android:name="com.example.oneread.Fragment.RecommendFragment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+      <fragment
+        android:id="@+id/last_update"
+        android:name="com.example.oneread.Fragment.LastUpdateFragment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+      <fragment
+        android:id="@+id/top_follow"
+        android:name="com.example.oneread.Fragment.TopFollowFragment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+      <fragment
+        android:id="@+id/top_rating"
+        android:name="com.example.oneread.Fragment.TopRatingFragment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+      <fragment
+        android:id="@+id/rank"
+        android:name="com.example.oneread.Fragment.RankFragment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    </LinearLayout>
+
+  </ScrollView>
 
   <com.google.android.material.navigation.NavigationView
     android:id="@+id/navigation_view"

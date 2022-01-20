@@ -1,11 +1,15 @@
 package com.example.oneread.Model;
 
+import android.annotation.SuppressLint;
+import android.os.Parcel;
+import android.os.Parcelable;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class Book {
+public class Book implements Parcelable {
 
     @SerializedName("endpoint")
     @Expose
@@ -49,6 +53,50 @@ public class Book {
     @SerializedName("view")
     @Expose
     private String view;
+
+    protected Book(Parcel in) {
+        endpoint = in.readString();
+        title = in.readString();
+        author = in.readString();
+        thumb = in.readString();
+        theme = in.readString();
+        description = in.readString();
+        type = in.readString();
+        if (in.readByte() == 0) {
+            rating = null;
+        } else {
+            rating = in.readInt();
+        }
+        if (in.readByte() == 0) {
+            rateCount = null;
+        } else {
+            rateCount = in.readInt();
+        }
+        if (in.readByte() == 0) {
+            status = null;
+        } else {
+            status = in.readInt();
+        }
+        if (in.readByte() == 0) {
+            searchNumber = null;
+        } else {
+            searchNumber = in.readInt();
+        }
+        follow = in.readString();
+        view = in.readString();
+    }
+
+    public static final Creator<Book> CREATOR = new Creator<Book>() {
+        @Override
+        public Book createFromParcel(Parcel in) {
+            return new Book(in);
+        }
+
+        @Override
+        public Book[] newArray(int size) {
+            return new Book[size];
+        }
+    };
 
     public String getEndpoint() {
         return endpoint;
@@ -162,4 +210,45 @@ public class Book {
         this.view = view;
     }
 
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeString(endpoint);
+        parcel.writeString(title);
+        parcel.writeString(author);
+        parcel.writeString(thumb);
+        parcel.writeString(theme);
+        parcel.writeString(description);
+        parcel.writeString(type);
+        if (rating == null) {
+            parcel.writeByte((byte) 0);
+        } else {
+            parcel.writeByte((byte) 1);
+            parcel.writeInt(rating);
+        }
+        if (rateCount == null) {
+            parcel.writeByte((byte) 0);
+        } else {
+            parcel.writeByte((byte) 1);
+            parcel.writeInt(rateCount);
+        }
+        if (status == null) {
+            parcel.writeByte((byte) 0);
+        } else {
+            parcel.writeByte((byte) 1);
+            parcel.writeInt(status);
+        }
+        if (searchNumber == null) {
+            parcel.writeByte((byte) 0);
+        } else {
+            parcel.writeByte((byte) 1);
+            parcel.writeInt(searchNumber);
+        }
+        parcel.writeString(follow);
+        parcel.writeString(view);
+    }
 }

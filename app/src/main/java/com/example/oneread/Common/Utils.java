@@ -1,15 +1,24 @@
 package com.example.oneread.Common;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.provider.OpenableColumns;
 import android.widget.EditText;
 import android.widget.Toast;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatDelegate;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+import com.example.oneread.Activity.MainActivity;
 import com.example.oneread.Model.User;
 
 
@@ -48,74 +57,19 @@ public class Utils {
         }
     }
 
-
-    //region shareReference
-    public static void saveDarkMode(Context context, int state) {
-//        SharedPreferences sharedPreferences = context.getSharedPreferences(Common.shareRef, Context.MODE_PRIVATE);
-//        SharedPreferences.Editor editor = sharedPreferences.edit();
-//        editor.putInt(Common.shareRefKeyDarkMode, state);
-//        editor.apply();
-
-        SharedPrefs.getInstance(context).put(Common.shareRefKeyDarkMode, state);
+    //region permission
+    public static boolean isNetworkAvailable(Context context) {
+        ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+        return activeNetwork != null &&
+                activeNetwork.isConnected();
     }
 
-    public static int getDarkMode(Context context) {
-//        SharedPreferences sharedPreferences = context.getSharedPreferences(Common.shareRef, Context.MODE_PRIVATE);
-//        return sharedPreferences.getInt(Common.shareRefKeyDarkMode, AppCompatDelegate.MODE_NIGHT_NO); // (key, default value)
-
-        return SharedPrefs.getInstance(context).get(Common.shareRefKeyDarkMode, AppCompatDelegate.MODE_NIGHT_NO);
-    }
-
-    public static void saveUsername(Context context, String username) {
-        SharedPreferences sharedPreferences = context.getSharedPreferences(Common.shareRef, Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString(Common.shareRefKeyUsername, username);
-        editor.apply();
-    }
-
-    public static String getUsername(Context context) {
-        SharedPreferences sharedPreferences = context.getSharedPreferences(Common.shareRef, Context.MODE_PRIVATE);
-        return sharedPreferences.getString(Common.shareRefKeyUsername, null); // (key, default value)
-    }
-
-    public static void savePassword(Context context, String password) {
-        SharedPreferences sharedPreferences = context.getSharedPreferences(Common.shareRef, Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString(Common.shareRefKeyPassword, password);
-        editor.apply();
-    }
-
-    public static String getPassword(Context context) {
-        SharedPreferences sharedPreferences = context.getSharedPreferences(Common.shareRef, Context.MODE_PRIVATE);
-        return sharedPreferences.getString(Common.shareRefKeyPassword, null); // (key, default value)
-    }
-
-    public static void saveAccessToken(Context context, String token) {
-        SharedPreferences sharedPreferences = context.getSharedPreferences(Common.shareRef, Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString(Common.shareRefKeyAccessToken, token);
-        editor.apply();
-    }
-
-    public static String getAccessToken(Context context) {
-        SharedPreferences sharedPreferences = context.getSharedPreferences(Common.shareRef, Context.MODE_PRIVATE);
-        return sharedPreferences.getString(Common.shareRefKeyAccessToken, null); // (key, default value)
-    }
-
-    public static void saveRefreshToken(Context context, String token) {
-        SharedPreferences sharedPreferences = context.getSharedPreferences(Common.shareRef, Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString(Common.shareRefKeyRefreshToken, token);
-        editor.apply();
-    }
-
-    public static String getRefreshToken(Context context) {
-        SharedPreferences sharedPreferences = context.getSharedPreferences(Common.shareRef, Context.MODE_PRIVATE);
-        return sharedPreferences.getString(Common.shareRefKeyRefreshToken, null); // (key, default value)
+    public static boolean checkWriteExternalStorage(Context context) {
+        int hasWriteExternalStorage = ContextCompat.checkSelfPermission(context, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        return hasWriteExternalStorage != PackageManager.PERMISSION_GRANTED;
     }
     //endregion
-
-
 
     //region file
     /*

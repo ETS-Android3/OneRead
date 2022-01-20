@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  android:layout_width="match_parent"
+  android:layout_height="wrap_content"
+  tools:context=".Fragment.RankFragment">
+
+  <RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <com.google.android.material.tabs.TabLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:id="@+id/tab_layout"
+      android:layout_alignParentTop="true"
+      android:background="@color/main_background"
+      app:tabIndicatorColor="@color/primary_text"
+      app:tabSelectedTextColor="@color/primary_text"
+      app:tabBackground="@drawable/tab_selector"
+      app:tabRippleColor="@null">
+      <com.google.android.material.tabs.TabItem
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="@string/top_day"/>
+      <com.google.android.material.tabs.TabItem
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="@string/top_month"/>
+      <com.google.android.material.tabs.TabItem
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="@string/top_year"/>
+
+    </com.google.android.material.tabs.TabLayout>
+
+    <androidx.viewpager2.widget.ViewPager2
+      android:id="@+id/viewpager"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_below="@+id/tab_layout">
+
+    </androidx.viewpager2.widget.ViewPager2>
+
+  </RelativeLayout>
+
+</FrameLayout>

@@ -5,14 +5,29 @@
       <map>
         <entry key="..\:/Intellij-workspace/OneRead/app/src/main/res/drawable-v24/ic_dark_mode.xml" value="0.23802083333333332" />
         <entry key="..\:/Intellij-workspace/OneRead/app/src/main/res/drawable-v24/ic_info.xml" value="0.2234375" />
+        <entry key="..\:/Intellij-workspace/OneRead/app/src/main/res/drawable-v24/ic_next.xml" value="0.17552083333333332" />
         <entry key="..\:/Intellij-workspace/OneRead/app/src/main/res/drawable-v24/tab_selector.xml" value="0.23802083333333332" />
+        <entry key="..\:/Intellij-workspace/OneRead/app/src/main/res/drawable/ic_next.xml" value="0.17552083333333332" />
+        <entry key="..\:/Intellij-workspace/OneRead/app/src/main/res/drawable/ic_user.xml" value="0.17552083333333332" />
         <entry key="..\:/Intellij-workspace/OneRead/app/src/main/res/drawable/tab_selector.xml" value="0.2390625" />
         <entry key="..\:/Intellij-workspace/OneRead/app/src/main/res/layout/activity_login.xml" value="0.22291666666666668" />
         <entry key="..\:/Intellij-workspace/OneRead/app/src/main/res/layout/activity_main.xml" value="0.25" />
+        <entry key="..\:/Intellij-workspace/OneRead/app/src/main/res/layout/comic_item.xml" value="0.159375" />
+        <entry key="..\:/Intellij-workspace/OneRead/app/src/main/res/layout/fragment_last_update.xml" value="0.159375" />
         <entry key="..\:/Intellij-workspace/OneRead/app/src/main/res/layout/fragment_login.xml" value="0.20885416666666667" />
+        <entry key="..\:/Intellij-workspace/OneRead/app/src/main/res/layout/fragment_rank.xml" value="0.159375" />
+        <entry key="..\:/Intellij-workspace/OneRead/app/src/main/res/layout/fragment_recommend.xml" value="0.159375" />
         <entry key="..\:/Intellij-workspace/OneRead/app/src/main/res/layout/fragment_register.xml" value="0.25" />
+        <entry key="..\:/Intellij-workspace/OneRead/app/src/main/res/layout/fragment_relate.xml" value="0.159375" />
+        <entry key="..\:/Intellij-workspace/OneRead/app/src/main/res/layout/fragment_top_day.xml" value="0.159375" />
+        <entry key="..\:/Intellij-workspace/OneRead/app/src/main/res/layout/fragment_top_follow.xml" value="0.159375" />
+        <entry key="..\:/Intellij-workspace/OneRead/app/src/main/res/layout/fragment_top_month.xml" value="0.1453125" />
+        <entry key="..\:/Intellij-workspace/OneRead/app/src/main/res/layout/fragment_top_rating.xml" value="0.159375" />
+        <entry key="..\:/Intellij-workspace/OneRead/app/src/main/res/layout/fragment_top_search.xml" value="0.159375" />
+        <entry key="..\:/Intellij-workspace/OneRead/app/src/main/res/layout/fragment_top_year.xml" value="0.1453125" />
         <entry key="..\:/Intellij-workspace/OneRead/app/src/main/res/layout/header_menu.xml" value="0.22291666666666668" />
         <entry key="..\:/Intellij-workspace/OneRead/app/src/main/res/layout/menu_dot.xml" value="0.159375" />
+        <entry key="..\:/Intellij-workspace/OneRead/app/src/main/res/layout/shimmer_layout_1.xml" value="0.159375" />
         <entry key="..\:/Intellij-workspace/OneRead/app/src/main/res/menu/navigation_menu.xml" value="0.2375" />
       </map>
     </option>
