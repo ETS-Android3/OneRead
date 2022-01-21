@@ -5,12 +5,19 @@
   android:layout_height="wrap_content"
   tools:context=".Fragment.TopRatingFragment">
 
+  <com.facebook.shimmer.ShimmerFrameLayout
+    android:id="@+id/shimmer_layout"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+    <include layout="@layout/shimmer_layout_1"/>
+
+  </com.facebook.shimmer.ShimmerFrameLayout>
+
   <androidx.recyclerview.widget.RecyclerView
     android:id="@+id/recycler"
-    android:orientation="horizontal"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
-
-  </androidx.recyclerview.widget.RecyclerView>
+    android:layout_height="wrap_content"
+    android:visibility="gone"
+    android:orientation="horizontal" />
 
 </FrameLayout>

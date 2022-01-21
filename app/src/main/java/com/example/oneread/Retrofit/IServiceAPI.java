@@ -20,6 +20,24 @@ public interface IServiceAPI {
     @GET("book/all")
     Observable<JsonObject> getBooks();
 
+    @GET("book/top-follow")
+    Observable<JsonObject> getTopFollow();
+
+    @GET("book/top-rating")
+    Observable<JsonObject> getTopRating();
+
+    @GET("book/last-update")
+    Observable<JsonObject> getLastUpdate();
+
+    @GET("book/top-view-day")
+    Observable<JsonObject> getTopDay();
+
+    @GET("book/top-view-month")
+    Observable<JsonObject> getTopMonth();
+
+    @GET("book/top-view-year")
+    Observable<JsonObject> getTopYear();
+
     @GET("book/detail/one-punch-man")
     Observable<Book> getBook();
 
