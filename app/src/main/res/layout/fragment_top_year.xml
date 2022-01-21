@@ -5,5 +5,18 @@
   android:layout_height="match_parent"
   tools:context=".Fragment.TopYearFragment">
 
+  <com.facebook.shimmer.ShimmerFrameLayout
+    android:id="@+id/shimmer_layout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <include layout="@layout/shimmer_layout_2"/>
 
+  </com.facebook.shimmer.ShimmerFrameLayout>
+
+  <androidx.recyclerview.widget.RecyclerView
+    android:id="@+id/recycler"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:visibility="gone"
+    android:orientation="horizontal" />
 </FrameLayout>
