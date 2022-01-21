@@ -70,6 +70,24 @@
 
       </androidx.cardview.widget.CardView>
 
+      <androidx.cardview.widget.CardView
+        app:cardCornerRadius="20dp"
+        app:cardBackgroundColor="@color/gray"
+        android:layout_marginTop="15dp"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_50sdp">
+
+      </androidx.cardview.widget.CardView>
+
+      <androidx.cardview.widget.CardView
+        app:cardCornerRadius="20dp"
+        app:cardBackgroundColor="@color/gray"
+        android:layout_marginTop="15dp"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_50sdp">
+
+      </androidx.cardview.widget.CardView>
+
     </LinearLayout>
 
   </ScrollView>

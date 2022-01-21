@@ -38,6 +38,9 @@ public interface IServiceAPI {
     @GET("book/top-view-year")
     Observable<JsonObject> getTopYear();
 
+    @GET("book/top-search")
+    Observable<JsonObject> getTopSearch();
+
     @GET("book/detail/one-punch-man")
     Observable<Book> getBook();
 

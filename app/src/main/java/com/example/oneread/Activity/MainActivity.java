@@ -51,6 +51,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private Switch btn_dark_mode;
 
 
+    @OnClick(R.id.card_search)
+    void openSearchActivity() {
+        startActivity(new Intent(this, SearchActivity.class));
+    }
+
     @OnClick(R.id.avatar)
     void OnAvatarClick() {
         drawerLayout.openDrawer(Gravity.LEFT);
