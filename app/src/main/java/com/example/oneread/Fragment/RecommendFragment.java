@@ -108,7 +108,7 @@ public class RecommendFragment extends Fragment {
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(new BookAdapter(view.getContext(),books, isFollowed));
         if (books.size() == 0) {
-            fetchBook();
+//            fetchBook();
         } else {
             shimmerFrameLayout.stopShimmer();
             shimmerFrameLayout.setVisibility(View.GONE);
@@ -116,38 +116,38 @@ public class RecommendFragment extends Fragment {
         }
     }
 
-    private void fetchBook() {
-        if (Utils.isNetworkAvailable(getContext())){
-            try {
-                shimmerFrameLayout.startShimmer();
-                compositeDisposable.add(Common.iServiceAPI.getBooks()
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(jsonObject -> {
-                        shimmerFrameLayout.stopShimmer();
-                        shimmerFrameLayout.setVisibility(View.GONE);
-                        recyclerView.setVisibility(View.VISIBLE);
-                        JsonArray jsonArray = jsonObject.get("books").getAsJsonArray();
-                        for (int i=0; i<jsonArray.size(); i++) {
-                            String json = jsonArray.get(i).toString();
-                            Book book = new Gson().fromJson(json, Book.class);
-                            books.add(book);
-                        }
-                        recyclerView.getAdapter().notifyDataSetChanged();
-                    }, err -> {
-                        if (err instanceof HttpException) {
-                            HttpException response = (HttpException) err;
-                            String message = String.valueOf(JsonParser.parseString(response.response().errorBody().string()).getAsJsonObject().get("message"));
-                            Utils.showToast(getContext(), Message.connectFail + "\n" + message, Toast.LENGTH_SHORT);
-                        } else {
-                            err.printStackTrace();
-                            Utils.showToast(getContext(), Message.connectFail + "\n" + err.getMessage(), Toast.LENGTH_SHORT);
-                        }
-                    }));
-            } catch (Exception e) {
-                System.out.println(e.getMessage());
-                e.printStackTrace();
-            }
-        }
-    }
+//    private void fetchBook() {
+//        if (Utils.isNetworkAvailable(getContext())){
+//            try {
+//                shimmerFrameLayout.startShimmer();
+//                compositeDisposable.add(Common.iServiceAPI.getBooks()
+//                    .subscribeOn(Schedulers.io())
+//                    .observeOn(AndroidSchedulers.mainThread())
+//                    .subscribe(jsonObject -> {
+//                        shimmerFrameLayout.stopShimmer();
+//                        shimmerFrameLayout.setVisibility(View.GONE);
+//                        recyclerView.setVisibility(View.VISIBLE);
+//                        JsonArray jsonArray = jsonObject.get("books").getAsJsonArray();
+//                        for (int i=0; i<jsonArray.size(); i++) {
+//                            String json = jsonArray.get(i).toString();
+//                            Book book = new Gson().fromJson(json, Book.class);
+//                            books.add(book);
+//                        }
+//                        recyclerView.getAdapter().notifyDataSetChanged();
+//                    }, err -> {
+//                        if (err instanceof HttpException) {
+//                            HttpException response = (HttpException) err;
+//                            String message = String.valueOf(JsonParser.parseString(response.response().errorBody().string()).getAsJsonObject().get("message"));
+//                            Utils.showToast(getContext(), Message.connectFail + "\n" + message, Toast.LENGTH_SHORT);
+//                        } else {
+//                            err.printStackTrace();
+//                            Utils.showToast(getContext(), Message.connectFail + "\n" + err.getMessage(), Toast.LENGTH_SHORT);
+//                        }
+//                    }));
+//            } catch (Exception e) {
+//                System.out.println(e.getMessage());
+//                e.printStackTrace();
+//            }
+//        }
+//    }
 }

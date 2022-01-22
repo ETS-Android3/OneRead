@@ -1,9 +1,11 @@
 package com.example.oneread.Model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Genre {
+public class Genre implements Parcelable {
 
     @SerializedName("title")
     @Expose
@@ -14,6 +16,24 @@ public class Genre {
     @SerializedName("description")
     @Expose
     private String description;
+
+    protected Genre(Parcel in) {
+        title = in.readString();
+        endpoint = in.readString();
+        description = in.readString();
+    }
+
+    public static final Creator<Genre> CREATOR = new Creator<Genre>() {
+        @Override
+        public Genre createFromParcel(Parcel in) {
+            return new Genre(in);
+        }
+
+        @Override
+        public Genre[] newArray(int size) {
+            return new Genre[size];
+        }
+    };
 
     public String getTitle() {
         return title;
@@ -39,4 +59,15 @@ public class Genre {
         this.description = description;
     }
 
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeString(title);
+        parcel.writeString(endpoint);
+        parcel.writeString(description);
+    }
 }

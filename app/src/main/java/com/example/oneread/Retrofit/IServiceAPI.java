@@ -1,12 +1,12 @@
 package com.example.oneread.Retrofit;
 
+import androidx.annotation.Nullable;
 import com.example.oneread.Model.Book;
 import com.example.oneread.Model.User;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import io.reactivex.Observable;
 import retrofit2.http.*;
-
-import java.util.List;
 
 public interface IServiceAPI {
 
@@ -17,8 +17,8 @@ public interface IServiceAPI {
     @POST("user/login")
     Observable<JsonObject> login(@Body User user);
 
-    @GET("book/all")
-    Observable<JsonObject> getBooks();
+    @POST("book/all")
+    Observable<JsonObject> getBooks(@Body JsonObject filter);
 
     @GET("book/top-follow")
     Observable<JsonObject> getTopFollow();
@@ -40,6 +40,9 @@ public interface IServiceAPI {
 
     @GET("book/top-search")
     Observable<JsonObject> getTopSearch();
+
+    @GET("genre/all")
+    Observable<JsonObject> getGenres();
 
     @GET("book/detail/one-punch-man")
     Observable<Book> getBook();

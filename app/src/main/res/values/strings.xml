@@ -1,4 +1,17 @@
 <resources>
+  <string-array name="list_status">
+    <item>Tất cả</item>
+    <item>Đang tiến hành</item>
+    <item>Đã hoàn thành</item>
+  </string-array>
+  <string-array name="list_type">
+    <item>Tất cả</item>
+    <item>Comic</item>
+    <item>Novel</item>
+    <item>Literature</item>
+  </string-array>
+
+
   <string name="app_name">OneRead</string>
   <string name="register">Đăng ký</string>
   <string name="login">Đăng nhập</string>
@@ -8,7 +21,7 @@
   <string name="phone">SĐT</string>
   <string name="birthday">Ngày sinh</string>
   <string name="gender">Giới tính</string>
-  <string name="status">Tình trạng quan hệ</string>
+  <string name="status">Trạng thái</string>
   <string name="job">Nghề nghiệp</string>
   <string name="home">Chỗ ở</string>
   <string name="bio">Giới thiệu bản thân</string>
@@ -52,4 +65,7 @@
   <string name="top_day">Top ngày</string>
   <string name="top_month">Top tháng</string>
   <string name="top_year">Top Năm</string>
+  <string name="genre">Thể loại</string>
+  <string name="type">Loại</string>
+  <string name="all">Tất cả</string>
 </resources>
