@@ -1,13 +1,8 @@
 package com.example.oneread.Activity;
 
 import android.annotation.SuppressLint;
-import android.app.TaskStackBuilder;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.content.res.Configuration;
-import android.preference.PreferenceManager;
 import android.view.Gravity;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -26,13 +21,15 @@ import butterknife.OnClick;
 import com.example.oneread.Common.Common;
 import com.example.oneread.Common.SharedPrefs;
 import com.example.oneread.Common.Utils;
+import com.example.oneread.Fragment.SuggestForYouFragment;
 import com.example.oneread.Model.User;
 import com.example.oneread.R;
 import com.google.android.material.navigation.NavigationView;
 import com.makeramen.roundedimageview.RoundedImageView;
 import com.squareup.picasso.Picasso;
 
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
+@SuppressLint("NonConstantResourceId")
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener{
 
     @BindView(R.id.navigation_view)
     NavigationView navigationView;
@@ -45,11 +42,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @BindView(R.id.btn_logout)
     TextView btnLogout;
 
-    private LinearLayout headerMenu;
+    private SuggestForYouFragment suggestFragment;
     private RoundedImageView avatarHeader;
     private TextView username;
     private Switch btn_dark_mode;
-
 
     @OnClick(R.id.card_search)
     void openSearchActivity() {
@@ -77,6 +73,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             btnLogin.setVisibility(View.VISIBLE);
             btnLogout.setVisibility(View.GONE);
         }
+        suggestFragment.onLogout();
     }
 
     @Override
@@ -93,8 +90,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         //region navigation menu
         navigationView.setNavigationItemSelectedListener(this);
+        suggestFragment = (SuggestForYouFragment) getSupportFragmentManager().findFragmentById(R.id.suggest);
         btn_dark_mode = (Switch) navigationView.getMenu().findItem(R.id.dark_mode).getActionView();
-        headerMenu = navigationView.getHeaderView(0).findViewById(R.id.header_menu);
+        LinearLayout headerMenu = navigationView.getHeaderView(0).findViewById(R.id.header_menu);
         username = headerMenu.findViewById(R.id.username);
         avatarHeader = headerMenu.findViewById(R.id.avatar);
         avatarHeader.setOnClickListener(this);
@@ -142,6 +140,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         if (requestCode == Common.LOGIN_REQUEST_CODE
             && resultCode == RESULT_OK) {
             checkLogin();
+            suggestFragment.onLogin();
         }
     }
 
@@ -169,6 +168,5 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             btnLogout.setVisibility(View.GONE);
         }
     }
-
 
 }

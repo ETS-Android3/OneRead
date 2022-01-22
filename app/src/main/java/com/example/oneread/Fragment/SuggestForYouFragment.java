@@ -16,10 +16,8 @@ import butterknife.Unbinder;
 import com.example.oneread.Adapter.BookAdapter;
 import com.example.oneread.Common.Common;
 import com.example.oneread.Common.Message;
-import com.example.oneread.Common.SharedPrefs;
 import com.example.oneread.Common.Utils;
 import com.example.oneread.Model.Book;
-import com.example.oneread.Model.User;
 import com.example.oneread.R;
 import com.facebook.shimmer.ShimmerFrameLayout;
 import com.google.gson.Gson;
@@ -34,7 +32,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class SuggestForYouFragment extends Fragment {
+public class SuggestForYouFragment extends Fragment{
 
     private CompositeDisposable compositeDisposable;
     private Unbinder unbinder;
@@ -112,7 +110,7 @@ public class SuggestForYouFragment extends Fragment {
         if (books.size() == 0 && Common.currentUser != null) {
             fetchBook();
         } else {
-            shimmerFrameLayout.stopShimmer();
+            if (shimmerFrameLayout.isShimmerStarted()) shimmerFrameLayout.stopShimmer();
             shimmerFrameLayout.setVisibility(View.GONE);
             recyclerView.setVisibility(View.VISIBLE);
         }
@@ -121,6 +119,8 @@ public class SuggestForYouFragment extends Fragment {
     private void fetchBook() {
         if (Utils.isNetworkAvailable(getContext())){
             try {
+                shimmerFrameLayout.setVisibility(View.VISIBLE);
+                recyclerView.setVisibility(View.GONE);
                 shimmerFrameLayout.startShimmer();
                 compositeDisposable.add(Common.iServiceAPI.getSuggestBook(Common.currentUser.getAccessToken(), Common.currentUser.getUsername())
                     .subscribeOn(Schedulers.io())
@@ -152,5 +152,16 @@ public class SuggestForYouFragment extends Fragment {
                 e.printStackTrace();
             }
         }
+    }
+
+    public void onLogin() {
+        books.clear();
+        fetchBook();
+    }
+
+    public void onLogout() {
+        if (shimmerFrameLayout.isShimmerStarted()) shimmerFrameLayout.stopShimmer();
+        shimmerFrameLayout.setVisibility(View.GONE);
+        recyclerView.setVisibility(View.VISIBLE);
     }
 }
