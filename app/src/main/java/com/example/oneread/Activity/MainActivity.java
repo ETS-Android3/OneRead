@@ -158,6 +158,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private void checkLogin() {
         Common.currentUser = SharedPrefs.getInstance(this).get(Common.shareRefKeyUser, User.class, null);
         if (Common.currentUser != null) {
+            Common.currentUser.setAccessToken(SharedPrefs.getInstance(this).get(Common.shareRefKeyAccessToken, ""));
             Picasso.get().load(Common.currentUser.getAvatar()).into(avatar);
             Picasso.get().load(Common.currentUser.getAvatar()).into(avatarHeader);
             username.setText(Common.currentUser.getUsername());

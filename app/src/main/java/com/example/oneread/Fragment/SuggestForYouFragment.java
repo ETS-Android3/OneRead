@@ -16,13 +16,14 @@ import butterknife.Unbinder;
 import com.example.oneread.Adapter.BookAdapter;
 import com.example.oneread.Common.Common;
 import com.example.oneread.Common.Message;
+import com.example.oneread.Common.SharedPrefs;
 import com.example.oneread.Common.Utils;
 import com.example.oneread.Model.Book;
+import com.example.oneread.Model.User;
 import com.example.oneread.R;
 import com.facebook.shimmer.ShimmerFrameLayout;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
@@ -33,11 +34,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class RecommendFragment extends Fragment {
+public class SuggestForYouFragment extends Fragment {
 
     private CompositeDisposable compositeDisposable;
     private Unbinder unbinder;
-    private static RecommendFragment instance;
+    private static SuggestForYouFragment instance;
     private List<Book> books = new ArrayList<>();
     private HashMap<String, Boolean> isFollowed = new HashMap<>();
 
@@ -48,13 +49,13 @@ public class RecommendFragment extends Fragment {
     @BindView(R.id.shimmer_layout)
     ShimmerFrameLayout shimmerFrameLayout;
 
-    public RecommendFragment() {
+    public SuggestForYouFragment() {
     }
 
 
-    public static RecommendFragment getInstance() {
+    public static SuggestForYouFragment getInstance() {
         if (instance == null) {
-            return instance = new RecommendFragment();
+            return instance = new SuggestForYouFragment();
         } else return instance;
     }
 
@@ -89,7 +90,7 @@ public class RecommendFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_recommend, container, false);
+        View view = inflater.inflate(R.layout.fragment_suggest_for_you, container, false);
         initView(view);
         return view;
     }
@@ -108,7 +109,7 @@ public class RecommendFragment extends Fragment {
         linearLayoutManager.setOrientation(RecyclerView.HORIZONTAL);
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(new BookAdapter(view.getContext(),books, isFollowed));
-        if (books.size() == 0) {
+        if (books.size() == 0 && Common.currentUser != null) {
             fetchBook();
         } else {
             shimmerFrameLayout.stopShimmer();
@@ -121,7 +122,7 @@ public class RecommendFragment extends Fragment {
         if (Utils.isNetworkAvailable(getContext())){
             try {
                 shimmerFrameLayout.startShimmer();
-                compositeDisposable.add(Common.iServiceAPI.getBooks()
+                compositeDisposable.add(Common.iServiceAPI.getSuggestBook(Common.currentUser.getAccessToken(), Common.currentUser.getUsername())
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(jsonObject -> {
@@ -138,6 +139,7 @@ public class RecommendFragment extends Fragment {
                     }, err -> {
                         if (err instanceof HttpException) {
                             HttpException response = (HttpException) err;
+                            System.out.println(((HttpException) err).code());
                             String message = String.valueOf(JsonParser.parseString(response.response().errorBody().string()).getAsJsonObject().get("message"));
                             Utils.showToast(getContext(), Message.connectFail + "\n" + message, Toast.LENGTH_SHORT);
                         } else {

@@ -68,4 +68,6 @@
   <string name="genre">Thể loại</string>
   <string name="type">Loại</string>
   <string name="all">Tất cả</string>
+  <!-- TODO: Remove or change this placeholder text -->
+  <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

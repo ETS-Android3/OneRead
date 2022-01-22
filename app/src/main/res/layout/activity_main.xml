@@ -56,6 +56,11 @@
 
       </androidx.cardview.widget.CardView>
       <fragment
+        android:id="@+id/suggest"
+        android:name="com.example.oneread.Fragment.SuggestForYouFragment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+      <fragment
         android:id="@+id/recommend"
         android:name="com.example.oneread.Fragment.RecommendFragment"
         android:layout_width="match_parent"

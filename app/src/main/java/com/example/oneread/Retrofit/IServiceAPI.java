@@ -18,6 +18,9 @@ public interface IServiceAPI {
     Observable<JsonObject> login(@Body User user);
 
     @POST("book/all")
+    Observable<JsonObject> getBooks();
+
+    @POST("book/all")
     Observable<JsonObject> getBooks(@Body JsonObject filter);
 
     @GET("book/top-follow")
@@ -44,8 +47,11 @@ public interface IServiceAPI {
     @GET("genre/all")
     Observable<JsonObject> getGenres();
 
-    @GET("book/detail/one-punch-man")
-    Observable<Book> getBook();
+    @GET("book/detail/{book_endpoint}")
+    Observable<Book> getBook(@Path("book_endpoint") String book_endpoint);
+
+    @GET("book/suggest-book/{username}")
+    Observable<JsonObject> getSuggestBook(@Header("Authorization") String auth, @Path("username") String username);
 
 //    @GET("genres/{genre}/{query}")
 //    Observable<List<Comic>> filterComics(@Path("genre")String genre,@Path("query")String query);
