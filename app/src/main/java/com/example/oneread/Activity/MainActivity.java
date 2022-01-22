@@ -22,6 +22,7 @@ import com.example.oneread.Common.Common;
 import com.example.oneread.Common.SharedPrefs;
 import com.example.oneread.Common.Utils;
 import com.example.oneread.Fragment.SuggestForYouFragment;
+import com.example.oneread.Listener.IUnauthorizedListener;
 import com.example.oneread.Model.User;
 import com.example.oneread.R;
 import com.google.android.material.navigation.NavigationView;
@@ -29,7 +30,7 @@ import com.makeramen.roundedimageview.RoundedImageView;
 import com.squareup.picasso.Picasso;
 
 @SuppressLint("NonConstantResourceId")
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener{
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener, IUnauthorizedListener {
 
     @BindView(R.id.navigation_view)
     NavigationView navigationView;
@@ -169,4 +170,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
     }
 
+    @Override
+    public void onUnauthorized() {
+        logout();
+        login();
+    }
 }

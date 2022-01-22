@@ -126,9 +126,6 @@ public class SuggestForYouFragment extends Fragment{
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(jsonObject -> {
-                        shimmerFrameLayout.stopShimmer();
-                        shimmerFrameLayout.setVisibility(View.GONE);
-                        recyclerView.setVisibility(View.VISIBLE);
                         JsonArray jsonArray = jsonObject.get("books").getAsJsonArray();
                         for (int i=0; i<jsonArray.size(); i++) {
                             String json = jsonArray.get(i).toString();
@@ -141,15 +138,20 @@ public class SuggestForYouFragment extends Fragment{
                             HttpException response = (HttpException) err;
                             System.out.println(((HttpException) err).code());
                             String message = String.valueOf(JsonParser.parseString(response.response().errorBody().string()).getAsJsonObject().get("message"));
-                            Utils.showToast(getContext(), Message.connectFail + "\n" + message, Toast.LENGTH_SHORT);
+                            if (response.code() != 401) Utils.showToast(getContext(), Message.connectFail + "\n" + message, Toast.LENGTH_SHORT);
                         } else {
                             err.printStackTrace();
                             Utils.showToast(getContext(), Message.connectFail + "\n" + err.getMessage(), Toast.LENGTH_SHORT);
                         }
+
                     }));
             } catch (Exception e) {
                 System.out.println(e.getMessage());
                 e.printStackTrace();
+            } finally {
+                if (shimmerFrameLayout.isShimmerStarted()) shimmerFrameLayout.stopShimmer();
+                shimmerFrameLayout.setVisibility(View.GONE);
+                recyclerView.setVisibility(View.VISIBLE);
             }
         }
     }
