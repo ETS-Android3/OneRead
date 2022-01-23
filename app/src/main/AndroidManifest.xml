@@ -16,6 +16,9 @@
     android:theme="@style/Theme.OneRead"
     tools:ignore="Constra">
     <activity
+      android:name=".Activity.DetailBookActivity"
+      android:exported="true" />
+    <activity
       android:name=".Activity.SearchActivity"
       android:exported="true" />
     <activity

@@ -68,7 +68,6 @@ public class SuggestForYouFragment extends Fragment{
 
     @Override
     public void onPause() {
-        compositeDisposable.dispose();
         super.onPause();
     }
 

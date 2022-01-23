@@ -79,22 +79,8 @@ public class RegisterFragment extends Fragment {
             return;
         }
         try {
-//            compositeDisposable.add(Common.iServiceAPI.getBooks()
-//                    .subscribeOn(Schedulers.io())
-//                    .observeOn(AndroidSchedulers.mainThread())
-//                    .subscribe(jsonObject -> {
-//                        JsonArray jsonArray = jsonObject.get("books").getAsJsonArray();
-//                        for (int i=0; i<jsonArray.size(); i++) {
-//                            System.out.println(jsonArray.get(i).toString());
-//                            String json = jsonArray.get(i).toString();
-//                            System.out.println(json);
-//                            Book book = new Gson().fromJson(json, Book.class);
-//                            System.out.println(book.getTitle());
-//                        }
-//                    }));
-
             compositeDisposable.add(Common.iServiceAPI.registerAccount(new User(username.getText().toString(),
-                            password.getText().toString(), email.getText().toString()))
+                            password.getText().toString(), email.getText().toString(), avatarUrl))
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(jsonObject -> {
@@ -121,7 +107,6 @@ public class RegisterFragment extends Fragment {
 
     @Override
     public void onPause() {
-        compositeDisposable.dispose();
         super.onPause();
     }
 

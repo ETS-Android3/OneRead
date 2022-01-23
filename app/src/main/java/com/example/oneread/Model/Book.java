@@ -3,10 +3,12 @@ package com.example.oneread.Model;
 import android.annotation.SuppressLint;
 import android.os.Parcel;
 import android.os.Parcelable;
+import com.example.oneread.R;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Book implements Parcelable {
@@ -53,6 +55,14 @@ public class Book implements Parcelable {
     @SerializedName("view")
     @Expose
     private String view;
+    @SerializedName("chapters")
+    @Expose
+    private List<Chapter> chapters;
+
+    public Book() {
+        chapters = new ArrayList<>();
+        genres = new ArrayList<>();
+    }
 
     protected Book(Parcel in) {
         endpoint = in.readString();
@@ -82,6 +92,7 @@ public class Book implements Parcelable {
         } else {
             searchNumber = in.readInt();
         }
+        genres = in.createTypedArrayList(Genre.CREATOR);
         follow = in.readString();
         view = in.readString();
     }
@@ -97,6 +108,14 @@ public class Book implements Parcelable {
             return new Book[size];
         }
     };
+
+    public List<Chapter> getChapters() {
+        return chapters;
+    }
+
+    public void setChapters(List<Chapter> chapters) {
+        this.chapters = chapters;
+    }
 
     public String getEndpoint() {
         return endpoint;
@@ -210,6 +229,14 @@ public class Book implements Parcelable {
         this.view = view;
     }
 
+    public String getStatusString() {
+        if (status == 0) {
+            return "Đang tiến hành";
+        } else {
+            return "Đã hoàn thành";
+        }
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -248,6 +275,7 @@ public class Book implements Parcelable {
             parcel.writeByte((byte) 1);
             parcel.writeInt(searchNumber);
         }
+        parcel.writeTypedList(genres);
         parcel.writeString(follow);
         parcel.writeString(view);
     }

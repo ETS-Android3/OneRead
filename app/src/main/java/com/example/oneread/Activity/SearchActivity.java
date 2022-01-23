@@ -196,7 +196,6 @@ public class SearchActivity extends AppCompatActivity {
 
     @Override
     protected void onPause() {
-        compositeDisposable.dispose();
         super.onPause();
     }
 
@@ -216,7 +215,7 @@ public class SearchActivity extends AppCompatActivity {
         if (Utils.isNetworkAvailable(this)){
             try {
                 shimmerFrameLayout.startShimmer();
-                compositeDisposable.add(Common.iServiceAPI.getBooks(filter)
+                compositeDisposable.add(Common.iServiceAPI.getBooksFilter(filter)
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(jsonObject -> {

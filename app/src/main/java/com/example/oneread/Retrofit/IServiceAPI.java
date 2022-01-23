@@ -17,11 +17,11 @@ public interface IServiceAPI {
     @POST("user/login")
     Observable<JsonObject> login(@Body User user);
 
-    @POST("book/all")
+    @GET("book/all")
     Observable<JsonObject> getBooks();
 
-    @POST("book/all")
-    Observable<JsonObject> getBooks(@Body JsonObject filter);
+    @POST("book/filter")
+    Observable<JsonObject> getBooksFilter(@Body JsonObject filter);
 
     @GET("book/top-follow")
     Observable<JsonObject> getTopFollow();
@@ -48,10 +48,13 @@ public interface IServiceAPI {
     Observable<JsonObject> getGenres();
 
     @GET("book/detail/{book_endpoint}")
-    Observable<Book> getBook(@Path("book_endpoint") String book_endpoint);
+    Observable<JsonObject> getBook(@Path("book_endpoint") String book_endpoint);
 
     @GET("book/suggest-book/{username}")
     Observable<JsonObject> getSuggestBook(@Header("Authorization") String auth, @Path("username") String username);
+
+    @GET("chapter/all/{book_endpoint}")
+    Observable<JsonObject> getChapterList(@Path("book_endpoint") String book_endpoint);
 
 //    @GET("genres/{genre}/{query}")
 //    Observable<List<Comic>> filterComics(@Path("genre")String genre,@Path("query")String query);

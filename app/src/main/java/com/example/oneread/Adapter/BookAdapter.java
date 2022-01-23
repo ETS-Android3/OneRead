@@ -1,6 +1,7 @@
 package com.example.oneread.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.recyclerview.widget.RecyclerView;
+import com.example.oneread.Activity.DetailBookActivity;
 import com.example.oneread.Model.Book;
 import com.example.oneread.R;
 import com.facebook.shimmer.Shimmer;
@@ -77,9 +79,9 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.ViewHolder>{
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-//                    Intent intent = new Intent(context, DetailComicActivity.class);
-//                    intent.putExtra("endpoint", books.get(getAdapterPosition()).getEndpoint());
-//                    context.startActivity(intent);
+                    Intent intent = new Intent(context, DetailBookActivity.class);
+                    intent.putExtra("endpoint", books.get(getAdapterPosition()).getEndpoint());
+                    context.startActivity(intent);
                 }
             } );
 

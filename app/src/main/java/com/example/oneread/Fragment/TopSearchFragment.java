@@ -33,7 +33,6 @@ public class TopSearchFragment extends Fragment {
 
     @Override
     public void onPause() {
-        compositeDisposable.dispose();
         super.onPause();
     }
 

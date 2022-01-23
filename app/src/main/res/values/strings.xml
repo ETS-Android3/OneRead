@@ -68,6 +68,8 @@
   <string name="genre">Thể loại</string>
   <string name="type">Loại</string>
   <string name="all">Tất cả</string>
+  <string name="ongoing">Đang tiến hành</string>
+  <string name="finish">Đã hoàn thành</string>
   <!-- TODO: Remove or change this placeholder text -->
   <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

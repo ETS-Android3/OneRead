@@ -64,7 +64,6 @@ public class TopDayFragment extends Fragment {
 
     @Override
     public void onPause() {
-        compositeDisposable.dispose();
         super.onPause();
     }
 
