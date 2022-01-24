@@ -1,6 +1,7 @@
 package com.example.oneread.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,11 +9,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+import com.example.oneread.Activity.ChapterActivity;
 import com.example.oneread.Listener.IRecylerClickListener;
 import com.example.oneread.Model.Book;
 import com.example.oneread.R;
 
 import java.io.File;
+import java.io.Serializable;
 import java.util.List;
 
 public class DetailBookAdapter extends RecyclerView.Adapter<DetailBookAdapter.ViewHolder>{
@@ -86,11 +89,12 @@ public class DetailBookAdapter extends RecyclerView.Adapter<DetailBookAdapter.Vi
 //                        intent.putExtra("list_file", (Serializable) files);
 //                        context.startActivity(intent);
 //                    }else{
-//                        Intent intent = new Intent(context, ChapterActivity.class);
-//                        intent.putExtra("position", getBindingAdapterPosition());
-//                        intent.putExtra("chapter_list", (Serializable) chapter_list);
-//                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//                        context.startActivity(intent);
+                        Intent intent = new Intent(context, ChapterActivity.class);
+                        intent.putExtra("position", getAdapterPosition());
+                        intent.putExtra("book_endpoint", book.getEndpoint());
+                        intent.putExtra("chapter_list", (Serializable) book.getChapters());
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        context.startActivity(intent);
 //                    }
                 }
             });

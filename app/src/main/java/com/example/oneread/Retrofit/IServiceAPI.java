@@ -56,6 +56,9 @@ public interface IServiceAPI {
     @GET("chapter/all/{book_endpoint}")
     Observable<JsonObject> getChapterList(@Path("book_endpoint") String book_endpoint);
 
+    @GET("chapter/detail/{book_endpoint}/{chapter_endpoint}")
+    Observable<JsonObject> getChapter(@Path("book_endpoint") String book_endpoint, @Path("chapter_endpoint") String chapter_endpoint);
+
 //    @GET("genres/{genre}/{query}")
 //    Observable<List<Comic>> filterComics(@Path("genre")String genre,@Path("query")String query);
 //

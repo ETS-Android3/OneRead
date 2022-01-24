@@ -3,7 +3,10 @@ package com.example.oneread.Model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Chapter {
+import java.io.Serializable;
+import java.util.List;
+
+public class Chapter implements Serializable {
 
     @SerializedName("chapter_endpoint")
     @Expose
@@ -17,6 +20,17 @@ public class Chapter {
     @SerializedName("time")
     @Expose
     private String time;
+    @SerializedName("images")
+    @Expose
+    private List<String> images;
+
+    public List<String> getImages() {
+        return images;
+    }
+
+    public void setImages(List<String> images) {
+        this.images = images;
+    }
 
     public String getChapterEndpoint() {
         return chapterEndpoint;
