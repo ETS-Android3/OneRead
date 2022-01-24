@@ -63,7 +63,7 @@ public class LoginFragment extends Fragment {
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(jsonObject -> {
-                        String accessToken = jsonObject.get("accessToken").toString();
+                        String accessToken = jsonObject.get("accessToken").getAsString();
                         User user = new Gson().fromJson(jsonObject.get("user").toString(), User.class);
                         SharedPrefs.getInstance(getContext()).put(Common.shareRefKeyUser, user);
                         SharedPrefs.getInstance(getContext()).put(Common.shareRefKeyAccessToken, accessToken);

@@ -43,7 +43,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @BindView(R.id.btn_logout)
     TextView btnLogout;
 
-    private SuggestForYouFragment suggestFragment;
     private RoundedImageView avatarHeader;
     private TextView username;
     private Switch btn_dark_mode;
@@ -74,7 +73,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             btnLogin.setVisibility(View.VISIBLE);
             btnLogout.setVisibility(View.GONE);
         }
-        suggestFragment.onLogout();
     }
 
     @Override
@@ -91,7 +89,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         //region navigation menu
         navigationView.setNavigationItemSelectedListener(this);
-        suggestFragment = (SuggestForYouFragment) getSupportFragmentManager().findFragmentById(R.id.suggest);
         btn_dark_mode = (Switch) navigationView.getMenu().findItem(R.id.dark_mode).getActionView();
         LinearLayout headerMenu = navigationView.getHeaderView(0).findViewById(R.id.header_menu);
         username = headerMenu.findViewById(R.id.username);
@@ -141,7 +138,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         if (requestCode == Common.LOGIN_REQUEST_CODE
             && resultCode == RESULT_OK) {
             checkLogin();
-            suggestFragment.onLogin();
         }
     }
 

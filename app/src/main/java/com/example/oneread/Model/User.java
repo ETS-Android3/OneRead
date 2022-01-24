@@ -4,7 +4,6 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class User {
-
     private String accessToken;
     @SerializedName("username")
     @Expose
@@ -73,6 +72,10 @@ public class User {
 
     public String getAccessToken() {
         return accessToken;
+    }
+
+    public String getAuthorizeToken() {
+        return "Bearer " + accessToken;
     }
 
     public void setAccessToken(String accessToken) {
