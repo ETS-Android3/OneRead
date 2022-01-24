@@ -121,7 +121,7 @@ public class SuggestForYouFragment extends Fragment{
                 shimmerFrameLayout.setVisibility(View.VISIBLE);
                 recyclerView.setVisibility(View.GONE);
                 shimmerFrameLayout.startShimmer();
-                compositeDisposable.add(Common.iServiceAPI.getSuggestBook(Common.currentUser.getAccessToken(), Common.currentUser.getUsername())
+                compositeDisposable.add(Common.iServiceAPI.getSuggestBook(Common.currentUser.getAuthorizeToken(), Common.currentUser.getUsername())
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(jsonObject -> {
