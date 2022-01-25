@@ -21,8 +21,6 @@ import butterknife.OnClick;
 import com.example.oneread.Common.Common;
 import com.example.oneread.Common.SharedPrefs;
 import com.example.oneread.Common.Utils;
-import com.example.oneread.Fragment.SuggestForYouFragment;
-import com.example.oneread.Listener.IUnauthorizedListener;
 import com.example.oneread.Model.User;
 import com.example.oneread.R;
 import com.google.android.material.navigation.NavigationView;
@@ -30,7 +28,7 @@ import com.makeramen.roundedimageview.RoundedImageView;
 import com.squareup.picasso.Picasso;
 
 @SuppressLint("NonConstantResourceId")
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener, IUnauthorizedListener {
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
 
     @BindView(R.id.navigation_view)
     NavigationView navigationView;
@@ -45,15 +43,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     private RoundedImageView avatarHeader;
     private TextView username;
-    private Switch btn_dark_mode;
+    private Switch switchDarkMode;
 
-    @OnClick(R.id.card_search)
+    @OnClick(R.id.search)
     void openSearchActivity() {
         startActivity(new Intent(this, SearchActivity.class));
     }
 
     @OnClick(R.id.avatar)
-    void OnAvatarClick() {
+    void openNavigationSidebar() {
         drawerLayout.openDrawer(Gravity.LEFT);
     }
 
@@ -67,16 +65,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         if (Common.currentUser != null) {
             Common.currentUser = null;
             SharedPrefs.getInstance(this).remove(new String[]{Common.shareRefKeyUser, Common.shareRefKeyAccessToken});
-            avatar.setImageResource(R.drawable.avatar);
-            avatarHeader.setImageResource(R.drawable.avatar);
-            username.setText("");
-            btnLogin.setVisibility(View.VISIBLE);
-            btnLogout.setVisibility(View.GONE);
         }
+        avatar.setImageResource(R.drawable.avatar);
+        avatarHeader.setImageResource(R.drawable.avatar);
+        username.setText("");
+        btnLogin.setVisibility(View.VISIBLE);
+        btnLogout.setVisibility(View.GONE);
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        loadUserAccount();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
@@ -89,34 +88,32 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         //region navigation menu
         navigationView.setNavigationItemSelectedListener(this);
-        btn_dark_mode = (Switch) navigationView.getMenu().findItem(R.id.dark_mode).getActionView();
+        switchDarkMode = (Switch) navigationView.getMenu().findItem(R.id.dark_mode).getActionView();
         LinearLayout headerMenu = navigationView.getHeaderView(0).findViewById(R.id.header_menu);
         username = headerMenu.findViewById(R.id.username);
         avatarHeader = headerMenu.findViewById(R.id.avatar);
         avatarHeader.setOnClickListener(this);
         username.setOnClickListener(this);
-        btn_dark_mode.setOnClickListener(this);
+        switchDarkMode.setOnClickListener(this);
         //endregion
 
         //region night mode
-        AppCompatDelegate.setDefaultNightMode(SharedPrefs.getInstance(this).get(Common.shareRefKeyDarkMode, AppCompatDelegate.MODE_NIGHT_NO));
-        if (SharedPrefs.getInstance(this).get(Common.shareRefKeyDarkMode, AppCompatDelegate.MODE_NIGHT_NO) == AppCompatDelegate.MODE_NIGHT_YES) {
-            btn_dark_mode.setChecked(true);
-        } else btn_dark_mode.setChecked(false);
+        int mode = SharedPrefs.getInstance(this).get(Common.shareRefKeyDarkMode, AppCompatDelegate.MODE_NIGHT_NO);
+        AppCompatDelegate.setDefaultNightMode(mode);
+        if (mode == AppCompatDelegate.MODE_NIGHT_YES) {
+            switchDarkMode.setChecked(true);
+        } else switchDarkMode.setChecked(false);
         //endregion
 
-        checkLogin();
+        showUserAccount();
     }
 
     @Override
     public void onClick(View view) {
         if (view == username || view == avatarHeader) {
             Utils.showToast(this, "Not Available", Toast.LENGTH_SHORT);
-            return;
-        }
-        if (view == btn_dark_mode) {
+        } else if (view == switchDarkMode) {
             switchToDarkMode();
-            return;
         }
     }
 
@@ -137,24 +134,24 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == Common.LOGIN_REQUEST_CODE
             && resultCode == RESULT_OK) {
-            checkLogin();
+            loadUserAccount();
+            showUserAccount();
         }
     }
 
     private void switchToDarkMode() {
-        if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_NO) {
+        int state = AppCompatDelegate.getDefaultNightMode();
+        if (state == AppCompatDelegate.MODE_NIGHT_NO) {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-        } else if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
+        } else if (state == AppCompatDelegate.MODE_NIGHT_YES) {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         }
-        int state = AppCompatDelegate.getDefaultNightMode();
+        state = AppCompatDelegate.getDefaultNightMode();
         SharedPrefs.getInstance(this).put(Common.shareRefKeyDarkMode, state);
     }
 
-    private void checkLogin() {
-        Common.currentUser = SharedPrefs.getInstance(this).get(Common.shareRefKeyUser, User.class, null);
+    private void showUserAccount() {
         if (Common.currentUser != null) {
-            Common.currentUser.setAccessToken(SharedPrefs.getInstance(this).get(Common.shareRefKeyAccessToken, ""));
             Picasso.get().load(Common.currentUser.getAvatar()).into(avatar);
             Picasso.get().load(Common.currentUser.getAvatar()).into(avatarHeader);
             username.setText(Common.currentUser.getUsername());
@@ -166,9 +163,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
     }
 
-    @Override
-    public void onUnauthorized() {
-        logout();
-        login();
+    private void loadUserAccount() {
+        Common.currentUser = SharedPrefs.getInstance(this).get(Common.shareRefKeyUser, User.class, null);
+        if (Common.currentUser != null) Common.currentUser.setAccessToken(SharedPrefs.getInstance(this).get(Common.shareRefKeyAccessToken, ""));
     }
 }

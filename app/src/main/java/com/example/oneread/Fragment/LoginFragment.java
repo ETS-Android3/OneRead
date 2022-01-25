@@ -1,16 +1,13 @@
 package com.example.oneread.Fragment;
 
 import android.app.Activity;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.EditText;
 import android.widget.Toast;
-import androidx.appcompat.app.AppCompatDelegate;
 import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import androidx.viewpager2.widget.ViewPager2;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -19,37 +16,30 @@ import com.example.oneread.Common.Common;
 import com.example.oneread.Common.Message;
 import com.example.oneread.Common.SharedPrefs;
 import com.example.oneread.Common.Utils;
+import com.example.oneread.Listener.ILoginListener;
 import com.example.oneread.Model.User;
 import com.example.oneread.R;
 import com.google.gson.Gson;
-import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
 import retrofit2.HttpException;
 
-import static android.content.Context.MODE_PRIVATE;
 
 public class LoginFragment extends Fragment {
 
     private CompositeDisposable compositeDisposable;
     private Unbinder unbinder;
-    private static LoginFragment instance;
+    private ILoginListener listener;
 
     @BindView(R.id.username)
     EditText username;
     @BindView(R.id.password)
     EditText password;
 
-    public LoginFragment() {
-
-    }
-
-    public static LoginFragment getInstance() {
-        if (instance == null) {
-            return instance = new LoginFragment();
-        } else return instance;
+    public LoginFragment(ILoginListener listener) {
+        this.listener = listener;
     }
 
     @OnClick(R.id.btn_login)
@@ -68,9 +58,7 @@ public class LoginFragment extends Fragment {
                         SharedPrefs.getInstance(getContext()).put(Common.shareRefKeyUser, user);
                         SharedPrefs.getInstance(getContext()).put(Common.shareRefKeyAccessToken, accessToken);
                         Utils.showToast(getContext(), Message.loginSuccess, Toast.LENGTH_SHORT);
-                        Common.currentUser = SharedPrefs.getInstance(getContext()).get(Common.shareRefKeyUser, User.class, null);
-                        getActivity().setResult(Activity.RESULT_OK);
-                        getActivity().finish();
+                        listener.onLoginSuccess();
                     }, err -> {
                         if (err instanceof HttpException) {
                             HttpException response = (HttpException) err;
@@ -116,9 +104,5 @@ public class LoginFragment extends Fragment {
     private void initView(View view) {
         unbinder = ButterKnife.bind(this, view);
         compositeDisposable = new CompositeDisposable();
-    }
-
-    private void reset() {
-        Utils.resetObjects(new Object[]{username, password});
     }
 }

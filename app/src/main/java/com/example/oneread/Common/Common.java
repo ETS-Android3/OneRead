@@ -27,7 +27,7 @@ public class Common {
 
     public static final String avatarFirebasePath = "avatar/";
     public static final String commentFirebasePath = "comment/";
-    public static final String baseUrl = "http://192.168.1.2:3000/";
+    public static final String baseUrl = "http://192.168.1.11:3000/";
     public static final String shareRef = "SharedPrefs";
     public static final String shareRefKeyDarkMode = "NightModeInt";
     public static final String shareRefKeyUsername = "Username";

@@ -5,7 +5,6 @@ import android.content.ClipData;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 import androidx.annotation.Nullable;
@@ -21,6 +20,7 @@ import butterknife.Unbinder;
 import com.example.oneread.Common.Common;
 import com.example.oneread.Common.Message;
 import com.example.oneread.Common.Utils;
+import com.example.oneread.Listener.ILoginListener;
 import com.example.oneread.Model.User;
 import com.example.oneread.R;
 import com.google.firebase.storage.FirebaseStorage;
@@ -41,17 +41,10 @@ import static android.app.Activity.RESULT_OK;
 public class RegisterFragment extends Fragment {
 
     private CompositeDisposable compositeDisposable;
-    private static RegisterFragment instance;
     private Unbinder unbinder;
     private String avatarUrl;
-    private Uri avatarUri;
+    private ILoginListener listener;
 
-
-
-    @BindView(R.id.btn_delete)
-    Button btnDelete;
-    @BindView(R.id.btn_register)
-    Button btnRegister;
     @BindView(R.id.avatar)
     RoundedImageView avatar;
     @BindView(R.id.username)
@@ -85,8 +78,8 @@ public class RegisterFragment extends Fragment {
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(jsonObject -> {
                         Utils.showToast(getContext(), Message.registerSuccess, Toast.LENGTH_SHORT);
-                        reset();
-                        ((ViewPager2) getActivity().findViewById(R.id.viewpager)).setCurrentItem(0);
+                        Utils.resetObjects(new Object[]{username, password, email});
+                        listener.onRegisterSuccess();
                     }, err -> {
                         // FIXED: get response body onError
                         //  https://github.com/square/retrofit/issues/1218
@@ -117,13 +110,8 @@ public class RegisterFragment extends Fragment {
         super.onDestroyView();
     }
 
-    public RegisterFragment() {
-    }
-
-    public static RegisterFragment getInstance() {
-        if (instance == null) {
-            return instance = new RegisterFragment();
-        } else return instance;
+    public RegisterFragment(ILoginListener listener) {
+        this.listener = listener;
     }
 
     @Override
@@ -152,15 +140,18 @@ public class RegisterFragment extends Fragment {
             && resultCode == RESULT_OK && data != null) {
             try {
                 if (data.getData() != null) {
-                    avatarUri = data.getData();
+                    Uri avatarUri = data.getData();
                     uploadImage(avatarUri, Common.avatarFirebasePath +
                             Utils.getFileName(getActivity().getContentResolver(), avatarUri) + System.currentTimeMillis());
-                } else if (data.getClipData() != null) {
+                }
+                /* get multiple file
+                else if (data.getClipData() != null) {
                     ClipData clipData = data.getClipData();
                     for (int i=0; i<clipData.getItemCount(); i++) {
                         System.out.println(clipData.getItemAt(i).getUri().getPath());
                     }
-                } else avatarUri = null;
+                }
+                 */
             } catch (Exception e) {
                 e.printStackTrace();
                 Utils.showToast(this.getContext(), "[ERR]: " + e.getMessage(), Toast.LENGTH_SHORT);
@@ -178,34 +169,16 @@ public class RegisterFragment extends Fragment {
             if (task.isSuccessful()) {
                 Utils.showToast(this.getContext(), Message.uploadSuccess, Toast.LENGTH_SHORT);
                 return storageReference.getDownloadUrl();
-
-            } else {
-                Utils.showToast(this.getContext(), Message.uploadFail, Toast.LENGTH_SHORT);
-                return null;
-            }
+            } else return null;
         }).addOnCompleteListener(task -> {
             avatarUrl = task.getResult().toString();
             Picasso.get().load(avatarUrl).into(avatar);
         }).addOnFailureListener(e -> {
-            Utils.showToast(this.getContext(), "[ERR]: " + e.getMessage(), Toast.LENGTH_SHORT);
-            return;
+            Utils.showToast(this.getContext(), Message.uploadFail, Toast.LENGTH_SHORT);
         });
     }
 
-    private void deleteImage(String path) {
-        StorageReference avatarRef = Common.storageReference.child(path);
-        avatarRef.delete().addOnCompleteListener(task -> {
-            if (task.isComplete()) {
-                Utils.showToast(this.getContext(), Message.deleteSuccess, Toast.LENGTH_SHORT);
-            } else {
-                Utils.showToast(this.getContext(), Message.deleteFail, Toast.LENGTH_SHORT);
-            }
-        }).addOnFailureListener(e -> {
-            Utils.showToast(this.getContext(), "[ERR]: " + e.getMessage(), Toast.LENGTH_SHORT);
-        });
-    }
-
-    private void reset() {
-        Utils.resetObjects(new Object[]{username, password, email});
+    public interface RegisterListener {
+        void onRegisterSuccess();
     }
 }
