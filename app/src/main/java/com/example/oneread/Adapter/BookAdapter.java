@@ -3,14 +3,17 @@ package com.example.oneread.Adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.oneread.Activity.DetailBookActivity;
+import com.example.oneread.Helper.BookDiffCallBack;
 import com.example.oneread.Model.Book;
 import com.example.oneread.R;
 import com.facebook.shimmer.Shimmer;
@@ -38,6 +41,26 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.ViewHolder>{
     public ViewHolder onCreateViewHolder( ViewGroup parent, int viewType) {
         View row = LayoutInflater.from(context).inflate(R.layout.book_item, parent, false);
         return new ViewHolder(row);
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position, @NonNull List<Object> payloads) {
+        if (payloads.isEmpty()) super.onBindViewHolder(holder, position, payloads);
+        else {
+            Bundle bundle = (Bundle) payloads.get(0);
+            for(String key : bundle.keySet()) {
+                if (key.equals("changed")) {
+                    Picasso.get().load(books.get(position).getThumb()).into(holder.thumb);
+                    if(isFollowed.containsKey(books.get(position).getEndpoint()))
+                        holder.btn_follow.setImageResource(R.drawable.ic_marked);
+                    else
+                        holder.btn_follow.setImageResource(R.drawable.ic_mark);
+                    holder.btn_follow.setTag(position);
+                    holder.title_comic.setText(books.get(position).getTitle());
+                    holder.rating.setText(String.valueOf(books.get(position).getRating()));
+                }
+            }
+        }
     }
 
     @Override
@@ -111,5 +134,13 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.ViewHolder>{
                 }
             });
         }
+    }
+
+    public void updateListItem (List<Book> newBooks) {
+        BookDiffCallBack bookRecyclerDiffCallback = new BookDiffCallBack(books, newBooks);
+        DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(bookRecyclerDiffCallback);
+        books.clear();
+        books.addAll(newBooks);
+        diffResult.dispatchUpdatesTo(this);
     }
 }

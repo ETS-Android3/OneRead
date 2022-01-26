@@ -11,7 +11,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Book implements Parcelable {
+public class Book implements Serializable{
 
     @SerializedName("endpoint")
     @Expose
@@ -63,51 +63,6 @@ public class Book implements Parcelable {
         chapters = new ArrayList<>();
         genres = new ArrayList<>();
     }
-
-    protected Book(Parcel in) {
-        endpoint = in.readString();
-        title = in.readString();
-        author = in.readString();
-        thumb = in.readString();
-        theme = in.readString();
-        description = in.readString();
-        type = in.readString();
-        if (in.readByte() == 0) {
-            rating = null;
-        } else {
-            rating = in.readInt();
-        }
-        if (in.readByte() == 0) {
-            rateCount = null;
-        } else {
-            rateCount = in.readInt();
-        }
-        if (in.readByte() == 0) {
-            status = null;
-        } else {
-            status = in.readInt();
-        }
-        if (in.readByte() == 0) {
-            searchNumber = null;
-        } else {
-            searchNumber = in.readInt();
-        }
-        genres = in.createTypedArrayList(Genre.CREATOR);
-        follow = in.readString();
-        view = in.readString();
-    }
-
-    public static final Creator<Book> CREATOR = new Creator<Book>() {
-        @Override
-        public Book createFromParcel(Parcel in) {
-            return new Book(in);
-        }
-
-        @Override
-        public Book[] newArray(int size) {
-            return new Book[size];
-        }
-    };
 
     public List<Chapter> getChapters() {
         return chapters;
@@ -237,46 +192,17 @@ public class Book implements Parcelable {
         }
     }
 
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel parcel, int i) {
-        parcel.writeString(endpoint);
-        parcel.writeString(title);
-        parcel.writeString(author);
-        parcel.writeString(thumb);
-        parcel.writeString(theme);
-        parcel.writeString(description);
-        parcel.writeString(type);
-        if (rating == null) {
-            parcel.writeByte((byte) 0);
-        } else {
-            parcel.writeByte((byte) 1);
-            parcel.writeInt(rating);
-        }
-        if (rateCount == null) {
-            parcel.writeByte((byte) 0);
-        } else {
-            parcel.writeByte((byte) 1);
-            parcel.writeInt(rateCount);
-        }
-        if (status == null) {
-            parcel.writeByte((byte) 0);
-        } else {
-            parcel.writeByte((byte) 1);
-            parcel.writeInt(status);
-        }
-        if (searchNumber == null) {
-            parcel.writeByte((byte) 0);
-        } else {
-            parcel.writeByte((byte) 1);
-            parcel.writeInt(searchNumber);
-        }
-        parcel.writeTypedList(genres);
-        parcel.writeString(follow);
-        parcel.writeString(view);
+    public boolean compareContent(Book book) {
+        return this.getEndpoint().equals(book.getEndpoint())
+                && this.getTitle().equals(book.getTitle())
+                && this.getAuthor().equals(book.getAuthor())
+                && this.getDescription().equals(book.getDescription())
+                && (this.getFollow() == null || this.getFollow().equals(book.getFollow()))
+                && this.getTheme().equals(book.getTheme())
+                && this.getThumb().equals(book.getThumb())
+                && this.getType().equals(book.getType())
+                && (this.getView() == null || this.getView().equals(book.getView()))
+                && this.getRating().equals(book.getRating())
+                && this.getStatus().equals(book.getStatus());
     }
 }

@@ -5,7 +5,9 @@ import android.os.Parcelable;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Genre implements Parcelable {
+import java.io.Serializable;
+
+public class Genre implements Serializable {
 
     @SerializedName("title")
     @Expose
@@ -17,23 +19,6 @@ public class Genre implements Parcelable {
     @Expose
     private String description;
 
-    protected Genre(Parcel in) {
-        title = in.readString();
-        endpoint = in.readString();
-        description = in.readString();
-    }
-
-    public static final Creator<Genre> CREATOR = new Creator<Genre>() {
-        @Override
-        public Genre createFromParcel(Parcel in) {
-            return new Genre(in);
-        }
-
-        @Override
-        public Genre[] newArray(int size) {
-            return new Genre[size];
-        }
-    };
 
     public String getTitle() {
         return title;
@@ -57,17 +42,5 @@ public class Genre implements Parcelable {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel parcel, int i) {
-        parcel.writeString(title);
-        parcel.writeString(endpoint);
-        parcel.writeString(description);
     }
 }

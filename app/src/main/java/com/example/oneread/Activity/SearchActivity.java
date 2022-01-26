@@ -38,6 +38,7 @@ import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
 import retrofit2.HttpException;
 
+import java.io.Serializable;
 import java.util.*;
 
 @SuppressLint("NonConstantResourceId")
@@ -115,10 +116,10 @@ public class SearchActivity extends AppCompatActivity {
         setContentView(R.layout.activity_search);
 
         if (savedInstanceState != null) {
-            books = savedInstanceState.getParcelableArrayList(keyBooks);
+            books = (List<Book>) savedInstanceState.getSerializable(keyBooks);
             state = savedInstanceState.getParcelable(keyBooksState);
-            genres = savedInstanceState.getParcelableArrayList(keyGenres);
-            topSearch = savedInstanceState.getParcelableArrayList(keyTopSearch);
+            genres = (List<Genre>) savedInstanceState.getSerializable(keyGenres);
+            topSearch = (List<Book>) savedInstanceState.getSerializable(keyTopSearch);
         }
 
         ButterKnife.bind(this);
@@ -130,9 +131,7 @@ public class SearchActivity extends AppCompatActivity {
         if (books.size() == 0) {
             fetchBook();
         } else {
-            shimmerFrameLayout.stopShimmer();
-            shimmerFrameLayout.setVisibility(View.GONE);
-            recyclerView.setVisibility(View.VISIBLE);
+            setViewBook();
         }
 
 
@@ -141,9 +140,7 @@ public class SearchActivity extends AppCompatActivity {
         if (topSearch.size() == 0) {
             fetchTopSearch();
         } else {
-            shimmerFrameLayoutTopSearch.stopShimmer();
-            shimmerFrameLayoutTopSearch.setVisibility(View.GONE);
-            recyclerViewTopSearch.setVisibility(View.VISIBLE);
+            setViewTopSearch();
         }
 
 
@@ -188,10 +185,10 @@ public class SearchActivity extends AppCompatActivity {
     @Override
     protected void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putParcelableArrayList(keyBooks, new ArrayList<Book>(books));
+        outState.putSerializable(keyBooks, (Serializable) books);
         outState.putParcelable(keyBooksState, recyclerView.getLayoutManager().onSaveInstanceState());
-        outState.putParcelableArrayList(keyGenres, new ArrayList<Genre>(genres));
-        outState.putParcelableArrayList(keyTopSearch, new ArrayList<Book>(topSearch));
+        outState.putSerializable(keyGenres, (Serializable) genres);
+        outState.putSerializable(keyTopSearch, (Serializable) topSearch);
     }
 
     @Override
@@ -219,9 +216,7 @@ public class SearchActivity extends AppCompatActivity {
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(jsonObject -> {
-                            shimmerFrameLayout.stopShimmer();
-                            shimmerFrameLayout.setVisibility(View.GONE);
-                            recyclerView.setVisibility(View.VISIBLE);
+                            setViewBook();
                             JsonArray jsonArray = jsonObject.get("books").getAsJsonArray();
                             for (int i=0; i<jsonArray.size(); i++) {
                                 String json = jsonArray.get(i).toString();
@@ -230,6 +225,7 @@ public class SearchActivity extends AppCompatActivity {
                             }
                             recyclerView.getAdapter().notifyDataSetChanged();
                         }, err -> {
+                            setViewBook();
                             if (err instanceof HttpException) {
                                 HttpException response = (HttpException) err;
                                 String message = String.valueOf(JsonParser.parseString(response.response().errorBody().string()).getAsJsonObject().get("message"));
@@ -240,6 +236,7 @@ public class SearchActivity extends AppCompatActivity {
                             }
                         }));
             } catch (Exception e) {
+                setViewBook();
                 System.out.println(e.getMessage());
                 e.printStackTrace();
             }
@@ -254,9 +251,7 @@ public class SearchActivity extends AppCompatActivity {
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(jsonObject -> {
-                            shimmerFrameLayoutTopSearch.stopShimmer();
-                            shimmerFrameLayoutTopSearch.setVisibility(View.GONE);
-                            recyclerViewTopSearch.setVisibility(View.VISIBLE);
+                            setViewTopSearch();
                             JsonArray jsonArray = jsonObject.get("books").getAsJsonArray();
                             for (int i=0; i<jsonArray.size(); i++) {
                                 String json = jsonArray.get(i).toString();
@@ -265,6 +260,7 @@ public class SearchActivity extends AppCompatActivity {
                             }
                             recyclerViewTopSearch.getAdapter().notifyDataSetChanged();
                         }, err -> {
+                            setViewTopSearch();
                             if (err instanceof HttpException) {
                                 HttpException response = (HttpException) err;
                                 String message = String.valueOf(JsonParser.parseString(response.response().errorBody().string()).getAsJsonObject().get("message"));
@@ -275,6 +271,7 @@ public class SearchActivity extends AppCompatActivity {
                             }
                         }));
             } catch (Exception e) {
+                setViewTopSearch();
                 System.out.println(e.getMessage());
                 e.printStackTrace();
             }
@@ -310,5 +307,17 @@ public class SearchActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
         }
+    }
+
+    void setViewBook () {
+        if (shimmerFrameLayout.isShimmerStarted()) shimmerFrameLayout.stopShimmer();
+        shimmerFrameLayout.setVisibility(View.GONE);
+        recyclerView.setVisibility(View.VISIBLE);
+    }
+
+    void setViewTopSearch () {
+        if (shimmerFrameLayoutTopSearch.isShimmerStarted()) shimmerFrameLayoutTopSearch.stopShimmer();
+        shimmerFrameLayoutTopSearch.setVisibility(View.GONE);
+        recyclerViewTopSearch.setVisibility(View.VISIBLE);
     }
 }

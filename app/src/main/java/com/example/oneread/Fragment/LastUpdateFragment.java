@@ -39,8 +39,7 @@ public class LastUpdateFragment extends Fragment {
     private static LastUpdateFragment instance;
     private List<Book> books = new ArrayList<>();
     private HashMap<String, Boolean> isFollowed = new HashMap<>();
-
-    Parcelable state;
+    private Parcelable state;
 
     @BindView(R.id.recycler)
     RecyclerView recyclerView;
@@ -61,7 +60,7 @@ public class LastUpdateFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (savedInstanceState != null) {
-            books = savedInstanceState.getParcelableArrayList("books");
+            books = (List<Book>) savedInstanceState.getSerializable("books");
             state = savedInstanceState.getParcelable("state");
         }
     }
@@ -95,7 +94,7 @@ public class LastUpdateFragment extends Fragment {
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putParcelableArrayList("books", new ArrayList<Book>(books));
+        outState.putSerializable("books", new ArrayList<Book>(books));
         outState.putParcelable("state", recyclerView.getLayoutManager().onSaveInstanceState());
     }
 
@@ -109,9 +108,7 @@ public class LastUpdateFragment extends Fragment {
         if (books.size() == 0) {
             fetchBook();
         } else {
-            shimmerFrameLayout.stopShimmer();
-            shimmerFrameLayout.setVisibility(View.GONE);
-            recyclerView.setVisibility(View.VISIBLE);
+            setView();
         }
     }
 
@@ -123,9 +120,7 @@ public class LastUpdateFragment extends Fragment {
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(jsonObject -> {
-                            shimmerFrameLayout.stopShimmer();
-                            shimmerFrameLayout.setVisibility(View.GONE);
-                            recyclerView.setVisibility(View.VISIBLE);
+                            setView();
                             JsonArray jsonArray = jsonObject.get("books").getAsJsonArray();
                             for (int i=0; i<jsonArray.size(); i++) {
                                 String json = jsonArray.get(i).toString();
@@ -134,6 +129,7 @@ public class LastUpdateFragment extends Fragment {
                             }
                             recyclerView.getAdapter().notifyDataSetChanged();
                         }, err -> {
+                            setView();
                             if (err instanceof HttpException) {
                                 HttpException response = (HttpException) err;
                                 String message = String.valueOf(JsonParser.parseString(response.response().errorBody().string()).getAsJsonObject().get("message"));
@@ -144,9 +140,16 @@ public class LastUpdateFragment extends Fragment {
                             }
                         }));
             } catch (Exception e) {
+                setView();
                 System.out.println(e.getMessage());
                 e.printStackTrace();
             }
         }
+    }
+
+    void setView () {
+        if (shimmerFrameLayout.isShimmerStarted()) shimmerFrameLayout.stopShimmer();
+        shimmerFrameLayout.setVisibility(View.GONE);
+        recyclerView.setVisibility(View.VISIBLE);
     }
 }

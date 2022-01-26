@@ -28,6 +28,7 @@ import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
 import retrofit2.HttpException;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -39,8 +40,9 @@ public class SuggestForYouFragment extends Fragment{
     private static SuggestForYouFragment instance;
     private List<Book> books = new ArrayList<>();
     private HashMap<String, Boolean> isFollowed = new HashMap<>();
-
-    Parcelable state;
+    private Parcelable state;
+    private String keyBooks = "books";
+    private String keyBooksState = "booksState";
 
     @BindView(R.id.recycler)
     RecyclerView recyclerView;
@@ -61,8 +63,8 @@ public class SuggestForYouFragment extends Fragment{
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (savedInstanceState != null) {
-            books = savedInstanceState.getParcelableArrayList("books");
-            state = savedInstanceState.getParcelable("state");
+            books = (List<Book>) savedInstanceState.getSerializable(keyBooks);
+            state = savedInstanceState.getParcelable(keyBooksState);
         }
     }
 
@@ -95,8 +97,8 @@ public class SuggestForYouFragment extends Fragment{
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putParcelableArrayList("books", new ArrayList<Book>(books));
-        outState.putParcelable("state", recyclerView.getLayoutManager().onSaveInstanceState());
+        outState.putSerializable(keyBooks, (Serializable) books);
+        outState.putParcelable(keyBooksState, recyclerView.getLayoutManager().onSaveInstanceState());
     }
 
     private void initView(View view) {
@@ -109,9 +111,7 @@ public class SuggestForYouFragment extends Fragment{
         if (books.size() == 0 && Common.currentUser != null) {
             fetchBook();
         } else {
-            if (shimmerFrameLayout.isShimmerStarted()) shimmerFrameLayout.stopShimmer();
-            shimmerFrameLayout.setVisibility(View.GONE);
-            recyclerView.setVisibility(View.VISIBLE);
+            setView();
         }
     }
 
@@ -125,6 +125,7 @@ public class SuggestForYouFragment extends Fragment{
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(jsonObject -> {
+                        setView();
                         JsonArray jsonArray = jsonObject.get("books").getAsJsonArray();
                         for (int i=0; i<jsonArray.size(); i++) {
                             String json = jsonArray.get(i).toString();
@@ -133,6 +134,7 @@ public class SuggestForYouFragment extends Fragment{
                         }
                         recyclerView.getAdapter().notifyDataSetChanged();
                     }, err -> {
+                        setView();
                         if (err instanceof HttpException) {
                             HttpException response = (HttpException) err;
                             System.out.println(((HttpException) err).code());
@@ -145,22 +147,13 @@ public class SuggestForYouFragment extends Fragment{
 
                     }));
             } catch (Exception e) {
+                setView();
                 System.out.println(e.getMessage());
                 e.printStackTrace();
-            } finally {
-                if (shimmerFrameLayout.isShimmerStarted()) shimmerFrameLayout.stopShimmer();
-                shimmerFrameLayout.setVisibility(View.GONE);
-                recyclerView.setVisibility(View.VISIBLE);
             }
         }
     }
-
-    public void onLogin() {
-        books.clear();
-        fetchBook();
-    }
-
-    public void onLogout() {
+    void setView () {
         if (shimmerFrameLayout.isShimmerStarted()) shimmerFrameLayout.stopShimmer();
         shimmerFrameLayout.setVisibility(View.GONE);
         recyclerView.setVisibility(View.VISIBLE);
