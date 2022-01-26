@@ -11,8 +11,7 @@
       android:layout_width="match_parent"
       android:layout_height="match_parent"
       android:alpha="0.3"
-      android:scaleType="centerCrop"
-      android:src="@drawable/avatar"></ImageView>
+      android:scaleType="centerCrop"/>
 
     <ScrollView
       android:scrollbars="none"
@@ -32,26 +31,25 @@
         </ImageView>
 
         <TextView
-          android:id="@+id/title"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:layout_alignTop="@+id/btn_go_back"
-          android:layout_toEndOf="@id/btn_go_back"
-          android:gravity="center"
-          android:text="title"
-          android:textColor="@color/white"
-          android:textSize="20sp"></TextView>
+            android:id="@+id/title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/btn_go_back"
+            android:layout_toEndOf="@id/btn_go_back"
+            android:gravity="center"
+            android:text="title"
+            android:textColor="@color/white"
+            android:textSize="20sp" />
 
         <ImageView
-          android:id="@+id/thumb"
-          android:src="@drawable/avatar"
-          android:scaleType="fitXY"
-          android:layout_width="150dp"
-          android:layout_height="170dp"
-          android:layout_below="@id/title"
-          android:layout_marginTop="20dp"
-          android:layout_alignParentEnd="true"
-          android:layout_marginEnd="10dp">
+            android:id="@+id/thumb"
+            android:layout_width="150dp"
+            android:layout_height="170dp"
+            android:layout_below="@id/title"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="10dp"
+            android:scaleType="fitXY">
 
         </ImageView>
 
@@ -74,7 +72,7 @@
           </TextView>
           <TextView
             android:id="@+id/author"
-            android:layout_toRightOf="@+id/tacgia"
+            android:layout_toEndOf="@+id/tacgia"
             android:text="Tên tác giả"
             android:textColor="@color/white"
             android:textSize="15sp"

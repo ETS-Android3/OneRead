@@ -1,15 +1,10 @@
 package com.example.oneread.Activity;
 
-import android.app.AlertDialog;
-import android.app.ProgressDialog;
-import android.content.Intent;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import androidx.lifecycle.ViewModelProvider;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -19,7 +14,6 @@ import com.example.oneread.Common.Utils;
 import com.example.oneread.Fragment.MyBottomSheetFragement;
 import com.example.oneread.Model.Book;
 import com.example.oneread.Model.Chapter;
-import com.example.oneread.Model.User;
 import com.example.oneread.R;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
@@ -27,14 +21,10 @@ import com.google.gson.JsonParser;
 import com.squareup.picasso.Picasso;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
-import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 import retrofit2.HttpException;
 
-import java.io.Serializable;
-import java.util.List;
-
-public class DetailBookActivity extends AppCompatActivity {
+public class DetailBookActivity extends AppCompatActivity{
 
     @BindView(R.id.title)
     TextView title;
@@ -139,8 +129,8 @@ public class DetailBookActivity extends AppCompatActivity {
                         genre.setText(builder.toString());
                         view.setText(book.getView());
                         desc.setText(book.getDescription());
-                        Picasso.get().load(book.getTheme()).into(theme);
-                        Picasso.get().load(book.getThumb()).into(thumb);
+                        Picasso.get().load(book.getTheme()).placeholder(R.drawable.image_loading).error(R.drawable.image_err).into(theme);
+                        Picasso.get().load(book.getThumb()).placeholder(R.drawable.image_loading).error(R.drawable.image_err).into(thumb);
                     }, err -> {
                         if (err instanceof HttpException) {
                             HttpException response = (HttpException) err;

@@ -9,8 +9,13 @@
         <entry key="..\:/Intellij-workspace/OneRead/app/src/main/res/drawable-v24/ic_next.xml" value="0.17552083333333332" />
         <entry key="..\:/Intellij-workspace/OneRead/app/src/main/res/drawable-v24/tab_selector.xml" value="0.23802083333333332" />
         <entry key="..\:/Intellij-workspace/OneRead/app/src/main/res/drawable/bottom_sheet.xml" value="0.221875" />
+        <entry key="..\:/Intellij-workspace/OneRead/app/src/main/res/drawable/gradient_black_white.xml" value="0.309375" />
+        <entry key="..\:/Intellij-workspace/OneRead/app/src/main/res/drawable/gradient_imageview.xml" value="0.309375" />
         <entry key="..\:/Intellij-workspace/OneRead/app/src/main/res/drawable/ic_next.xml" value="0.17552083333333332" />
         <entry key="..\:/Intellij-workspace/OneRead/app/src/main/res/drawable/ic_user.xml" value="0.17552083333333332" />
+        <entry key="..\:/Intellij-workspace/OneRead/app/src/main/res/drawable/image_err.xml" value="0.30833333333333335" />
+        <entry key="..\:/Intellij-workspace/OneRead/app/src/main/res/drawable/image_loading.xml" value="0.30833333333333335" />
+        <entry key="..\:/Intellij-workspace/OneRead/app/src/main/res/drawable/shimmer_effect.xml" value="0.15520833333333334" />
         <entry key="..\:/Intellij-workspace/OneRead/app/src/main/res/drawable/tab_selector.xml" value="0.2390625" />
         <entry key="..\:/Intellij-workspace/OneRead/app/src/main/res/layout/activity_chapter.xml" value="0.22" />
         <entry key="..\:/Intellij-workspace/OneRead/app/src/main/res/layout/activity_detail_book.xml" value="0.21770833333333334" />

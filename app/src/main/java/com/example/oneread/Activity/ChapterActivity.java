@@ -26,8 +26,7 @@ import java.io.Serializable;
 import java.util.List;
 
 @SuppressLint("NonConstantResourceId")
-public class ChapterActivity extends AppCompatActivity{
-    private CompositeDisposable compositeDisposable;
+public class ChapterActivity extends AppCompatActivity {
 
     @BindView(R.id.more)
     FloatingActionButton more;
@@ -40,10 +39,11 @@ public class ChapterActivity extends AppCompatActivity{
     @BindView(R.id.view_pager)
     ViewPager2 viewPager;
 
+    private CompositeDisposable compositeDisposable;
     private int position;
     private List<Chapter> chapter_list;
     private String book_endpoint;
-    private String chapter_endpoint, endpoint;
+    private String chapter_endpoint;
     private Boolean isMoreClicked = true;
     private Boolean isMarkedChapterExisted = false;
 

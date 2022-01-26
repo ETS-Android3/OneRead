@@ -34,7 +34,7 @@ public class ChapterAdapter extends RecyclerView.Adapter<ChapterAdapter.ViewHold
 
     @Override
     public void onBindViewHolder( ViewHolder holder, int position) {
-        Picasso.get().load(list_iamge.get(position)).into(holder.chapter_image);
+        Picasso.get().load(list_iamge.get(position)).placeholder(R.drawable.image_loading).error(R.drawable.image_err).into(holder.chapter_image);
     }
 
     @Override

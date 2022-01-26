@@ -46,7 +46,7 @@ public class BookAdapter3 extends RecyclerView.Adapter<BookAdapter3.ViewHolder>{
             Bundle bundle = (Bundle) payloads.get(0);
             for(String key : bundle.keySet()) {
                 if (key.equals("changed")) {
-                    Picasso.get().load(books.get(position).getThumb()).into(holder.thumb);
+                    Picasso.get().load(books.get(position).getThumb()).placeholder(R.drawable.image_loading).error(R.drawable.image_err).into(holder.thumb);
                     if(isFollowed.containsKey(books.get(position).getEndpoint()))
                         holder.btn_follow.setImageResource(R.drawable.ic_marked);
                     else
@@ -61,7 +61,7 @@ public class BookAdapter3 extends RecyclerView.Adapter<BookAdapter3.ViewHolder>{
 
     @Override
     public void onBindViewHolder( ViewHolder holder, int position) {
-        Picasso.get().load(books.get(position).getThumb()).into(holder.thumb);
+        Picasso.get().load(books.get(position).getThumb()).placeholder(R.drawable.image_loading).error(R.drawable.image_err).into(holder.thumb);
         if(isFollowed.containsKey(books.get(position).getEndpoint()))
             holder.btn_follow.setImageResource(R.drawable.ic_marked);
         else

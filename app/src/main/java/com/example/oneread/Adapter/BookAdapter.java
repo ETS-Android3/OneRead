@@ -50,7 +50,7 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.ViewHolder>{
             Bundle bundle = (Bundle) payloads.get(0);
             for(String key : bundle.keySet()) {
                 if (key.equals("changed")) {
-                    Picasso.get().load(books.get(position).getThumb()).into(holder.thumb);
+                    Picasso.get().load(books.get(position).getThumb()).placeholder(R.drawable.image_loading).error(R.drawable.image_err).into(holder.thumb);
                     if(isFollowed.containsKey(books.get(position).getEndpoint()))
                         holder.btn_follow.setImageResource(R.drawable.ic_marked);
                     else
@@ -65,12 +65,7 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.ViewHolder>{
 
     @Override
     public void onBindViewHolder( ViewHolder holder, int position) {
-        Shimmer shimmer = new Shimmer.ColorHighlightBuilder()
-                .setBaseColor(Color.parseColor("#F3F3F3")).setBaseAlpha(1).setHighlightColor(Color.parseColor("#E7E7E7"))
-                .setHighlightAlpha(1).setDropoff(50).build();
-        ShimmerDrawable shimmerDrawable = new ShimmerDrawable();
-        shimmerDrawable.setShimmer(shimmer);
-        Picasso.get().load(books.get(position).getThumb()).placeholder(shimmerDrawable).into(holder.thumb);
+        Picasso.get().load(books.get(position).getThumb()).placeholder(R.drawable.image_loading).error(R.drawable.image_err).into(holder.thumb);
         if(isFollowed.containsKey(books.get(position).getEndpoint()))
             holder.btn_follow.setImageResource(R.drawable.ic_marked);
         else

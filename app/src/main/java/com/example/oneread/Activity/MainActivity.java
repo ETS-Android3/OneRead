@@ -152,8 +152,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     private void showUserAccount() {
         if (Common.currentUser != null) {
-            Picasso.get().load(Common.currentUser.getAvatar()).into(avatar);
-            Picasso.get().load(Common.currentUser.getAvatar()).into(avatarHeader);
+            Picasso.get().load(Common.currentUser.getAvatar()).placeholder(R.drawable.image_loading).error(R.drawable.image_err).into(avatar);
+            Picasso.get().load(Common.currentUser.getAvatar()).placeholder(R.drawable.image_loading).error(R.drawable.image_err).into(avatarHeader);
             username.setText(Common.currentUser.getUsername());
             btnLogin.setVisibility(View.GONE);
             btnLogout.setVisibility(View.VISIBLE);
