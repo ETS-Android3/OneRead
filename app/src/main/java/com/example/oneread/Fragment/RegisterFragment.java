@@ -42,11 +42,8 @@ public class RegisterFragment extends Fragment {
 
     private CompositeDisposable compositeDisposable;
     private Unbinder unbinder;
-    private String avatarUrl;
     private ILoginListener listener;
 
-    @BindView(R.id.avatar)
-    RoundedImageView avatar;
     @BindView(R.id.username)
     EditText username;
     @BindView(R.id.password)
@@ -54,13 +51,9 @@ public class RegisterFragment extends Fragment {
     @BindView(R.id.email)
     EditText email;
 
-
-    @OnClick(R.id.avatar)
-    void onAvatarClick() {
-        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-//        intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true); // this line allow to pick multiple file
-        intent.setType("image/*");
-        startActivityForResult(intent, Common.PICK_FILES);
+    @OnClick(R.id.btn_login)
+    void openLoginPage() {
+        listener.login();
     }
 
 
@@ -73,7 +66,7 @@ public class RegisterFragment extends Fragment {
         }
         try {
             compositeDisposable.add(Common.iServiceAPI.registerAccount(new User(username.getText().toString(),
-                            password.getText().toString(), email.getText().toString(), avatarUrl))
+                            password.getText().toString(), email.getText().toString()))
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(jsonObject -> {
@@ -133,52 +126,4 @@ public class RegisterFragment extends Fragment {
         compositeDisposable = new CompositeDisposable();
     }
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == Common.PICK_FILES
-            && resultCode == RESULT_OK && data != null) {
-            try {
-                if (data.getData() != null) {
-                    Uri avatarUri = data.getData();
-                    uploadImage(avatarUri, Common.avatarFirebasePath +
-                            Utils.getFileName(getActivity().getContentResolver(), avatarUri) + System.currentTimeMillis());
-                }
-                /* get multiple file
-                else if (data.getClipData() != null) {
-                    ClipData clipData = data.getClipData();
-                    for (int i=0; i<clipData.getItemCount(); i++) {
-                        System.out.println(clipData.getItemAt(i).getUri().getPath());
-                    }
-                }
-                 */
-            } catch (Exception e) {
-                e.printStackTrace();
-                Utils.showToast(this.getContext(), "[ERR]: " + e.getMessage(), Toast.LENGTH_SHORT);
-            }
-        } else {
-            Utils.showToast(this.getContext(), Message.somethingWrong, Toast.LENGTH_SHORT);
-        }
-    }
-
-    private void uploadImage(Uri imageUri, String path) {
-        StorageReference storageReference = FirebaseStorage.getInstance()
-                .getReference().child(path);
-        UploadTask uploadTask = storageReference.putFile(imageUri);
-        uploadTask.continueWithTask(task -> {
-            if (task.isSuccessful()) {
-                Utils.showToast(this.getContext(), Message.uploadSuccess, Toast.LENGTH_SHORT);
-                return storageReference.getDownloadUrl();
-            } else return null;
-        }).addOnCompleteListener(task -> {
-            avatarUrl = task.getResult().toString();
-            Picasso.get().load(avatarUrl).into(avatar);
-        }).addOnFailureListener(e -> {
-            Utils.showToast(this.getContext(), Message.uploadFail, Toast.LENGTH_SHORT);
-        });
-    }
-
-    public interface RegisterListener {
-        void onRegisterSuccess();
-    }
 }

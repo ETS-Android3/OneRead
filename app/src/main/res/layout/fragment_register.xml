@@ -1,53 +1,123 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-  xmlns:tools="http://schemas.android.com/tools"
-  android:layout_width="match_parent"
-  android:layout_height="match_parent"
-  xmlns:app="http://schemas.android.com/apk/res-auto"
-  tools:context=".Fragment.RegisterFragment">
-
-  <LinearLayout
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="@color/primary">
 
-    <EditText
+  <RelativeLayout
+      android:id="@+id/layout"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content">
+    <LinearLayout
+        android:layout_margin="@dimen/_20sdp"
+        android:layout_alignParentStart="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+      <TextView
+          android:layout_marginBottom="@dimen/_3sdp"
+          android:gravity="center_horizontal"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:text="Have account?"
+          android:textColor="@color/secondary_text"
+          tools:ignore="HardcodedText" />
+      <androidx.cardview.widget.CardView
+          android:id="@+id/btn_login"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          app:cardCornerRadius="@dimen/_20sdp"
+          android:layout_marginBottom="@dimen/_30sdp">
+
+        <LinearLayout
+            android:layout_marginHorizontal="@dimen/_20sdp"
+            android:layout_marginVertical="@dimen/_7sdp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+          <ImageView
+              android:layout_marginStart="@dimen/_5sdp"
+              android:layout_width="wrap_content"
+              android:layout_height="match_parent"
+              android:src="@drawable/ic_double_arrow_left"/>
+          <TextView
+              android:textColor="@color/primary_text"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:text="@string/login"/>
+        </LinearLayout>
+
+      </androidx.cardview.widget.CardView>
+    </LinearLayout>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="@drawable/login_background" />
+  </RelativeLayout>
+
+  <androidx.cardview.widget.CardView
+      android:background="@color/transparent"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:id="@+id/username"
-      android:hint="@string/username"/>
-    <EditText
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:inputType="textPassword"
-      android:id="@+id/password"
-      android:hint="@string/password"/>
-    <EditText
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:id="@+id/email"
-      android:inputType="textEmailAddress"
-      android:hint="@string/email"/>
+      app:cardCornerRadius="@dimen/_20sdp"
+      android:layout_alignParentBottom="true"
+      android:layout_marginHorizontal="@dimen/_30sdp"
+      android:layout_marginBottom="@dimen/_30sdp">
 
-    <com.makeramen.roundedimageview.RoundedImageView
-      android:layout_width="@dimen/_100sdp"
-      android:layout_height="@dimen/_100sdp"
-      app:riv_corner_radius="@dimen/_200sdp"
-      android:src="@drawable/avatar"
-      android:id="@+id/avatar"/>
+    <LinearLayout
+        android:padding="@dimen/_10sdp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-    <Button
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:text="@string/register"
-      android:id="@+id/btn_register"/>
+      <EditText
+          android:backgroundTint="@color/primary_text"
+          android:textCursorDrawable="@drawable/edittext"
+          android:layout_margin="@dimen/_5sdp"
+          android:singleLine="true"
+          android:textColor="@color/primary_text"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:id="@+id/username"
+          android:hint="@string/username"
+          tools:ignore="UnusedAttribute" />
+      <EditText
+          android:backgroundTint="@color/primary_text"
+          android:textCursorDrawable="@drawable/edittext"
+          android:layout_margin="@dimen/_5sdp"
+          android:singleLine="true"
+          android:textColor="@color/primary_text"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:id="@+id/password"
+          android:inputType="textPassword"
+          android:hint="@string/password"
+          tools:ignore="UnusedAttribute" />
+      <EditText
+          android:backgroundTint="@color/primary_text"
+          android:textCursorDrawable="@drawable/edittext"
+          android:layout_margin="@dimen/_5sdp"
+          android:singleLine="true"
+          android:textColor="@color/primary_text"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:id="@+id/email"
+          android:inputType="textEmailAddress"
+          android:hint="@string/email"
+          tools:ignore="UnusedAttribute" />
+      <Button
+          android:layout_margin="@dimen/_5sdp"
+          android:layout_gravity="center_horizontal"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:text="@string/register"
+          android:textColor="@color/primary_text"
+          android:id="@+id/btn_register"/>
 
-    <Button
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:text="@string/delete"
-      android:id="@+id/btn_delete"/>
+    </LinearLayout>
+  </androidx.cardview.widget.CardView>
 
-  </LinearLayout>
-
-</FrameLayout>
+</RelativeLayout>

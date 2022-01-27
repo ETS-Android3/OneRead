@@ -42,6 +42,11 @@ public class LoginFragment extends Fragment {
         this.listener = listener;
     }
 
+    @OnClick({R.id.btn_register})
+    void openRegisterPage() {
+        listener.register();
+    }
+
     @OnClick(R.id.btn_login)
     void onButtonLoginClick() {
         if (!Utils.checkEmptyComponents(new Object[]{username, password})) {
