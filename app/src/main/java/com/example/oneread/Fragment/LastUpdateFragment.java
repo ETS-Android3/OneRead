@@ -28,6 +28,7 @@ import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
 import retrofit2.HttpException;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -39,6 +40,8 @@ public class LastUpdateFragment extends Fragment {
     private static LastUpdateFragment instance;
     private List<Book> books = new ArrayList<>();
     private HashMap<String, Boolean> isFollowed = new HashMap<>();
+    private String keyBooks = "books";
+    private String keyBooksState = "booksState";
     private Parcelable state;
 
     @BindView(R.id.recycler)
@@ -60,8 +63,8 @@ public class LastUpdateFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (savedInstanceState != null) {
-            books = (List<Book>) savedInstanceState.getSerializable("books");
-            state = savedInstanceState.getParcelable("state");
+            books = (List<Book>) savedInstanceState.getSerializable(keyBooks);
+            state = savedInstanceState.getParcelable(keyBooksState);
         }
     }
 
@@ -94,8 +97,8 @@ public class LastUpdateFragment extends Fragment {
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putSerializable("books", new ArrayList<Book>(books));
-        outState.putParcelable("state", recyclerView.getLayoutManager().onSaveInstanceState());
+        outState.putSerializable(keyBooks, (Serializable) books);
+        outState.putParcelable(keyBooksState, recyclerView.getLayoutManager().onSaveInstanceState());
     }
 
     private void initView(View view) {

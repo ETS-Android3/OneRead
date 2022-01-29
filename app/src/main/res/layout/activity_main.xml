@@ -13,6 +13,7 @@
    https://stackoverflow.com/questions/54508419/android-navigation-drawer-does-not-close-when-click-outside-the-drawer-a-fragme
   -->
   <ScrollView
+    android:id="@+id/scrollview"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:scrollbars="none"

@@ -3,6 +3,7 @@ package com.example.oneread.Fragment;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.widget.Toast;
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -39,8 +40,9 @@ public class TopMonthFragment extends Fragment {
     private static TopMonthFragment instance;
     private List<Book> books = new ArrayList<>();
     private HashMap<String, Boolean> isFollowed = new HashMap<>();
-
-    Parcelable state;
+    private String keyBooks = "books";
+    private String keyBooksState = "booksState";
+    private Parcelable state;
 
     @BindView(R.id.recycler)
     RecyclerView recyclerView;
@@ -60,6 +62,10 @@ public class TopMonthFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (savedInstanceState != null) {
+            books = (List<Book>) savedInstanceState.getSerializable(keyBooks);
+            state = savedInstanceState.getParcelable(keyBooksState);
+        }
     }
 
     @Override
@@ -72,6 +78,19 @@ public class TopMonthFragment extends Fragment {
         unbinder.unbind();
         compositeDisposable.dispose();
         super.onDestroyView();
+    }
+
+    @Override
+    public void onResume() {
+        recyclerView.getLayoutManager().onRestoreInstanceState(state);
+        super.onResume();
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putSerializable("books", new ArrayList<Book>(books));
+        outState.putParcelable("state", recyclerView.getLayoutManager().onSaveInstanceState());
     }
 
     @Override

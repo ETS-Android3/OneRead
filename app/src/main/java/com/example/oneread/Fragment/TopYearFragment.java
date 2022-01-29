@@ -3,6 +3,7 @@ package com.example.oneread.Fragment;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.widget.Toast;
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -28,6 +29,7 @@ import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
 import retrofit2.HttpException;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -39,8 +41,9 @@ public class TopYearFragment extends Fragment {
     private static TopYearFragment instance;
     private List<Book> books = new ArrayList<>();
     private HashMap<String, Boolean> isFollowed = new HashMap<>();
-
-    Parcelable state;
+    private String keyBooks = "books";
+    private String keyBooksState = "booksState";
+    private Parcelable state;
 
     @BindView(R.id.recycler)
     RecyclerView recyclerView;
@@ -60,6 +63,10 @@ public class TopYearFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (savedInstanceState != null) {
+            books = (List<Book>) savedInstanceState.getSerializable(keyBooks);
+            state = savedInstanceState.getParcelable(keyBooksState);
+        }
     }
 
     @Override
@@ -75,11 +82,24 @@ public class TopYearFragment extends Fragment {
     }
 
     @Override
+    public void onResume() {
+        recyclerView.getLayoutManager().onRestoreInstanceState(state);
+        super.onResume();
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_top_year, container, false);
         initView(view);
         return view;
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putSerializable(keyBooks, (Serializable) books);
+        outState.putParcelable(keyBooksState, recyclerView.getLayoutManager().onSaveInstanceState());
     }
 
     private void initView(View view) {
