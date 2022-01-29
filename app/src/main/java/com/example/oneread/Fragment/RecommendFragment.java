@@ -108,7 +108,7 @@ public class RecommendFragment extends Fragment {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(view.getContext());
         linearLayoutManager.setOrientation(RecyclerView.HORIZONTAL);
         recyclerView.setLayoutManager(linearLayoutManager);
-        recyclerView.setAdapter(new BookAdapter(view.getContext(),books, isFollowed));
+        recyclerView.setAdapter(new BookAdapter(view.getContext(),books, isFollowed, 1));
         if (books.size() == 0) {
             fetchBook();
         } else {

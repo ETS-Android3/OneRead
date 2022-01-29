@@ -136,7 +136,7 @@ public class SearchActivity extends AppCompatActivity {
 
 
         recyclerViewTopSearch.setLayoutManager(new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false));
-        recyclerViewTopSearch.setAdapter(new BookAdapter(this, topSearch, isFollowed));
+        recyclerViewTopSearch.setAdapter(new BookAdapter(this, topSearch, isFollowed, 1));
         if (topSearch.size() == 0) {
             fetchTopSearch();
         } else {

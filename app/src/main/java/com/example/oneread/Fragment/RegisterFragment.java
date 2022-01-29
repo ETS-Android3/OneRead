@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.widget.EditText;
 import android.widget.Toast;
 import androidx.annotation.Nullable;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -50,6 +51,8 @@ public class RegisterFragment extends Fragment {
     EditText password;
     @BindView(R.id.email)
     EditText email;
+    @BindView(R.id.cardview)
+    CardView cardRegister;
 
     @OnClick(R.id.btn_login)
     void openLoginPage() {
@@ -124,6 +127,8 @@ public class RegisterFragment extends Fragment {
     private void initView(View view) {
         unbinder = ButterKnife.bind(this, view);
         compositeDisposable = new CompositeDisposable();
+
+        cardRegister.getBackground().setAlpha(200);
     }
 
 }

@@ -4,45 +4,65 @@
   xmlns:app="http://schemas.android.com/apk/res-auto"
   android:layout_width="match_parent"
   android:layout_height="wrap_content"
+    android:layout_marginHorizontal="@dimen/_10sdp"
   tools:context=".Fragment.RankFragment">
 
-  <RelativeLayout
-    android:layout_width="match_parent"
-    android:layout_height="@dimen/_400sdp">
-
-    <com.google.android.material.tabs.TabLayout
+  <LinearLayout
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:id="@+id/tab_layout"
-      android:layout_alignParentTop="true"
-      android:background="@color/main_background"
-      app:tabIndicatorColor="@color/primary_text"
-      app:tabSelectedTextColor="@color/primary_text"
-      app:tabBackground="@drawable/tab_selector"
-      app:tabRippleColor="@null">
-      <com.google.android.material.tabs.TabItem
+      android:orientation="vertical">
+
+    <TextView
+        android:layout_margin="@dimen/_5sdp"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/top_day"/>
-      <com.google.android.material.tabs.TabItem
+        android:layout_height="wrap_content"
+        android:text="@string/rank"
+        android:textSize="@dimen/_20sdp"
+        android:textStyle="bold"
+        android:textColor="@color/primary_text"/>
+
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/top_month"/>
-      <com.google.android.material.tabs.TabItem
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/top_year"/>
+        android:layout_height="@dimen/_400sdp">
 
-    </com.google.android.material.tabs.TabLayout>
+      <com.google.android.material.tabs.TabLayout
+          android:id="@+id/tab_layout"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_alignParentTop="true"
+          android:background="@color/primary"
+          app:tabBackground="@drawable/tab_selector"
+          app:tabIndicatorColor="@color/primary_text"
+          app:tabRippleColor="@null"
+          app:tabSelectedTextColor="@color/primary_text">
 
-    <androidx.viewpager2.widget.ViewPager2
-      android:id="@+id/viewpager"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:layout_below="@+id/tab_layout">
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="@string/top_day" />
 
-    </androidx.viewpager2.widget.ViewPager2>
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="@string/top_month" />
 
-  </RelativeLayout>
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="@string/top_year" />
+
+      </com.google.android.material.tabs.TabLayout>
+
+      <androidx.viewpager2.widget.ViewPager2
+          android:id="@+id/viewpager"
+          android:layout_marginVertical="@dimen/_5sdp"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_below="@+id/tab_layout">
+
+      </androidx.viewpager2.widget.ViewPager2>
+
+    </RelativeLayout>
+  </LinearLayout>
 
 </FrameLayout>

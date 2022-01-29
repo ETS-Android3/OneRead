@@ -28,18 +28,27 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.ViewHolder>{
     Context context;
     List<Book> books = new ArrayList<>();
     HashMap<String, Boolean> isFollowed = new HashMap<>();
+    int type;
     public BookAdapter() {
     }
 
-    public BookAdapter(Context context, List<Book> books, HashMap<String, Boolean> isFollowed) {
+    public BookAdapter(Context context, List<Book> books, HashMap<String, Boolean> isFollowed, int type) {
         this.context = context;
         this.books = books;
         this.isFollowed = isFollowed;
+        this.type = type;
     }
 
     @Override
     public ViewHolder onCreateViewHolder( ViewGroup parent, int viewType) {
         View row = LayoutInflater.from(context).inflate(R.layout.book_item, parent, false);
+        if (type == 1) {
+            row = LayoutInflater.from(context).inflate(R.layout.book_item, parent, false);
+        } else if (type == 2){
+            row = LayoutInflater.from(context).inflate(R.layout.book_item_2, parent, false);
+        } else if (type == 4){
+            row = LayoutInflater.from(context).inflate(R.layout.book_item_4, parent, false);
+        }
         return new ViewHolder(row);
     }
 
@@ -57,7 +66,7 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.ViewHolder>{
                         holder.btn_follow.setImageResource(R.drawable.ic_mark);
                     holder.btn_follow.setTag(position);
                     holder.title_comic.setText(books.get(position).getTitle());
-                    holder.rating.setText(String.valueOf(books.get(position).getRating()));
+                    holder.rating.setText(new StringBuilder().append(books.get(position).getRating()).append(" - ").append(books.get(position).getRateCount()).toString());
                 }
             }
         }
@@ -72,7 +81,7 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.ViewHolder>{
             holder.btn_follow.setImageResource(R.drawable.ic_mark);
         holder.btn_follow.setTag(position);
         holder.title_comic.setText(books.get(position).getTitle());
-        holder.rating.setText(String.valueOf(books.get(position).getRating()));
+        holder.rating.setText(new StringBuilder().append(books.get(position).getRating()).append(" - ").append(books.get(position).getRateCount()).toString());
     }
 
     @Override
@@ -82,13 +91,12 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.ViewHolder>{
 
     public class ViewHolder extends RecyclerView.ViewHolder{
         ImageView thumb;
-        TextView title_comic, title_chapter, rating;
+        TextView title_comic, rating;
         ImageView btn_follow;
         public ViewHolder( View itemView) {
             super(itemView);
             thumb = itemView.findViewById(R.id.thumb);
-            title_comic = itemView.findViewById(R.id.title_comic);
-            title_chapter = itemView.findViewById(R.id.title_chapter);
+            title_comic = itemView.findViewById(R.id.title);
             rating = itemView.findViewById(R.id.rating);
             btn_follow = itemView.findViewById(R.id.btn_follow);
 

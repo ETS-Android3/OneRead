@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.widget.EditText;
 import android.widget.Toast;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -37,6 +38,8 @@ public class LoginFragment extends Fragment {
     EditText username;
     @BindView(R.id.password)
     EditText password;
+    @BindView(R.id.cardview)
+    CardView cardLogin;
 
     public LoginFragment(ILoginListener listener) {
         this.listener = listener;
@@ -109,5 +112,7 @@ public class LoginFragment extends Fragment {
     private void initView(View view) {
         unbinder = ButterKnife.bind(this, view);
         compositeDisposable = new CompositeDisposable();
+
+        cardLogin.getBackground().setAlpha(200);
     }
 }
