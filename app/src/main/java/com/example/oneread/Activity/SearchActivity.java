@@ -1,8 +1,8 @@
 package com.example.oneread.Activity;
 
 import android.annotation.SuppressLint;
-import android.app.AlertDialog;
-import android.content.Context;
+import android.graphics.Color;
+import androidx.appcompat.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Parcelable;
 import android.view.LayoutInflater;
@@ -12,14 +12,15 @@ import android.widget.*;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import com.example.oneread.Adapter.BookAdapter;
 import com.example.oneread.Adapter.BookAdapter3;
+import com.example.oneread.Adapter.BookAdapter5;
 import com.example.oneread.Adapter.GenreAdapter;
 import com.example.oneread.Common.Common;
 import com.example.oneread.Common.Message;
@@ -54,8 +55,6 @@ public class SearchActivity extends AppCompatActivity {
     AutoCompleteTextView status;
     @BindView(R.id.type)
     AutoCompleteTextView type;
-    @BindView(R.id.genre)
-    TextView genre;
     @BindView(R.id.recycler)
     RecyclerView recyclerView;
     @BindView(R.id.recycler_top_search)
@@ -81,7 +80,7 @@ public class SearchActivity extends AppCompatActivity {
     private String keyTopSearch = "topSearch";
     private Parcelable state;
 
-    @OnClick(R.id.go_back)
+    @OnClick(R.id.btn_go_back)
     void goBack() {
         finish();
     }
@@ -105,7 +104,10 @@ public class SearchActivity extends AppCompatActivity {
                 ((ViewGroup) genreDialog.getParent()).removeView(genreDialog);
             }
             alertDialog.setView(genreDialog);
-            alertDialog.show();
+            AlertDialog alert = alertDialog.create();
+            alert.show();
+            alert.getButton(DialogInterface.BUTTON_NEGATIVE).setTextColor(getResources().getColor(R.color.primary_text));
+            alert.getButton(DialogInterface.BUTTON_POSITIVE).setTextColor(getResources().getColor(R.color.primary_text));
         }
     }
 
@@ -136,7 +138,7 @@ public class SearchActivity extends AppCompatActivity {
 
 
         recyclerViewTopSearch.setLayoutManager(new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false));
-        recyclerViewTopSearch.setAdapter(new BookAdapter(this, topSearch, isFollowed, 1));
+        recyclerViewTopSearch.setAdapter(new BookAdapter5(this, topSearch));
         if (topSearch.size() == 0) {
             fetchTopSearch();
         } else {
