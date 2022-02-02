@@ -1,6 +1,7 @@
 package com.example.oneread.Activity;
 
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import androidx.cardview.widget.CardView;
@@ -9,14 +10,14 @@ import com.example.oneread.R;
 public class MainActivity2 extends AppCompatActivity {
 
     RelativeLayout relativeLayout;
-    CardView cardView;
+    TextView textView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
-        cardView = findViewById(R.id.select_country_main);
-        cardView.getBackground().setAlpha(200);
+        textView = findViewById(R.id.test);
+        textView.getBackground().setAlpha(200);
 
     }
 }

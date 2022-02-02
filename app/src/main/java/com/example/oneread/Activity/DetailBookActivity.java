@@ -1,6 +1,10 @@
 package com.example.oneread.Activity;
 
+import android.graphics.Color;
+import android.view.LayoutInflater;
+import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,9 +19,11 @@ import com.example.oneread.Fragment.MyBottomSheetFragement;
 import com.example.oneread.Model.Book;
 import com.example.oneread.Model.Chapter;
 import com.example.oneread.R;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonParser;
+import com.nex3z.flowlayout.FlowLayout;
 import com.squareup.picasso.Picasso;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
@@ -36,14 +42,12 @@ public class DetailBookActivity extends AppCompatActivity{
     TextView rating;
     @BindView(R.id.follow)
     TextView follow;
-    @BindView(R.id.genre)
-    TextView genre;
+    @BindView(R.id.genre_layout)
+    FlowLayout genre_layout;
     @BindView(R.id.view)
     TextView view;
     @BindView(R.id.desc)
     TextView desc;
-    @BindView(R.id.theme)
-    ImageView theme;
     @BindView(R.id.thumb)
     ImageView thumb;
 
@@ -77,13 +81,24 @@ public class DetailBookActivity extends AppCompatActivity{
 //        startActivity(intent);
     }
 
-    @OnClick(R.id.chapter_list)
+    @OnClick(R.id.chapters)
     void showChapterList() {
+//        BottomSheetDialog bottomSheetDialog1 = new BottomSheetDialog(this, R.style.BottomSheetDialogTheme);
+//        View view = LayoutInflater.from(getApplicationContext()).inflate(R.layout.bottom_sheet_chapter_list, (LinearLayout)findViewById(R.id.bottom_sheet));
+//        view.setBackground(getResources().getDrawable(R.drawable.bottom_sheet));
+//        view.getBackground().setAlpha(200);
+//        bottomSheetDialog1.setContentView(view);
+//        bottomSheetDialog1.show();
         bottomSheetDialog.show(getSupportFragmentManager(), bottomSheetDialog.getTag());
     }
 
     @OnClick(R.id.btn_follow)
     void followBook() {
+
+    }
+
+    @OnClick(R.id.comment)
+    void comment() {
 
     }
 
@@ -116,20 +131,22 @@ public class DetailBookActivity extends AppCompatActivity{
                         title.setText(book.getTitle());
                         author.setText(book.getAuthor());
                         status.setText(book.getStatusString());
-                        StringBuilder builder = new StringBuilder();
-                        rating.setText(builder.append(book.getRating()).append(" - ").append(book.getRateCount()).toString());
+                        rating.setText(String.valueOf(book.getRating()));
                         follow.setText(book.getFollow());
-                        builder = new StringBuilder();
                         for(int i=0; i<book.getGenres().size(); i++){
-                            if(i==0)
-                                builder.append(book.getGenres().get(i).getTitle());
-                            else
-                                builder.append(",").append(book.getGenres().get(i).getTitle());
+                            TextView genre = new TextView(this);
+                            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+                            params.setMargins(10,10,10,10);
+                            genre.setLayoutParams(params);
+                            genre.setBackground(getResources().getDrawable(R.drawable.genre_item));
+                            genre.getBackground().setAlpha(200);
+                            genre.setPadding(20,10,20,10);
+                            genre.setText(book.getGenres().get(i).getTitle());
+                            genre.setTextColor(Color.WHITE);
+                            genre_layout.addView(genre);
                         }
-                        genre.setText(builder.toString());
                         view.setText(book.getView());
                         desc.setText(book.getDescription());
-                        Picasso.get().load(book.getTheme()).placeholder(R.drawable.image_loading).error(R.drawable.image_err).into(theme);
                         Picasso.get().load(book.getThumb()).placeholder(R.drawable.image_loading).error(R.drawable.image_err).into(thumb);
                     }, err -> {
                         if (err instanceof HttpException) {
@@ -150,7 +167,7 @@ public class DetailBookActivity extends AppCompatActivity{
                             Chapter chapter = new Gson().fromJson(json, Chapter.class);
                             book.getChapters().add(chapter);
                         }
-                        bottomSheetDialog = new MyBottomSheetFragement(getBaseContext(), book);
+                        bottomSheetDialog = new MyBottomSheetFragement(this, book);
                     }, err -> {
                         if (err instanceof HttpException) {
                             HttpException response = (HttpException) err;

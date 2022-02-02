@@ -78,14 +78,12 @@ public class BookAdapter3 extends RecyclerView.Adapter<BookAdapter3.ViewHolder>{
 
     public class ViewHolder extends RecyclerView.ViewHolder{
         ImageView thumb;
-        TextView title_comic, chapter, rating, genres;
+        TextView title_comic, rating, genres;
         ImageView btn_follow;
         public ViewHolder( View itemView) {
             super(itemView);
             thumb = itemView.findViewById(R.id.thumb);
             title_comic = itemView.findViewById(R.id.title_comic);
-            chapter = itemView.findViewById(R.id.chapter);
-            genres = itemView.findViewById(R.id.genres);
             rating = itemView.findViewById(R.id.rating);
             btn_follow = itemView.findViewById(R.id.btn_follow);
 

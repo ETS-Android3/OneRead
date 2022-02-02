@@ -1,41 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-  android:id="@+id/bottom_sheet"
-  android:layout_margin="20dp"
-  android:orientation="vertical"
-  android:background="@drawable/bottom_sheet"
-  android:layout_width="match_parent"
-  android:layout_height="wrap_content">
-  <RelativeLayout
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
-    <TextView
-      android:text="DANH SÁCH CHƯƠNG"
-      android:textStyle="bold"
-      android:textSize="20sp"
-      android:gravity="center"
-      android:layout_margin="5dp"
-      android:textColor="@color/black"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content">
-    </TextView>
-    <ImageView
-      android:id="@+id/btn_download"
-      android:layout_margin="5dp"
-      android:layout_alignParentEnd="true"
-      android:src="@drawable/ic_download"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content">
-    </ImageView>
-  </RelativeLayout>
-
-
-  <androidx.recyclerview.widget.RecyclerView
-    android:id="@+id/recycler"
-    android:layout_margin="5dp"
-
+    android:id="@+id/bottom_sheet"
+    android:layout_margin="20dp"
+    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="400dp">
-  </androidx.recyclerview.widget.RecyclerView>
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:text="@string/CHAPTERS"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:gravity="center"
+            android:layout_margin="5dp"
+            android:textColor="@color/black"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <ImageView
+            android:id="@+id/btn_download"
+            android:layout_margin="5dp"
+            android:layout_alignParentEnd="true"
+            android:src="@drawable/ic_download"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler"
+        android:layout_margin="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="400dp" />
 
 </LinearLayout>

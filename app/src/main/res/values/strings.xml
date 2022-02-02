@@ -78,4 +78,9 @@
     <string name="top_follow">Nhiều lượt theo dõi nhất</string>
     <string name="top_rating">Sách được đánh giá cao</string>
     <string name="rank">Bảng xếp hạng</string>
+    <string name="comment">Bình luận</string>
+    <string name="chapters">Danh sách chương</string>
+    <string name="rate">Đánh giá</string>
+    <string name="author">Tác giả</string>
+    <string name="CHAPTERS">DANH SÁCH CHƯƠNG</string>
 </resources>

@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -56,6 +57,8 @@ public class MyBottomSheetFragement extends BottomSheetDialogFragment implements
         BottomSheetDialog bottomSheetDialog = (BottomSheetDialog) super.onCreateDialog(savedInstanceState);
         setStyle(BottomSheetDialogFragment.STYLE_NORMAL, R.style.BottomSheetDialogTheme);
         View bottomSheetView = LayoutInflater.from(context).inflate(R.layout.bottom_sheet_chapter_list, null);
+        bottomSheetView.setBackground(getResources().getDrawable(R.drawable.bottom_sheet));
+        bottomSheetView.getBackground().setAlpha(200);
         bottomSheetDialog.setContentView(bottomSheetView);
         btn_download = bottomSheetView.findViewById(R.id.btn_download);
         RecyclerView recyclerView = bottomSheetView.findViewById(R.id.recycler);
