@@ -1,16 +1,20 @@
 package com.example.oneread.Fragment;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import com.example.oneread.Adapter.DetailBookAdapter;
 import com.example.oneread.Listener.IRecylerClickListener;
 import com.example.oneread.Model.Book;
@@ -23,7 +27,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
+@SuppressLint("NonConstantResourceId")
 public class MyBottomSheetFragement extends BottomSheetDialogFragment implements IRecylerClickListener {
     Context context;
     List<Chapter> download_chapters;
@@ -32,7 +36,11 @@ public class MyBottomSheetFragement extends BottomSheetDialogFragment implements
     File[] files;
     Boolean offline = false;
 
-    private ImageView btn_download;
+
+    @BindView(R.id.recycler)
+    RecyclerView recyclerView;
+    @BindView(R.id.btn_download)
+    ImageView btn_download;
 
     public MyBottomSheetFragement() {
     }
@@ -51,17 +59,36 @@ public class MyBottomSheetFragement extends BottomSheetDialogFragment implements
         offline = true;
     }
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setStyle(BottomSheetDialogFragment.STYLE_NORMAL, R.style.BottomSheetDialogTheme);
+    }
+
+    @SuppressLint("RestrictedApi")
+    @Override
+    public void setupDialog(@NonNull Dialog dialog, int style) {
+        super.setupDialog(dialog, style);
+        View contentView = View.inflate(getContext(), R.layout.bottom_sheet_chapter_list, null);
+        ButterKnife.bind(this, contentView);
+        contentView.setBackground(getResources().getDrawable(R.drawable.bottom_sheet));
+        contentView.getBackground().setAlpha(200);
+        dialog.setContentView(contentView);
+
+        ((View) contentView.getParent()).setBackgroundColor(getResources().getColor(android.R.color.transparent));
+    }
+
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
-        BottomSheetDialog bottomSheetDialog = (BottomSheetDialog) super.onCreateDialog(savedInstanceState);
-        setStyle(BottomSheetDialogFragment.STYLE_NORMAL, R.style.BottomSheetDialogTheme);
-        View bottomSheetView = LayoutInflater.from(context).inflate(R.layout.bottom_sheet_chapter_list, null);
-        bottomSheetView.setBackground(getResources().getDrawable(R.drawable.bottom_sheet));
-        bottomSheetView.getBackground().setAlpha(200);
-        bottomSheetDialog.setContentView(bottomSheetView);
-        btn_download = bottomSheetView.findViewById(R.id.btn_download);
-        RecyclerView recyclerView = bottomSheetView.findViewById(R.id.recycler);
+        return (BottomSheetDialog) super.onCreateDialog(savedInstanceState);
+    }
+
+    @Nullable
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View root = super.onCreateView(inflater, container, savedInstanceState);
+        recyclerView.setNestedScrollingEnabled(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
         if(!offline){
             recyclerView.setAdapter(new DetailBookAdapter(context, book, this));
@@ -102,8 +129,7 @@ public class MyBottomSheetFragement extends BottomSheetDialogFragment implements
 //                }
             }
         });
-
-        return bottomSheetDialog;
+        return root;
     }
 
     @Override

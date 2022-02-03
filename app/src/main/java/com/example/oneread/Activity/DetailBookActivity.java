@@ -1,8 +1,6 @@
 package com.example.oneread.Activity;
 
 import android.graphics.Color;
-import android.view.LayoutInflater;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -19,7 +17,6 @@ import com.example.oneread.Fragment.MyBottomSheetFragement;
 import com.example.oneread.Model.Book;
 import com.example.oneread.Model.Chapter;
 import com.example.oneread.R;
-import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonParser;
