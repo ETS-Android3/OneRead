@@ -27,4 +27,6 @@
     <color name="second_icon">#FAFAFA</color>
 
     <color name="transparent">#00FFFFFF</color>
+
+    <color name="primary_card">@color/cardview_dark_background</color>
 </resources>

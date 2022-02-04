@@ -1,6 +1,12 @@
 package com.example.oneread.Activity;
 
 import android.graphics.Color;
+import android.text.SpannableStringBuilder;
+import android.text.Spanned;
+import android.text.method.LinkMovementMethod;
+import android.text.style.ClickableSpan;
+import android.view.View;
+import android.view.ViewTreeObserver;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -47,11 +53,20 @@ public class DetailBookActivity extends AppCompatActivity{
     TextView desc;
     @BindView(R.id.thumb)
     ImageView thumb;
+    @BindView(R.id.read_more)
+    TextView readMore;
 
 
     private CompositeDisposable compositeDisposable;
     private MyBottomSheetFragement bottomSheetDialog;
     private Book book;
+
+    @OnClick(R.id.read_more)
+    void readMore() {
+        desc.setEllipsize(null);
+        desc.setMaxLines(Integer.MAX_VALUE);
+        readMore.setVisibility(View.GONE);
+    }
 
     @OnClick(R.id.read)
     void read() {

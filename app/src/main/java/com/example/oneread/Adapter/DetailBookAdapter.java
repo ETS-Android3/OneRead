@@ -56,7 +56,7 @@ public class DetailBookAdapter extends RecyclerView.Adapter<DetailBookAdapter.Vi
             holder.chapter_title.setText(files.get(position).getName());
         }else{
             holder.chapter_title.setText(book.getChapters().get(position).getTitle());
-            holder.chapter_uploaded.setText(book.getChapters().get(position).getTime());
+            holder.chapter_uploaded.setText(book.getChapters().get(position).getTime().split(" ")[0]);
         }
         holder.btn_check.setImageResource(R.drawable.ic_uncheck);
         holder.btn_check.setTag(R.drawable.ic_uncheck);

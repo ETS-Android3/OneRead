@@ -1,6 +1,7 @@
 package com.example.oneread.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +11,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
+import com.example.oneread.Activity.DetailBookActivity;
 import com.example.oneread.Helper.BookDiffCallBack;
 import com.example.oneread.Model.Book;
 import com.example.oneread.R;
@@ -90,9 +92,9 @@ public class BookAdapter3 extends RecyclerView.Adapter<BookAdapter3.ViewHolder>{
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-//                    Intent intent = new Intent(context, DetailComicActivity.class);
-//                    intent.putExtra("endpoint", books.get(getBindingAdapterPosition()).endpoint);
-//                    context.startActivity(intent);
+                    Intent intent = new Intent(context, DetailBookActivity.class);
+                    intent.putExtra("endpoint", books.get(getAdapterPosition()).getEndpoint());
+                    context.startActivity(intent);
                 }
             } );
 
