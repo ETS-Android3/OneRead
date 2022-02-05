@@ -32,6 +32,7 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler"
         android:layout_margin="5dp"
+        android:overScrollMode="never"
         android:layout_width="match_parent"
         android:layout_height="400dp" />
 

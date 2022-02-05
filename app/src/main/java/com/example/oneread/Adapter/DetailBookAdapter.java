@@ -89,10 +89,10 @@ public class DetailBookAdapter extends RecyclerView.Adapter<DetailBookAdapter.Vi
 //                        intent.putExtra("list_file", (Serializable) files);
 //                        context.startActivity(intent);
 //                    }else{
+                    recylerClickListener.onItemClick(getAdapterPosition());
                         Intent intent = new Intent(context, ChapterActivity.class);
                         intent.putExtra("position", getAdapterPosition());
-                        intent.putExtra("book_endpoint", book.getEndpoint());
-                        intent.putExtra("chapter_list", (Serializable) book.getChapters());
+                        intent.putExtra("book", book);
                         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         context.startActivity(intent);
 //                    }
