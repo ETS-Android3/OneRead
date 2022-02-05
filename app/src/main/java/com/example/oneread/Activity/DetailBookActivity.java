@@ -60,6 +60,7 @@ public class DetailBookActivity extends AppCompatActivity{
     private CompositeDisposable compositeDisposable;
     private MyBottomSheetFragement bottomSheetDialog;
     private Book book;
+    private boolean isGetBookFromSearch;
 
     @OnClick(R.id.read_more)
     void readMore() {
@@ -126,6 +127,7 @@ public class DetailBookActivity extends AppCompatActivity{
 
         book = new Book();
         book.setEndpoint(getIntent().getStringExtra("endpoint"));
+        isGetBookFromSearch = getIntent().getBooleanExtra("search", false);
 
         ButterKnife.bind(this);
         compositeDisposable = new CompositeDisposable();
@@ -135,7 +137,7 @@ public class DetailBookActivity extends AppCompatActivity{
 
     private void fetchDetailComic() {
         try{
-            compositeDisposable.addAll(Common.iServiceAPI.getBook(book.getEndpoint())
+            compositeDisposable.addAll(Common.iServiceAPI.getBook(book.getEndpoint(), isGetBookFromSearch)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(jsonObject -> {

@@ -54,15 +54,19 @@
           </ImageView>
 
           <EditText
-              android:backgroundTint="@color/primary_text"
-              android:textCursorDrawable="@drawable/edittext"
-              android:layout_margin="@dimen/_5sdp"
-              android:singleLine="true"
-              android:textColor="@color/primary_text"
+              android:layout_toStartOf="@id/btn_search"
+              android:id="@+id/edt_search"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
-              android:id="@+id/edt_search"
+              android:layout_marginStart="@dimen/_5sdp"
+              android:layout_marginTop="@dimen/_5sdp"
+              android:layout_marginEnd="@dimen/_5sdp"
+              android:layout_marginBottom="@dimen/_5sdp"
+              android:backgroundTint="@color/primary_text"
               android:hint="@string/search"
+              android:singleLine="true"
+              android:textColor="@color/primary_text"
+              android:textCursorDrawable="@drawable/edittext"
               tools:ignore="UnusedAttribute" />
 
         </RelativeLayout>
@@ -82,14 +86,13 @@
     </TextView>
 
     <com.nex3z.flowlayout.FlowLayout
-      android:id="@+id/flow_layout"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:layout_margin="@dimen/_5sdp"
-      app:flChildSpacing="auto"
-      app:flChildSpacingForLastRow="align"
-      app:flMaxRows="3"
-      app:flRowSpacing="8dp">
+        android:id="@+id/history_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        app:flChildSpacingForLastRow="align"
+        app:flMaxRows="3"
+        app:flRowSpacing="8dp">
 
     </com.nex3z.flowlayout.FlowLayout>
 

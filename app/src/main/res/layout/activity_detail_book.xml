@@ -144,7 +144,6 @@
                         android:layout_height="wrap_content"
                         android:layout_margin="5dp"
                         app:flChildSpacingForLastRow="align"
-                        app:flMaxRows="3"
                         app:flRowSpacing="8dp">
 
                     </com.nex3z.flowlayout.FlowLayout>

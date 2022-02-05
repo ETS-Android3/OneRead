@@ -94,6 +94,7 @@ public class BookAdapter3 extends RecyclerView.Adapter<BookAdapter3.ViewHolder>{
                 public void onClick(View v) {
                     Intent intent = new Intent(context, DetailBookActivity.class);
                     intent.putExtra("endpoint", books.get(getAdapterPosition()).getEndpoint());
+                    intent.putExtra("search", true);
                     context.startActivity(intent);
                 }
             } );

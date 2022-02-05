@@ -50,6 +50,9 @@ public interface IServiceAPI {
     @GET("book/detail/{book_endpoint}")
     Observable<JsonObject> getBook(@Path("book_endpoint") String book_endpoint);
 
+    @GET("book/detail/{book_endpoint}")
+    Observable<JsonObject> getBook(@Path("book_endpoint") String book_endpoint, @Query("search") boolean search);
+
     @GET("book/suggest-book/{username}")
     Observable<JsonObject> getSuggestBook(@Header("Authorization") String auth, @Path("username") String username);
 

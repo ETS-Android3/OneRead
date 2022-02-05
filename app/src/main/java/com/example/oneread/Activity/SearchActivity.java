@@ -12,7 +12,7 @@ import android.widget.*;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import androidx.cardview.widget.CardView;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -25,8 +25,10 @@ import com.example.oneread.Adapter.GenreAdapter;
 import com.example.oneread.Common.Common;
 import com.example.oneread.Common.Message;
 import com.example.oneread.Common.Utils;
+import com.example.oneread.Entity.HistorySearch;
 import com.example.oneread.Model.Book;
 import com.example.oneread.Model.Genre;
+import com.example.oneread.Model.HistorySearchViewModel;
 import com.example.oneread.R;
 import com.facebook.shimmer.ShimmerFrameLayout;
 import com.google.gson.Gson;
@@ -49,8 +51,8 @@ public class SearchActivity extends AppCompatActivity {
     EditText edtSearch;
     @BindView(R.id.btn_search)
     ImageView btnSearch;
-    @BindView(R.id.flow_layout)
-    FlowLayout flowLayout;
+    @BindView(R.id.history_layout)
+    FlowLayout historyLayout;
     @BindView(R.id.status)
     AutoCompleteTextView status;
     @BindView(R.id.type)
@@ -79,6 +81,7 @@ public class SearchActivity extends AppCompatActivity {
     private String keyBooksState = "booksState";
     private String keyTopSearch = "topSearch";
     private Parcelable state;
+    private HistorySearchViewModel historySearchViewModel;
 
     @OnClick(R.id.btn_go_back)
     void goBack() {
@@ -87,6 +90,8 @@ public class SearchActivity extends AppCompatActivity {
 
     @OnClick(R.id.btn_search)
     void search() {
+        if(!edtSearch.getText().toString().equals(""))
+            historySearchViewModel.insert(new HistorySearch(edtSearch.getText().toString()));
         String title = edtSearch.getText().toString().trim();
         if (title.length() > 0) {
             filter.addProperty("title", title);
@@ -144,6 +149,37 @@ public class SearchActivity extends AppCompatActivity {
         } else {
             setViewTopSearch();
         }
+
+        historySearchViewModel = new ViewModelProvider(this).get(HistorySearchViewModel.class);
+        historySearchViewModel.delete(new HistorySearch(""));
+        historySearchViewModel.getAll().observe(this, historySearches -> {
+            if(historySearches.size() > 10){
+                historySearchViewModel.delete(historySearches.get(0));
+            }
+            historyLayout.removeAllViews();
+            for(int i=0; i<historySearches.size(); i++) {
+                TextView textView = new TextView(this);
+                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+                params.setMargins(10,10,10,10);
+                textView.setId(i);
+                textView.setLayoutParams(params);
+                textView.setBackground(getResources().getDrawable(R.drawable.genre_item));
+                textView.getBackground().setAlpha(200);
+                textView.setPadding(20,10,20,10);
+                textView.setText(historySearches.get(i).search);
+                textView.setTextColor(Color.WHITE);
+                historyLayout.addView(textView);
+
+                textView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        edtSearch.setText(textView.getText());
+                        search();
+                    }
+                });
+            }
+        });
+
 
 
         alertDialog = new AlertDialog.Builder(this, R.style.AlertDialogCustom);
