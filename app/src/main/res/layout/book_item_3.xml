@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/transparent">
+
+  <androidx.cardview.widget.CardView
+      app:cardCornerRadius="20dp"
+      android:layout_margin="@dimen/_10sdp"
+      app:cardBackgroundColor="@color/primary"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+      <ImageView
+          android:id="@+id/thumb"
+          android:layout_width="@dimen/_70sdp"
+          android:layout_height="@dimen/_80sdp"
+          android:scaleType="fitXY">
+
+      </ImageView>
+
+      <LinearLayout
+          android:id="@+id/linear"
+          android:layout_width="200dp"
+          android:layout_height="wrap_content"
+          android:layout_toEndOf="@+id/thumb"
+          android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/title_comic"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/_5sdp"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:text="TITLE"
+            android:textColor="@color/primary_text"
+            android:textSize="20sp">
+
+        </TextView>
+
+        <TextView
+            android:id="@+id/rating"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_margin="@dimen/_5sdp"
+            android:layout_weight="1"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:text="rating"
+            android:textColor="@color/primary_text">
+
+        </TextView>
+
+      </LinearLayout>
+      <ImageView
+          android:src="@drawable/ic_mark"
+          android:layout_marginEnd="10dp"
+          android:layout_alignParentEnd="true"
+          android:id="@+id/btn_follow"
+          android:layout_alignBottom="@id/linear"
+          android:layout_alignTop="@id/linear"
+          android:layout_width="wrap_content"
+          android:layout_height="match_parent">
+
+      </ImageView>
+    </RelativeLayout>
+  </androidx.cardview.widget.CardView>
+
+</RelativeLayout>
