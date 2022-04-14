@@ -4,24 +4,33 @@ import android.view.MenuItem;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
+import butterknife.ButterKnife;
 import com.example.oneread.R;
+import com.example.oneread.ui.base.BaseActivity;
 import com.google.android.material.navigation.NavigationView;
 
-public class MainActivity extends AppCompatActivity {
+import javax.inject.Inject;
 
-    NavigationView navigationView;
+public class MainActivity  extends BaseActivity implements MainContract.View {
+
+    @Inject
+    MainPresenter<MainContract.View> presenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        navigationView = findViewById(R.id.navigation_view);
-        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                return true;
-            }
-        });
+        getActivityComponent().inject(this);
+        setUnBinder(ButterKnife.bind(this));
+        presenter.onAttach(this);
+        setup();
     }
+
+    @Override
+    protected void setup() {
+
+    }
+
+
 }
