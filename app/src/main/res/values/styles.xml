@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="BottomSheetUnDraggable" parent="Theme.Design.BottomSheetDialog">
+        <item name="behavior_draggable">false</item>
+    </style>
+
+    <style name="NullEditText" parent="Widget.AppCompat.EditText">
+        <item name="backgroundTint">@color/card</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:inputType">text</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:textColor">@color/normal_text</item>
+        <item name="android:textCursorDrawable">@drawable/cursor_edittext</item>
+        <item name="android:padding">10dp</item>
+        <item name="android:textSize">@dimen/normal_text</item>
+    </style>
+
+    <style name="MyCard" parent="CardView">
+        <item name="cardBackgroundColor">@color/card</item>
+        <item name="cardCornerRadius">@dimen/card_corner</item>
+    </style>
+
+    <style name="SmallText" parent="Widget.AppCompat.TextView">
+        <item name="android:textSize">@dimen/small_text</item>
+        <item name="android:textColor">@color/small_text</item>
+    </style>
+    <style name="NormalText" parent="Widget.AppCompat.TextView">
+        <item name="android:textSize">@dimen/normal_text</item>
+        <item name="android:textColor">@color/normal_text</item>
+        <item name="android:padding">5dp</item>
+    </style>
+    <style name="TitleText" parent="Widget.AppCompat.TextView">
+        <item name="android:textSize">@dimen/large_text</item>
+        <item name="android:padding">5dp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/normal_text</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="MyCustomSwitchTheme">
+        <item name="colorControlActivated">@color/foreground</item>
+        <item name="colorSwitchThumbNormal">@color/icon</item>
+        <item name="android:colorForeground">@color/foreground</item>
+    </style>
+
+</resources>
