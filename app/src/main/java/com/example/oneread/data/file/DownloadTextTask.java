@@ -34,7 +34,7 @@ public class DownloadTextTask implements Callable<List<String>> {
 
     @Override
     public List<String> call() {
-        return downloadToPublicStorage();
+        return downloadToAppStorage();
     }
 
     private List<String> downloadToPublicStorage() {
