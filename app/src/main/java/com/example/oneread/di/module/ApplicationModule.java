@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import androidx.room.Room;
 import com.example.oneread.App;
+import com.example.oneread.data.db.AppDatabase;
 import com.example.oneread.data.network.IServiceAPI;
 import com.example.oneread.di.anotation.ApplicationContext;
 import com.example.oneread.di.anotation.CachedThreadPool;
@@ -70,5 +71,12 @@ public class ApplicationModule {
     @Singleton
     @CachedThreadPool
     ExecutorService provideCachedThreadExecutorService() {return Executors.newCachedThreadPool();}
+
+    @Provides
+    @Singleton
+    AppDatabase provideAppDatabase(@ApplicationContext Context context) {
+        return Room.databaseBuilder(context, AppDatabase.class, AppConstants.DB_NAME)
+                .fallbackToDestructiveMigration().build();
+    }
 
 }

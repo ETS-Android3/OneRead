@@ -1,6 +1,8 @@
 package com.example.oneread.data.prefs;
 
 import android.content.SharedPreferences;
+import androidx.appcompat.app.AppCompatDelegate;
+import com.example.oneread.data.network.model.User;
 import com.google.gson.Gson;
 
 import javax.inject.Inject;
@@ -8,6 +10,11 @@ import javax.inject.Singleton;
 
 @Singleton
 public class PrefsHelper {
+
+    private static final String PREF_KEY_CURRENT_USER = "PREF_KEY_CURRENT_USER";
+    private static final String PREF_KEY_ACCESS_TOKEN = "PREF_KEY_ACCESS_TOKEN";
+    private static final String PREF_KEY_NIGHT_MODE = "PREF_KEY_NIGHT_MODE";
+
     SharedPreferences sharedPreferences;
 
     @Inject
@@ -63,5 +70,39 @@ public class PrefsHelper {
             editor.remove(s);
         }
         editor.apply();
+    }
+
+    public User getCurrentUser() {
+        return get(PREF_KEY_CURRENT_USER, User.class, null);
+    }
+
+    public void setCurrentUser(User user) {
+        put(PREF_KEY_CURRENT_USER, user);
+    }
+
+    public void removeCurrentUser() {
+        sharedPreferences.edit().remove(PREF_KEY_CURRENT_USER).remove(PREF_KEY_ACCESS_TOKEN).apply();
+
+    }
+
+
+    public String getAccessToken() {
+        return get(PREF_KEY_ACCESS_TOKEN, "");
+    }
+
+    public void setAccessToken(String accessToken) {
+        put(PREF_KEY_ACCESS_TOKEN, accessToken);
+    }
+
+    public void removeAccessToken() {
+        sharedPreferences.edit().remove(PREF_KEY_ACCESS_TOKEN).apply();
+    }
+
+    public int getNightMode() {
+        return get(PREF_KEY_NIGHT_MODE, AppCompatDelegate.MODE_NIGHT_NO);
+    }
+
+    public void setNightMode(int mode) {
+        put(PREF_KEY_NIGHT_MODE, mode);
     }
 }
