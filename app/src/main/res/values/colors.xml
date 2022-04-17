@@ -7,7 +7,6 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    1
     
     
     <color name="primary">#151729</color>
@@ -18,4 +17,5 @@
     <color name="normal_text">#FFFFFF</color>
     <color name="small_text">#B7B3B3</color>
     <color name="line">#8D5F5959</color>
+    <color name="transparent">#00FFFFFF</color>
 </resources>

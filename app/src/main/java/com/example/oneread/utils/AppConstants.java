@@ -2,7 +2,7 @@ package com.example.oneread.utils;
 
 public final class AppConstants {
 
-    public static final String baseUrl = "http://192.168.1.12:3000/";
+    public static final String baseUrl = "https://one-read-v2.herokuapp.com";
     public static final String DB_NAME = "BOOK_DB";
     public static final String DOWNLOAD_PATH = "/OneRead/";
 

@@ -13,6 +13,19 @@
         <item name="android:textCursorDrawable">@drawable/cursor_edittext</item>
         <item name="android:padding">10dp</item>
         <item name="android:textSize">@dimen/normal_text</item>
+        <item name="android:textColorHint">@color/small_text</item>
+    </style>
+
+    <style name="LineEditText" parent="Widget.AppCompat.EditText">
+        <item name="backgroundTint">@color/foreground</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:inputType">text</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:textColor">@color/normal_text</item>
+        <item name="android:textCursorDrawable">@drawable/cursor_edittext</item>
+        <item name="android:padding">10dp</item>
+        <item name="android:textSize">@dimen/normal_text</item>
+        <item name="android:textColorHint">@color/small_text</item>
     </style>
 
     <style name="MyCard" parent="CardView">
@@ -42,6 +55,16 @@
         <item name="colorControlActivated">@color/foreground</item>
         <item name="colorSwitchThumbNormal">@color/icon</item>
         <item name="android:colorForeground">@color/foreground</item>
+    </style>
+
+    <style name="HighLightButton" parent="Widget.AppCompat.Button">
+        <item name="android:background">@drawable/highlight_button_background</item>
+        <item name="android:textColor">@color/normal_text</item>
+    </style>
+
+    <style name="LowLightButton" parent="Widget.AppCompat.Button">
+        <item name="android:background">@drawable/lowlight_button_background</item>
+        <item name="android:textColor">@color/normal_text</item>
     </style>
 
 </resources>
