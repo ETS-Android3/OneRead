@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.RelativeLayout;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -182,5 +183,12 @@ public abstract class BaseDialog extends DialogFragment implements BaseContract.
             return baseActivity.isWriteExternalStorage();
         }
         return false;
+    }
+
+    @Override
+    public void hideKeyBoard() {
+        if (baseActivity != null) {
+            baseActivity.hideKeyBoard();
+        }
     }
 }

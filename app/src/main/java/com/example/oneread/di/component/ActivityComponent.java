@@ -2,6 +2,8 @@ package com.example.oneread.di.component;
 
 import com.example.oneread.di.anotation.ActivityScope;
 import com.example.oneread.di.module.ActivityModule;
+import com.example.oneread.ui.listbook.ListBookActivity;
+import com.example.oneread.ui.listbook.search.SearchFragment;
 import com.example.oneread.ui.login.LoginActivity;
 import com.example.oneread.ui.login.fragment.signin.SignInFragment;
 import com.example.oneread.ui.login.fragment.signup.SignUpFragment;
@@ -19,5 +21,9 @@ public interface ActivityComponent {
     void inject(SignInFragment signInFragment);
 
     void inject(SignUpFragment signUpFragment);
+
+    void inject(ListBookActivity listBookActivity);
+
+    void inject(SearchFragment searchFragment);
 
 }

@@ -21,6 +21,7 @@ import com.bumptech.glide.Glide;
 import com.example.oneread.R;
 import com.example.oneread.data.network.model.User;
 import com.example.oneread.ui.base.BaseActivity;
+import com.example.oneread.ui.listbook.ListBookActivity;
 import com.example.oneread.ui.login.LoginActivity;
 import com.example.oneread.utils.AppConstants;
 import com.google.android.material.navigation.NavigationView;
@@ -134,7 +135,7 @@ public class MainActivity  extends BaseActivity implements MainContract.View, Vi
 
     @Override
     public void openSearchActivity() {
-//        startActivity(new Intent(this, SearchActivity.class));
+        startActivity(new Intent(this, ListBookActivity.class));
     }
 
     @Override

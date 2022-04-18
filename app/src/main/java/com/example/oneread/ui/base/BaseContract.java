@@ -36,6 +36,8 @@ public interface BaseContract {
 
         boolean isWriteExternalStorage();
 
+        void hideKeyBoard();
+
     }
 
     interface DialogView extends View {

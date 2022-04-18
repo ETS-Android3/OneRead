@@ -23,6 +23,11 @@ public class Genre implements Parcelable {
 
     }
 
+    public Genre(Genre genre) {
+        this.endpoint = genre.getEndpoint();
+        this.title = genre.getTitle();
+        this.description = genre.getDescription();
+    }
 
     protected Genre(Parcel in) {
         title = in.readString();

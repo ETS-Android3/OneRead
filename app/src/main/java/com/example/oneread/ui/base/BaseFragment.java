@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 import androidx.fragment.app.Fragment;
@@ -159,5 +160,10 @@ public abstract class BaseFragment extends Fragment implements BaseContract.View
         return false;
     }
 
-
+    @Override
+    public void hideKeyBoard() {
+        if (activity != null) {
+            activity.hideKeyBoard();
+        }
+    }
 }

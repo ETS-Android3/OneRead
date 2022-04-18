@@ -3,6 +3,7 @@ package com.example.oneread.ui.base;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 import androidx.fragment.app.Fragment;
@@ -150,5 +151,12 @@ public abstract class BaseBottomSheet extends BottomSheetDialogFragment implemen
             return baseActivity.isWriteExternalStorage();
         }
         return false;
+    }
+
+    @Override
+    public void hideKeyBoard() {
+        if (baseActivity != null) {
+            baseActivity.hideKeyBoard();
+        }
     }
 }

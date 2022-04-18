@@ -24,6 +24,7 @@ public class BasePresenter<V extends BaseContract.View> implements BaseContract.
     @Override
     public void onDetach() {
         view = null;
+        compositeDisposable.dispose();
     }
 
     public boolean isViewAttached() {
