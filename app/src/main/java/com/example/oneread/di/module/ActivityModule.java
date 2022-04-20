@@ -3,7 +3,7 @@ package com.example.oneread.di.module;
 import android.content.Context;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.oneread.di.anotation.ActivityContext;
-import com.example.oneread.ui.login.LoginPagerAdapter;
+import com.example.oneread.ui.base.PagerAdapter;
 import dagger.Module;
 import dagger.Provides;
 import io.reactivex.disposables.CompositeDisposable;
@@ -32,8 +32,8 @@ public class ActivityModule {
     }
 
     @Provides
-    LoginPagerAdapter provideLoginPagerAdapter(AppCompatActivity activity) {
-        return new LoginPagerAdapter(activity);
+    PagerAdapter provideLoginPagerAdapter(AppCompatActivity activity) {
+        return new PagerAdapter(activity);
     }
 
 }

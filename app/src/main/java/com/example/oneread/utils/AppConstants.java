@@ -24,5 +24,7 @@ public final class AppConstants {
 
     public static final String TIMESTAMP_FORMAT = "dd-MM-yyyy HH:mm:ss";
 
+    public static MODE mode = MODE.OFFLINE;
+
     private AppConstants() {}
 }

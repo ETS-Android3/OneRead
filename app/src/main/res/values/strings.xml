@@ -100,4 +100,6 @@
     <string name="reply">Trả lời</string>
     <string name="top_search">Sách được tìm kiếm nhiều nhất</string>
     <string name="result">Kết quá tìm kiếm</string>
+    <string name="about">About</string>
+    <string name="chapter">Chapter</string>
 </resources>

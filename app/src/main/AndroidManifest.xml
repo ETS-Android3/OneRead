@@ -19,7 +19,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.OneRead"
         android:usesCleartextTraffic="true"
-        tools:ignore="UnusedAttribute">
+        tools:ignore="UnusedAttribute"
+        tools:replace="android:allowBackup">
+        <activity
+            android:name=".ui.detail.DetailActivity"
+            android:exported="true" >
+
+        </activity>
         <activity
             android:name=".ui.listbook.ListBookActivity"
             android:exported="true" />

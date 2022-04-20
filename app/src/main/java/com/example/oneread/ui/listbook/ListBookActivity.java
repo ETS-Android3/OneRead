@@ -174,4 +174,10 @@ public class ListBookActivity extends BaseActivity implements ListBookContract.V
                 .hide(searchFragment).commit();
         mainLayout.setVisibility(View.VISIBLE);
     }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        if (mainLayout.getVisibility() == View.GONE) closeFragmentSearch();
+    }
 }

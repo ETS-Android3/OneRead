@@ -11,6 +11,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.oneread.R;
 import com.example.oneread.data.network.model.Book;
+import com.example.oneread.ui.detail.DetailActivity;
+import com.example.oneread.utils.MODE;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -54,10 +56,10 @@ public class ListBookAdapter extends RecyclerView.Adapter<ListBookAdapter.ViewHo
             title_comic = itemView.findViewById(R.id.title_comic);
 
             itemView.setOnClickListener(v -> {
-//                    Intent intent = new Intent(context, DetailActivity.class);
-//                    intent.putExtra("endpoint", books.get(getAdapterPosition()).getEndpoint());
-//                    intent.putExtra("mode", MODE.ONLINE);
-//                    context.startActivity(intent);
+                    Intent intent = new Intent(context, DetailActivity.class);
+                    intent.putExtra("endpoint", books.get(getAdapterPosition()).getEndpoint());
+                    intent.putExtra("mode", MODE.ONLINE);
+                    context.startActivity(intent);
             });
         }
     }

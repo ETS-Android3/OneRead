@@ -6,6 +6,7 @@ import androidx.viewpager2.widget.ViewPager2;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.example.oneread.R;
+import com.example.oneread.ui.base.PagerAdapter;
 import com.example.oneread.ui.base.BaseActivity;
 import com.example.oneread.ui.login.fragment.signin.SignInFragment;
 import com.example.oneread.ui.login.fragment.signup.SignUpFragment;
@@ -19,7 +20,7 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
     LoginPresenter<LoginContract.View> presenter;
 
     @Inject
-    LoginPagerAdapter loginPagerAdapter;
+    PagerAdapter pagerAdapter;
 
     @BindView(R.id.viewpager)
     public ViewPager2 viewpager;
@@ -43,11 +44,11 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
 
     @Override
     protected void setup() {
-        loginPagerAdapter = new LoginPagerAdapter(this);
-        loginPagerAdapter.addFragment(new SignInFragment());
-        loginPagerAdapter.addFragment(new SignUpFragment());
+        pagerAdapter = new PagerAdapter(this);
+        pagerAdapter.addFragment(new SignInFragment());
+        pagerAdapter.addFragment(new SignUpFragment());
         viewpager.setUserInputEnabled(false);
-        viewpager.setAdapter(loginPagerAdapter);
+        viewpager.setAdapter(pagerAdapter);
     }
 
     @Override

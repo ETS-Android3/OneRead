@@ -11,4 +11,5 @@
     <dimen name="small_text">@dimen/_10sdp</dimen>
     <dimen name="line">1dp</dimen>
     <dimen name="icon">@dimen/_12sdp</dimen>
+    <dimen name="large_icon">@dimen/_24sdp</dimen>
 </resources>

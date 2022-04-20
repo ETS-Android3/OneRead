@@ -3,7 +3,6 @@ package com.example.oneread.ui.listbook.search;
 import android.annotation.SuppressLint;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,13 +21,11 @@ import com.example.oneread.data.db.HistorySearch;
 import com.example.oneread.data.network.model.Book;
 import com.example.oneread.data.network.model.Genre;
 import com.example.oneread.ui.base.BaseFragment;
+import com.example.oneread.ui.base.RoundBookAdapter;
 import com.example.oneread.ui.listbook.ListBookActivity;
 import com.google.gson.Gson;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.nex3z.flowlayout.FlowLayout;
-import org.json.JSONArray;
 
 import javax.inject.Inject;
 import java.util.*;
@@ -97,7 +94,7 @@ public class SearchFragment extends BaseFragment implements SearchContract.View,
 
 
         recyclerViewTopSearch.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.HORIZONTAL, false));
-        recyclerViewTopSearch.setAdapter(new TopSearchAdapter(getContext(), topSearch));
+        recyclerViewTopSearch.setAdapter(new RoundBookAdapter(getContext(), topSearch));
         presenter.getTopSearch();
         presenter.getGenres();
         presenter.loadHistorySearch();
