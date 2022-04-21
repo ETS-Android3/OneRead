@@ -53,6 +53,9 @@ public interface IServiceAPI {
     @GET("book/suggest-book")
     Observable<Response<Book>> suggestBooks(@Header("Authorization") String auth);
 
+    @GET("book/top-view-day")
+    Observable<Response<Book>> trending();
+
     @GET("book/top-search")
     Observable<Response<Book>> getTopSearch();
 

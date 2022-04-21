@@ -96,10 +96,11 @@
     <string name="bookcase">Tủ sách</string>
     <string name="cancel">Cancel</string>
     <string name="submit">Submit</string>
-    <string name="following">Đang follow</string>
+    <string name="following">Sách đang theo dõi</string>
     <string name="reply">Trả lời</string>
     <string name="top_search">Sách được tìm kiếm nhiều nhất</string>
     <string name="result">Kết quá tìm kiếm</string>
     <string name="about">About</string>
     <string name="chapter">Chapter</string>
+    <string name="recent">Sách mới đọc gần đây</string>
 </resources>

@@ -62,6 +62,8 @@ public class ApiHelper {
         return iServiceAPI.suggestBooks(auth);
     }
 
+    public Observable<Response<Book>> getTrending() {return iServiceAPI.trending();}
+
     public Observable<Response<Book>> topSearch() {
         return iServiceAPI.getTopSearch();
     }

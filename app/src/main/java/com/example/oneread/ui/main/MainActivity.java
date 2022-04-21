@@ -2,6 +2,7 @@ package com.example.oneread.ui.main;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.Color;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -15,20 +16,28 @@ import android.os.Bundle;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.cardview.widget.CardView;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager2.widget.CompositePageTransformer;
+import androidx.viewpager2.widget.MarginPageTransformer;
+import androidx.viewpager2.widget.ViewPager2;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.bumptech.glide.Glide;
 import com.example.oneread.R;
+import com.example.oneread.data.network.model.Book;
 import com.example.oneread.data.network.model.User;
 import com.example.oneread.ui.base.BaseActivity;
+import com.example.oneread.ui.base.RectBookAdapter;
 import com.example.oneread.ui.bookcase.BookCaseActivity;
 import com.example.oneread.ui.listbook.ListBookActivity;
 import com.example.oneread.ui.login.LoginActivity;
+import com.example.oneread.ui.main.slider.SliderAdapter;
 import com.example.oneread.utils.AppConstants;
 import com.google.android.material.navigation.NavigationView;
 import com.makeramen.roundedimageview.RoundedImageView;
 
 import javax.inject.Inject;
+import java.util.List;
 
 @SuppressLint("NonConstantResourceId")
 public class MainActivity  extends BaseActivity implements MainContract.View, View.OnClickListener {
@@ -48,6 +57,8 @@ public class MainActivity  extends BaseActivity implements MainContract.View, Vi
     TextView btnLogout;
     @BindView(R.id.search)
     CardView cardSearch;
+    @BindView(R.id.slider)
+    ViewPager2 sliderView;
 
     private RoundedImageView navAvatar;
     private TextView navUsername;
@@ -75,6 +86,7 @@ public class MainActivity  extends BaseActivity implements MainContract.View, Vi
         setupView();
         setupNavMenu();
         presenter.onNavMenuCreated();
+        presenter.getTrending();
     }
 
     private void setupView() {
@@ -189,6 +201,53 @@ public class MainActivity  extends BaseActivity implements MainContract.View, Vi
     public void closeNavigationDrawer() {
         if (drawerLayout!= null && drawerLayout.isOpen())
             drawerLayout.close();
+    }
+
+    @Override
+    public void setTrending(List<Book> books) {
+        SliderAdapter adapter = new SliderAdapter(this, books);
+
+        sliderView.setAdapter(adapter);
+
+        sliderView.setClipToPadding(false);
+        sliderView.setClipChildren(false);
+        sliderView.setOffscreenPageLimit(2);
+        sliderView.getChildAt(0).setOverScrollMode(View.OVER_SCROLL_NEVER);
+        sliderView.setCurrentItem(1);
+
+        CompositePageTransformer compositePageTransformer = new CompositePageTransformer();
+        compositePageTransformer.addTransformer(new MarginPageTransformer(60));
+        compositePageTransformer.addTransformer((page, position) -> {
+            float MIN_SCALE = 0.75f;
+            int pageWidth = page.getWidth();
+            int pageHeight = page.getHeight();
+
+            float scaleFactor = Math.max(MIN_SCALE, 1 - Math.abs(position));
+            float vertMargin = pageHeight * (1 - scaleFactor) / 2;
+            float horzMargin = pageWidth * (1 - scaleFactor) / 2;
+            if (position < 0) {
+                page.setTranslationX(horzMargin - vertMargin / 2);
+            } else {
+                page.setTranslationX(-horzMargin + vertMargin / 2);
+            }
+
+            // Scale the page down (between MIN_SCALE and 1)
+            page.setScaleX(scaleFactor);
+            page.setScaleY(scaleFactor);
+            page.setAlpha(1f);
+        });
+
+        sliderView.setPageTransformer(compositePageTransformer);
+    }
+
+    @Override
+    public void setSuggest(List<Book> books) {
+
+    }
+
+    @Override
+    public void setFollowing(List<Book> books) {
+
     }
 
     @Override

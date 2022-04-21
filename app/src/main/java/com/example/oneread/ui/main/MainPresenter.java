@@ -3,9 +3,15 @@ package com.example.oneread.ui.main;
 import android.os.Handler;
 import android.util.Log;
 import androidx.appcompat.app.AppCompatDelegate;
+import com.example.oneread.R;
 import com.example.oneread.data.DataManager;
+import com.example.oneread.data.network.model.User;
 import com.example.oneread.ui.base.BasePresenter;
+import com.google.gson.JsonParser;
+import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.schedulers.Schedulers;
+import retrofit2.HttpException;
 
 import javax.inject.Inject;
 import java.util.Arrays;
@@ -69,5 +75,103 @@ public class MainPresenter<V extends MainContract.View> extends BasePresenter<V>
         }
         getView().setThemeMode(getDataManager().getNightMode());
 
+    }
+
+    @Override
+    public void getTrending() {
+        if (getView().isNetworkConnected()) {
+            try {
+                getCompositeDisposable().add(getDataManager().requestTrending()
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(response -> {
+                            getView().setTrending(response.getData());
+                        }, err -> {
+                            if (err instanceof HttpException) {
+                                HttpException response = (HttpException) err;
+                                String message = String.valueOf(JsonParser.parseString(response.response().errorBody().string()).getAsJsonObject().get("message"));
+                                getView().onError(message);
+                            } else {
+                                Log.e(TAG, err.getMessage());
+                                err.printStackTrace();
+                                getView().onError(err.getMessage());
+                            }
+                        }));
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+                Log.e(TAG, e.getMessage());
+                e.printStackTrace();
+            }
+        }
+    }
+
+    @Override
+    public void getSuggest() {
+        User user = getDataManager().getCurrentUser();
+        if (user == null || user.getUsername().equals("")) {
+            return;
+        }
+        if (getView().isNetworkConnected()) {
+            try {
+                getCompositeDisposable().add(getDataManager().requestSuggestBooks(user.getAuthorizeToken())
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(response -> {
+                            getView().setSuggest(response.getData());
+                        }, err -> {
+                            try {
+                                if (err instanceof HttpException) {
+                                    HttpException response = (HttpException) err;
+                                    String message = (JsonParser.parseString(response.response().errorBody().string()).getAsJsonObject().get("message")).getAsString();
+                                    getView().onError(message);
+                                } else {
+                                    Log.e(TAG, err.getMessage());
+                                    err.printStackTrace();
+                                    getView().onError(err.getMessage());
+                                }
+                            } catch (Exception e) {
+                                System.out.println(e.getMessage());
+                                Log.e(TAG, e.getMessage());
+                                e.printStackTrace();
+                            }
+                        }));
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+                Log.e(TAG, e.getMessage());
+                e.printStackTrace();
+            }
+        }
+    }
+
+    @Override
+    public void getFollowing() {
+        User user = getDataManager().getCurrentUser();
+        if (user == null || user.getUsername().equals("")) {
+            return;
+        }
+        if (getView().isNetworkConnected()) {
+            try {
+                getCompositeDisposable().add(getDataManager().requestListBookFollowing(user.getAuthorizeToken())
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(response -> {
+                            getView().setFollowing(response.getData());
+                        }, err -> {
+                            if (err instanceof HttpException) {
+                                HttpException response = (HttpException) err;
+                                String message = String.valueOf(JsonParser.parseString(response.response().errorBody().string()).getAsJsonObject().get("message"));
+                                getView().onError(message);
+                            } else {
+                                Log.e(TAG, err.getMessage());
+                                err.printStackTrace();
+                                getView().onError(err.getMessage());
+                            }
+                        }));
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+                Log.e(TAG, e.getMessage());
+                e.printStackTrace();
+            }
+        }
     }
 }

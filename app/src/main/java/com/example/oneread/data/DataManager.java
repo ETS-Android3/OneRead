@@ -130,6 +130,8 @@ public class DataManager {
 
     public Observable<Response<Book>> requestSuggestBooks(String auth) {return apiHelper.getSuggestBooks(auth);}
 
+    public Observable<Response<Book>> requestTrending() {return apiHelper.getTrending();}
+
     public Observable<Response<Book>> requestTopSearch() {return apiHelper.topSearch();}
 
     public Observable<Response<Book>> requestRelateBooks(String bookEndpoint) {return apiHelper.relateBooks(bookEndpoint);}

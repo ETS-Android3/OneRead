@@ -1,7 +1,10 @@
 package com.example.oneread.ui.main;
 
+import com.example.oneread.data.network.model.Book;
 import com.example.oneread.data.network.model.User;
 import com.example.oneread.ui.base.BaseContract;
+
+import java.util.List;
 
 public interface MainContract {
     interface View extends BaseContract.View {
@@ -21,6 +24,12 @@ public interface MainContract {
         void openNavigationDrawer();
 
         void closeNavigationDrawer();
+
+        void setTrending(List<Book> books);
+
+        void setSuggest(List<Book> books);
+
+        void setFollowing(List<Book> books);
     }
 
     interface Presenter <V extends View> extends BaseContract.Presenter<V> {
@@ -40,6 +49,12 @@ public interface MainContract {
         void onNavMenuCreated();
 
         void switchThemeMode();
+
+        void getTrending();
+
+        void getSuggest();
+
+        void getFollowing();
 
     }
 }
