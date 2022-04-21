@@ -2,6 +2,7 @@ package com.example.oneread.di.component;
 
 import com.example.oneread.di.anotation.ActivityScope;
 import com.example.oneread.di.module.ActivityModule;
+import com.example.oneread.ui.bookcase.BookCaseActivity;
 import com.example.oneread.ui.delete.DeleteChapterActivity;
 import com.example.oneread.ui.detail.DetailActivity;
 import com.example.oneread.ui.detail.chapter.ListChapterFragment;
@@ -49,4 +50,6 @@ public interface ActivityComponent {
     void inject(DeleteChapterActivity deleteChapterActivity);
 
     void inject(ChapterActivity chapterActivity);
+
+    void inject(BookCaseActivity bookCaseActivity);
 }

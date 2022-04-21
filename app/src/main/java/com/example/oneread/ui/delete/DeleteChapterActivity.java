@@ -20,11 +20,9 @@ import com.example.oneread.ui.base.BaseActivity;
 import com.example.oneread.utils.AppConstants;
 
 import javax.inject.Inject;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
+@SuppressLint("NonConstantResourceId")
 public class DeleteChapterActivity extends BaseActivity implements DeleteChapterContract.View,
         View.OnClickListener, DeleteChapterAdapter.Callback {
 
@@ -42,7 +40,6 @@ public class DeleteChapterActivity extends BaseActivity implements DeleteChapter
     @BindView(R.id.recycler)
     RecyclerView recyclerView;
 
-    private DeleteChapterAdapter adapter;
     private Book book;
     private List<Boolean> listChecked;
 
@@ -68,11 +65,11 @@ public class DeleteChapterActivity extends BaseActivity implements DeleteChapter
     protected void setup() {
         setupView();
 
-        book = (Book) getIntent().getSerializableExtra("book");
+        book = getIntent().getParcelableExtra("book");
         listChecked = new ArrayList<>(Arrays.asList(new Boolean[book.getChapters().size()]));
         Collections.fill(listChecked, Boolean.FALSE);
         presenter.loadDownloadedChapter(book.getEndpoint());
-        adapter = new DeleteChapterAdapter(this, book.getChapters(), listChecked);
+        DeleteChapterAdapter adapter = new DeleteChapterAdapter(this, book.getChapters(), listChecked);
         adapter.setCallback(this);
         recyclerView.setNestedScrollingEnabled(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -85,22 +82,21 @@ public class DeleteChapterActivity extends BaseActivity implements DeleteChapter
     private void setupView() {
         btnCheckAll.setOnClickListener(this);
         btnDelete.setOnClickListener(this);
-        toolbar.setNavigationOnClickListener(v -> {
-            finish();
-        });
+        toolbar.setNavigationOnClickListener(v -> finish());
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     @Override
     public void setDownloadChapter(LiveData<List<DownloadChapter>> downloadChapter) {
         downloadChapter.observe(this, downloadChapters -> {
             book.getChapters().clear();
-            for(int i=0; i<downloadChapters.size(); i++) {
+            for (DownloadChapter value : downloadChapters) {
                 Chapter chapter = new Chapter();
-                chapter.setChapterEndpoint(downloadChapters.get(i).chapter_endpoint);
-                chapter.setBookEndpoint(downloadChapters.get(i).book_endpoint);
-                chapter.setTitle(downloadChapters.get(i).title);
-                chapter.setTime(downloadChapters.get(i).time);
-                chapter.setImages(downloadChapters.get(i).images);
+                chapter.setChapterEndpoint(value.chapter_endpoint);
+                chapter.setBookEndpoint(value.book_endpoint);
+                chapter.setTitle(value.title);
+                chapter.setTime(value.time);
+                chapter.setImages(value.images);
                 book.getChapters().add(chapter);
                 listChecked.add(false);
             }
@@ -155,6 +151,7 @@ public class DeleteChapterActivity extends BaseActivity implements DeleteChapter
         }
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     private void setCheckedAll() {
         if(((int) btnCheckAll.getTag()) == R.drawable.ic_uncheck){
             btnCheckAll.setImageResource(R.drawable.ic_check);
@@ -170,7 +167,7 @@ public class DeleteChapterActivity extends BaseActivity implements DeleteChapter
             }
         }
 
-        recyclerView.getAdapter().notifyDataSetChanged();
+        Objects.requireNonNull(recyclerView.getAdapter()).notifyDataSetChanged();
     }
 
     @Override

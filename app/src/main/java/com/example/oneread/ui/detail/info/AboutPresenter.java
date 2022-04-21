@@ -64,7 +64,7 @@ public class AboutPresenter <V extends AboutContract.View> extends BasePresenter
                 e.printStackTrace();
             }
         } else {
-            getView().showMessage(R.string.network_required);
+//            getView().showMessage(R.string.network_required);
         }
     }
 
@@ -105,7 +105,7 @@ public class AboutPresenter <V extends AboutContract.View> extends BasePresenter
                 e.printStackTrace();
             }
         } else {
-            getView().showMessage(R.string.network_required);
+//            getView().showMessage(R.string.network_required);
         }
 
     }
@@ -224,7 +224,7 @@ public class AboutPresenter <V extends AboutContract.View> extends BasePresenter
                 e.printStackTrace();
             }
         } else {
-            getView().showMessage(R.string.network_required);
+//            getView().showMessage(R.string.network_required);
         }
     }
 }

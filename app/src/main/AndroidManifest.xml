@@ -4,6 +4,7 @@
     package="com.example.oneread">
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_MEDIA_LOCATION" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -22,10 +23,13 @@
         tools:ignore="UnusedAttribute"
         tools:replace="android:allowBackup">
         <activity
+            android:name=".ui.bookcase.BookCaseActivity"
+            android:exported="true" />
+        <activity
             android:name=".ui.read.ChapterActivity"
             android:exported="true" />
         <activity
-            android:name=".ui.detail.delete.DeleteChapterActivity"
+            android:name=".ui.delete.DeleteChapterActivity"
             android:exported="true" />
         <activity
             android:name=".ui.download.DownloadChapterActivity"

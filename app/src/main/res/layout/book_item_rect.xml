@@ -10,10 +10,10 @@
 
     <ImageView
         android:id="@+id/thumb"
-        android:scaleType="fitXY"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:src="@drawable/background"/>
+        android:scaleType="fitXY"
+        android:src="@drawable/background" />
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"

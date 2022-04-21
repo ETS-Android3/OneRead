@@ -61,7 +61,7 @@ public class CommentPresenter<V extends CommentContract.View> extends BasePresen
                 e.printStackTrace();
             }
         } else {
-            getView().showMessage(R.string.network_required);
+            getView().showEmptyView();
         }
     }
 
