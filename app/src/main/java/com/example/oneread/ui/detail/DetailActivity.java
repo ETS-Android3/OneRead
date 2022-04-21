@@ -1,6 +1,7 @@
 package com.example.oneread.ui.detail;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,11 +15,14 @@ import butterknife.ButterKnife;
 import com.bumptech.glide.Glide;
 import com.example.oneread.R;
 import com.example.oneread.data.network.model.Book;
+import com.example.oneread.data.network.model.Chapter;
 import com.example.oneread.ui.base.BaseActivity;
 import com.example.oneread.ui.base.PagerAdapter;
+import com.example.oneread.ui.delete.DeleteChapterActivity;
 import com.example.oneread.ui.detail.chapter.ListChapterFragment;
 import com.example.oneread.ui.detail.comment.CommentFragment;
 import com.example.oneread.ui.detail.info.AboutFragment;
+import com.example.oneread.ui.download.DownloadChapterActivity;
 import com.example.oneread.utils.MODE;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
@@ -26,6 +30,7 @@ import eightbitlab.com.blurview.BlurView;
 import eightbitlab.com.blurview.RenderScriptBlur;
 
 import javax.inject.Inject;
+import java.util.List;
 
 @SuppressLint("NonConstantResourceId")
 public class DetailActivity extends BaseActivity implements DetailContract.View, View.OnClickListener{
@@ -160,11 +165,19 @@ public class DetailActivity extends BaseActivity implements DetailContract.View,
         if (mode == MODE.ONLINE) {
             Glide.with(this).load(book.getThumb()).placeholder(R.drawable.image_loading).error(R.drawable.image_err).into(thumb);
             Glide.with(this).load(book.getTheme()).placeholder(R.drawable.image_loading).error(R.drawable.image_err).into(theme);
+
+            presenter.getChaptersOnline(book.getEndpoint());
         } else {
             Glide.with(this).load(book.getThumb()).placeholder(R.drawable.image_loading).error(R.drawable.image_err).into(thumb);
             Glide.with(this).load(book.getTheme()).placeholder(R.drawable.image_loading).error(R.drawable.image_err).into(theme);
-        }
 
+            presenter.getChaptersOffline(book.getEndpoint());
+        }
+    }
+
+    @Override
+    public void setChapters(List<Chapter> chapters) {
+        book.getChapters().addAll(chapters);
 
         pagerAdapter.addFragment(new AboutFragment(this.book));
         pagerAdapter.addFragment(new ListChapterFragment(this.book, mode));
@@ -180,11 +193,20 @@ public class DetailActivity extends BaseActivity implements DetailContract.View,
 
     @Override
     public void onClick(View view) {
+        Intent intent;
         switch (view.getId()) {
             case R.id.btn_back:
                 finish();
                 break;
             case R.id.btn_download:
+                intent = new Intent(this, DownloadChapterActivity.class);
+                intent.putExtra("book", book);
+                startActivity(intent);
+                break;
+            case R.id.btn_delete:
+                intent = new Intent(this, DeleteChapterActivity.class);
+                intent.putExtra("book", book);
+                startActivity(intent);
                 break;
             default:
                 break;

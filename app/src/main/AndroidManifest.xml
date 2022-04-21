@@ -22,10 +22,14 @@
         tools:ignore="UnusedAttribute"
         tools:replace="android:allowBackup">
         <activity
+            android:name=".ui.detail.delete.DeleteChapterActivity"
+            android:exported="true" />
+        <activity
+            android:name=".ui.download.DownloadChapterActivity"
+            android:exported="true" />
+        <activity
             android:name=".ui.detail.DetailActivity"
-            android:exported="true" >
-
-        </activity>
+            android:exported="true" />
         <activity
             android:name=".ui.listbook.ListBookActivity"
             android:exported="true" />

@@ -2,11 +2,13 @@ package com.example.oneread.di.component;
 
 import com.example.oneread.di.anotation.ActivityScope;
 import com.example.oneread.di.module.ActivityModule;
+import com.example.oneread.ui.delete.DeleteChapterActivity;
 import com.example.oneread.ui.detail.DetailActivity;
 import com.example.oneread.ui.detail.chapter.ListChapterFragment;
 import com.example.oneread.ui.detail.comment.CommentFragment;
 import com.example.oneread.ui.detail.info.AboutFragment;
 import com.example.oneread.ui.detail.rating.RateDialog;
+import com.example.oneread.ui.download.DownloadChapterActivity;
 import com.example.oneread.ui.listbook.ListBookActivity;
 import com.example.oneread.ui.listbook.search.SearchFragment;
 import com.example.oneread.ui.login.LoginActivity;
@@ -40,5 +42,9 @@ public interface ActivityComponent {
     void inject(ListChapterFragment chapterFragment);
 
     void inject(CommentFragment commentFragment);
+
+    void inject(DownloadChapterActivity downloadChapterActivity);
+
+    void inject(DeleteChapterActivity deleteChapterActivity);
 
 }

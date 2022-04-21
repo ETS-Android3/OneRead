@@ -64,4 +64,39 @@ public class DetailPresenter <V extends DetailContract.View> extends BasePresent
         getView().setBook(getDataManager().getDetailDownloadBook(book_endpoint));
         getView().hideLoading();
     }
+
+    @Override
+    public void getChaptersOnline(String bookEndpoint) {
+        if (getView().isNetworkConnected()) {
+            try {
+                getCompositeDisposable().add(getDataManager().requestChapters(bookEndpoint)
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(response -> {
+                            getView().setChapters(response.getData());
+                        }, err -> {
+                            if (err instanceof HttpException) {
+                                HttpException response = (HttpException) err;
+                                String message = String.valueOf(JsonParser.parseString(response.response().errorBody().string()).getAsJsonObject().get("message"));
+                                getView().onError(message);
+                            } else {
+                                Log.e(TAG, err.getMessage());
+                                err.printStackTrace();
+                                getView().onError(err.getMessage());
+                            }
+                        }));
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+                Log.e(TAG, e.getMessage());
+                e.printStackTrace();
+            }
+        } else {
+            getView().showMessage(R.string.network_required);
+        }
+    }
+
+    @Override
+    public void getChaptersOffline(String bookEndpoint) {
+        getView().setChapters(getDataManager().getChapterOfDownloadedBook(bookEndpoint));
+    }
 }
