@@ -18,4 +18,5 @@
     <color name="small_text">#B7B3B3</color>
     <color name="line">#8D5F5959</color>
     <color name="transparent">#00FFFFFF</color>
+    <color name="novel_page_color">#DCD7C6</color>
 </resources>

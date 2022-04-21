@@ -22,6 +22,9 @@
         tools:ignore="UnusedAttribute"
         tools:replace="android:allowBackup">
         <activity
+            android:name=".ui.read.ChapterActivity"
+            android:exported="true" />
+        <activity
             android:name=".ui.detail.delete.DeleteChapterActivity"
             android:exported="true" />
         <activity

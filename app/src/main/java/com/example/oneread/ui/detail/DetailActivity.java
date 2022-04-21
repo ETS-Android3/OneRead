@@ -19,10 +19,12 @@ import com.example.oneread.data.network.model.Chapter;
 import com.example.oneread.ui.base.BaseActivity;
 import com.example.oneread.ui.base.PagerAdapter;
 import com.example.oneread.ui.delete.DeleteChapterActivity;
+import com.example.oneread.ui.detail.chapter.ListChapterAdapter;
 import com.example.oneread.ui.detail.chapter.ListChapterFragment;
 import com.example.oneread.ui.detail.comment.CommentFragment;
 import com.example.oneread.ui.detail.info.AboutFragment;
 import com.example.oneread.ui.download.DownloadChapterActivity;
+import com.example.oneread.ui.read.ChapterActivity;
 import com.example.oneread.utils.MODE;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
@@ -33,7 +35,7 @@ import javax.inject.Inject;
 import java.util.List;
 
 @SuppressLint("NonConstantResourceId")
-public class DetailActivity extends BaseActivity implements DetailContract.View, View.OnClickListener{
+public class DetailActivity extends BaseActivity implements DetailContract.View, View.OnClickListener, ListChapterAdapter.Callback {
 
     private static final String TAG = "DetailActivity";
 
@@ -119,8 +121,6 @@ public class DetailActivity extends BaseActivity implements DetailContract.View,
         viewpager.setAdapter(pagerAdapter);
 
         root = findViewById(R.id.root);
-        tabBackground = findViewById(R.id.tab_background);
-        contentBackground = findViewById(R.id.content_background);
         tabBackground.setupWith(root)
                 .setFrameClearDrawable(getWindow().getDecorView().getBackground())
                 .setBlurAlgorithm(new RenderScriptBlur(this))
@@ -180,7 +180,7 @@ public class DetailActivity extends BaseActivity implements DetailContract.View,
         book.getChapters().addAll(chapters);
 
         pagerAdapter.addFragment(new AboutFragment(this.book));
-        pagerAdapter.addFragment(new ListChapterFragment(this.book, mode));
+        pagerAdapter.addFragment(new ListChapterFragment(this.book, mode, this));
         pagerAdapter.addFragment(new CommentFragment(this.book));
         pagerAdapter.notifyDataSetChanged();
         viewpager.setUserInputEnabled(false);
@@ -211,5 +211,24 @@ public class DetailActivity extends BaseActivity implements DetailContract.View,
             default:
                 break;
         }
+    }
+
+
+    @Override
+    public void onOfflineChapterClick(int position) {
+        Intent intent = new Intent(this, ChapterActivity.class);
+        intent.putExtra("position", position);
+        intent.putExtra("book", book);
+        intent.putExtra("mode", MODE.OFFLINE);
+        startActivity(intent);
+    }
+
+    @Override
+    public void onOnlineChapterClick(int position) {
+        Intent intent = new Intent(this, ChapterActivity.class);
+        intent.putExtra("position", position);
+        intent.putExtra("book", book);
+        intent.putExtra("mode", MODE.ONLINE);
+        startActivity(intent);
     }
 }

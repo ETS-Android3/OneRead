@@ -15,7 +15,16 @@ public class ListChapterAdapter extends RecyclerView.Adapter<ListChapterAdapter.
     Context context;
     Book book;
 
+    private Callback callback;
     private MODE mode;
+
+    public interface Callback {
+
+        void onOfflineChapterClick(int position);
+
+        void onOnlineChapterClick(int position);
+
+    }
 
 
     public ListChapterAdapter() {
@@ -54,12 +63,16 @@ public class ListChapterAdapter extends RecyclerView.Adapter<ListChapterAdapter.
 
             itemView.setOnClickListener(v -> {
                 if (mode == MODE.ONLINE) {
-
+                    callback.onOnlineChapterClick(getAdapterPosition());
                 } else {
-
+                    callback.onOfflineChapterClick(getAdapterPosition());
                 }
             });
         }
+    }
+
+    public void setCallback(Callback callback) {
+        this.callback = callback;
     }
 
 }
