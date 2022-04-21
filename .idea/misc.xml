@@ -51,7 +51,7 @@
         <entry key="..\:/Intellij-workspace/OneRead/app/src/main/res/layout/activity_donwload_chapter.xml" value="0.33" />
         <entry key="..\:/Intellij-workspace/OneRead/app/src/main/res/layout/activity_list_book.xml" value="0.25" />
         <entry key="..\:/Intellij-workspace/OneRead/app/src/main/res/layout/activity_login.xml" value="0.1390625" />
-        <entry key="..\:/Intellij-workspace/OneRead/app/src/main/res/layout/activity_main.xml" value="0.33" />
+        <entry key="..\:/Intellij-workspace/OneRead/app/src/main/res/layout/activity_main.xml" value="0.30724971231300346" />
         <entry key="..\:/Intellij-workspace/OneRead/app/src/main/res/layout/activity_search.xml" value="0.33" />
         <entry key="..\:/Intellij-workspace/OneRead/app/src/main/res/layout/book_item_circle.xml" value="0.1390625" />
         <entry key="..\:/Intellij-workspace/OneRead/app/src/main/res/layout/book_item_large_rect.xml" value="0.29322916666666665" />
@@ -68,6 +68,7 @@
         <entry key="..\:/Intellij-workspace/OneRead/app/src/main/res/layout/fragment_search.xml" value="0.2921875" />
         <entry key="..\:/Intellij-workspace/OneRead/app/src/main/res/layout/fragment_signin.xml" value="0.33" />
         <entry key="..\:/Intellij-workspace/OneRead/app/src/main/res/layout/fragment_signup.xml" value="0.29322916666666665" />
+        <entry key="..\:/Intellij-workspace/OneRead/app/src/main/res/layout/history_read_item.xml" value="0.29322916666666665" />
         <entry key="..\:/Intellij-workspace/OneRead/app/src/main/res/layout/item_comment_reply.xml" value="0.29322916666666665" />
         <entry key="..\:/Intellij-workspace/OneRead/app/src/main/res/layout/item_comment_root.xml" value="0.29322916666666665" />
         <entry key="..\:/Intellij-workspace/OneRead/app/src/main/res/layout/myswitch.xml" value="0.29322916666666665" />

@@ -11,7 +11,7 @@ public interface ChapterContract {
     }
     interface Presenter <V extends View> extends BaseContract.Presenter <V>{
 
-        void getChapterDetailOnline(Chapter chapter, boolean increaseView);
+        void getChapterDetailOnline(Chapter chapter);
 
         void getChapterDetailOffline(Chapter chapter);
 

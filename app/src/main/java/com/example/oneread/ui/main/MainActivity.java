@@ -2,17 +2,13 @@ package com.example.oneread.ui.main;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.graphics.Color;
 import android.view.Gravity;
 import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.Switch;
 import android.widget.TextView;
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.cardview.widget.CardView;
@@ -36,7 +32,8 @@ import com.example.oneread.ui.base.RoundBookAdapter;
 import com.example.oneread.ui.bookcase.BookCaseActivity;
 import com.example.oneread.ui.listbook.ListBookActivity;
 import com.example.oneread.ui.login.LoginActivity;
-import com.example.oneread.ui.main.slider.SliderAdapter;
+import com.example.oneread.ui.main.adapter.HistoryReadAdapter;
+import com.example.oneread.ui.main.adapter.SliderAdapter;
 import com.example.oneread.utils.AppConstants;
 import com.google.android.material.navigation.NavigationView;
 import com.makeramen.roundedimageview.RoundedImageView;
@@ -110,12 +107,12 @@ public class MainActivity  extends BaseActivity implements MainContract.View, Vi
         presenter.getSuggest();
         presenter.getRecent();
 
-        listFollowing.setLayoutManager(new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false));
-        listFollowing.setAdapter(new RoundBookAdapter(this, new ArrayList<>()));
+        listFollowing.setLayoutManager(new GridLayoutManager(this, 3));
+        listFollowing.setAdapter(new RectBookAdapter(this, new ArrayList<>()));
         listSuggest.setLayoutManager(new GridLayoutManager(this, 3));
         listSuggest.setAdapter(new RectBookAdapter(this, new ArrayList<>()));
-        listRecent.setLayoutManager(new GridLayoutManager(this, 3));
-        listRecent.setAdapter(new RectBookAdapter(this, new ArrayList<>()));
+        listRecent.setLayoutManager(new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false));
+        listRecent.setAdapter(new HistoryReadAdapter(this, new ArrayList<>()));
     }
 
     private void setupView() {
@@ -248,7 +245,7 @@ public class MainActivity  extends BaseActivity implements MainContract.View, Vi
         CompositePageTransformer compositePageTransformer = new CompositePageTransformer();
         compositePageTransformer.addTransformer(new MarginPageTransformer(60));
         compositePageTransformer.addTransformer((page, position) -> {
-            float MIN_SCALE = 0.75f;
+            float MIN_SCALE = 0.85f;
             int pageWidth = page.getWidth();
             int pageHeight = page.getHeight();
 
@@ -298,9 +295,9 @@ public class MainActivity  extends BaseActivity implements MainContract.View, Vi
             layoutFollowing.setVisibility(View.GONE);
         } else {
             layoutFollowing.setVisibility(View.VISIBLE);
-            ((RoundBookAdapter) Objects.requireNonNull(listFollowing.getAdapter())).getBooks().clear();
-            ((RoundBookAdapter) Objects.requireNonNull(listFollowing.getAdapter())).getBooks().addAll(books);
-            ((RoundBookAdapter) Objects.requireNonNull(listFollowing.getAdapter())).notifyDataSetChanged();
+            ((RectBookAdapter) Objects.requireNonNull(listFollowing.getAdapter())).getBooks().clear();
+            ((RectBookAdapter) Objects.requireNonNull(listFollowing.getAdapter())).getBooks().addAll(books);
+            ((RectBookAdapter) Objects.requireNonNull(listFollowing.getAdapter())).notifyDataSetChanged();
         }
     }
 
@@ -310,14 +307,10 @@ public class MainActivity  extends BaseActivity implements MainContract.View, Vi
         if (historyReads == null) {
             layoutRecent.setVisibility(View.GONE);
         } else {
-            List<Book> books = new ArrayList<>();
-            for (HistoryRead historyRead : historyReads) {
-                books.add(historyRead.getBook());
-            }
             layoutRecent.setVisibility(View.VISIBLE);
-            ((RectBookAdapter) Objects.requireNonNull(listRecent.getAdapter())).getBooks().clear();
-            ((RectBookAdapter) Objects.requireNonNull(listRecent.getAdapter())).getBooks().addAll(books);
-            ((RectBookAdapter) Objects.requireNonNull(listRecent.getAdapter())).notifyDataSetChanged();
+            ((HistoryReadAdapter) Objects.requireNonNull(listRecent.getAdapter())).getHistoryReads().clear();
+            ((HistoryReadAdapter) Objects.requireNonNull(listRecent.getAdapter())).getHistoryReads().addAll(historyReads);
+            ((HistoryReadAdapter) Objects.requireNonNull(listRecent.getAdapter())).notifyDataSetChanged();
         }
     }
 

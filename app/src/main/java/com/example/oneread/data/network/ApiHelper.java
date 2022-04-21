@@ -87,6 +87,10 @@ public class ApiHelper {
 
     public Observable<Response<Chapter>> chapter(String book_endpoint, String chapter_endpoint) {return iServiceAPI.detailChapter(book_endpoint, chapter_endpoint);}
 
+    public Observable<Response<Chapter>> chapter(String auth, String book_endpoint, String chapter_endpoint) {
+        return iServiceAPI.detailChapter(auth, book_endpoint, chapter_endpoint);
+    }
+
 
 
     public Observable<Response<Comment>> getComments(String book_endpoint) {return iServiceAPI.comments(book_endpoint);}

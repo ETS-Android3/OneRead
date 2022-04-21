@@ -1,6 +1,7 @@
-package com.example.oneread.ui.main.slider;
+package com.example.oneread.ui.main.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,7 +12,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.oneread.R;
 import com.example.oneread.data.network.model.Book;
-import com.makeramen.roundedimageview.RoundedImageView;
+import com.example.oneread.ui.detail.DetailActivity;
+import com.example.oneread.utils.MODE;
 
 import java.util.List;
 
@@ -34,6 +36,8 @@ public class SliderAdapter extends RecyclerView.Adapter<SliderAdapter.ViewHolder
 
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, final int position) {
+        viewHolder.title.setText(books.get(position).getTitle());
+        viewHolder.rating.setText(String.valueOf(books.get(position).getRating()));
         Glide.with(context).asBitmap().load(books.get(position).getThumb())
                 .override((int) context.getResources().getDimension(R.dimen._70sdp),
                         (int) context.getResources().getDimension(R.dimen._90sdp))
@@ -47,15 +51,21 @@ public class SliderAdapter extends RecyclerView.Adapter<SliderAdapter.ViewHolder
         return books.size();
     }
 
-    static class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder {
         ImageView thumb;
+        TextView title, rating;
 
         public ViewHolder(View itemView) {
             super(itemView);
             thumb = itemView.findViewById(R.id.thumb);
+            title = itemView.findViewById(R.id.title);
+            rating = itemView.findViewById(R.id.rating);
 
             itemView.setOnClickListener(v -> {
-
+                Intent intent = new Intent(context, DetailActivity.class);
+                intent.putExtra("endpoint", books.get(getAdapterPosition()).getEndpoint());
+                intent.putExtra("mode", MODE.ONLINE);
+                context.startActivity(intent);
             });
         }
     }

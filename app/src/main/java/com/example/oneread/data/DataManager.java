@@ -155,6 +155,9 @@ public class DataManager {
 
     public Observable<Response<Chapter>> requestChapter(String book_endpoint, String chapter_endpoint) {return apiHelper.chapter(book_endpoint, chapter_endpoint);}
 
+    public Observable<Response<Chapter>> requestChapter(String auth, String book_endpoint, String chapter_endpoint) {
+        return apiHelper.chapter(auth, book_endpoint, chapter_endpoint);
+    }
 
 
     public Observable<Response<Comment>> getComments(String book_endpoint) {return apiHelper.getComments(book_endpoint);}

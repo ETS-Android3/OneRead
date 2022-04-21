@@ -53,7 +53,7 @@ public interface IServiceAPI {
     @GET("book/suggest-book")
     Observable<Response<Book>> suggestBooks(@Header("Authorization") String auth);
 
-    @GET("book/top-view-day")
+    @GET("book/top-rating")
     Observable<Response<Book>> trending();
 
     @GET("book/top-search")
@@ -84,7 +84,8 @@ public interface IServiceAPI {
     @GET("chapter/detail/{book_endpoint}/{chapter_endpoint}")
     Observable<Response<Chapter>> detailChapter(@Path("book_endpoint") String book_endpoint, @Path("chapter_endpoint") String chapter_endpoint);
 
-
+    @GET("chapter/detail/{book_endpoint}/{chapter_endpoint}")
+    Observable<Response<Chapter>> detailChapter(@Header("Authorization") String auth, @Path("book_endpoint") String book_endpoint, @Path("chapter_endpoint") String chapter_endpoint);
 
 
     /*================ COMMENT ==================*/

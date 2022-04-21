@@ -95,7 +95,7 @@ public class ChapterActivity extends BaseActivity implements ChapterContract.Vie
         hideListChapter();
 
         if (mode == MODE.ONLINE) {
-            presenter.getChapterDetailOnline(book.getChapters().get(position), true);
+            presenter.getChapterDetailOnline(book.getChapters().get(position));
         } else {
             presenter.getChapterDetailOffline(book.getChapters().get(position));
         }
@@ -129,14 +129,14 @@ public class ChapterActivity extends BaseActivity implements ChapterContract.Vie
         switch (view.getId()) {
             case R.id.prev:
                 if (mode == MODE.ONLINE) {
-                    presenter.getChapterDetailOnline(book.getChapters().get(++position), true);
+                    presenter.getChapterDetailOnline(book.getChapters().get(++position));
                 } else {
                     presenter.getChapterDetailOffline(book.getChapters().get(++position));
                 }
                 break;
             case R.id.next:
                 if (mode == MODE.ONLINE) {
-                    presenter.getChapterDetailOnline(book.getChapters().get(--position), true);
+                    presenter.getChapterDetailOnline(book.getChapters().get(--position));
                 } else {
                     presenter.getChapterDetailOffline(book.getChapters().get(--position));
                 }
@@ -182,6 +182,6 @@ public class ChapterActivity extends BaseActivity implements ChapterContract.Vie
     @Override
     public void onOnlineChapterClick(int position) {
         this.position = position;
-        presenter.getChapterDetailOnline(book.getChapters().get(this.position), false);
+        presenter.getChapterDetailOnline(book.getChapters().get(this.position));
     }
 }
