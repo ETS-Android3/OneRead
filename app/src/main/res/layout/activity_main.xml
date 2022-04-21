@@ -9,147 +9,182 @@
     tools:context=".ui.main.MainActivity">
 
 
-    <androidx.core.widget.NestedScrollView
-        android:id="@+id/scrollview"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:scrollbars="none"
-        android:fillViewport="true">
-
-        <LinearLayout
-            android:orientation="vertical"
+        android:orientation="vertical">
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <RelativeLayout
+            <com.makeramen.roundedimageview.RoundedImageView
+                android:id="@+id/avatar"
+                android:layout_width="@dimen/avatar"
+                android:layout_height="@dimen/avatar"
+                android:layout_marginStart="@dimen/_15sdp"
+                android:layout_marginTop="@dimen/_15sdp"
+                android:layout_marginEnd="@dimen/_15sdp"
+                android:layout_marginBottom="@dimen/_15sdp"
+                android:layout_centerInParent="true"
+                android:layout_alignParentStart="true"
+                android:scaleType="centerCrop"
+                android:src="@drawable/avatar"
+                app:riv_corner_radius="@dimen/round_corner" />
+            <androidx.cardview.widget.CardView
+                android:id="@+id/search"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_marginHorizontal="@dimen/_15sdp"
+                android:layout_centerInParent="true"
+                android:layout_marginVertical="@dimen/_15sdp"
+                style="@style/MyCard">
+
+                <LinearLayout
+                    android:layout_margin="@dimen/_10sdp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_marginEnd="@dimen/_10sdp"
+                        android:id="@+id/btn_search"
+                        android:src="@drawable/ic_search"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Search..."
+                        style="@style/SmallText"
+                        tools:ignore="HardcodedText" />
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+        </RelativeLayout>
+
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/scrollview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="none"
+            android:fillViewport="true">
+
+            <LinearLayout
+                android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <com.makeramen.roundedimageview.RoundedImageView
-                    android:id="@+id/avatar"
-                    android:layout_width="@dimen/avatar"
-                    android:layout_height="@dimen/avatar"
-                    android:layout_marginStart="@dimen/_15sdp"
-                    android:layout_marginTop="@dimen/_15sdp"
-                    android:layout_marginEnd="@dimen/_15sdp"
-                    android:layout_marginBottom="@dimen/_15sdp"
-                    android:layout_centerInParent="true"
-                    android:layout_alignParentStart="true"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/avatar"
-                    app:riv_corner_radius="@dimen/round_corner" />
-                <androidx.cardview.widget.CardView
-                    android:id="@+id/search"
-                    android:layout_width="wrap_content"
+                <TextView
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:layout_marginHorizontal="@dimen/_15sdp"
-                    android:layout_centerInParent="true"
-                    android:layout_marginVertical="@dimen/_15sdp"
-                    style="@style/MyCard">
+                    style="@style/TitleText"
+                    android:text="Trending"
+                    tools:ignore="HardcodedText"
+                    android:layout_margin="@dimen/_5sdp"/>
 
+                <androidx.viewpager2.widget.ViewPager2
+                    android:id="@+id/slider"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_150sdp"
+                    android:paddingHorizontal="@dimen/_90sdp"/>
+
+                <LinearLayout
+                    android:id="@+id/layout_following"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
                     <LinearLayout
-                        android:layout_margin="@dimen/_10sdp"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-
-                        <ImageView
-                            android:layout_marginEnd="@dimen/_10sdp"
-                            android:id="@+id/btn_search"
-                            android:src="@drawable/ic_search"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"/>
-
+                        android:layout_height="wrap_content">
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Search..."
-                            style="@style/SmallText"
-                            tools:ignore="HardcodedText" />
-
+                            style="@style/NormalText"
+                            android:text="@string/following"
+                            android:layout_marginHorizontal="@dimen/_15sdp"
+                            android:layout_marginVertical="@dimen/_5sdp"/>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/_1sdp"
+                            android:background="@color/foreground"
+                            android:layout_marginEnd="@dimen/_15sdp"
+                            android:layout_gravity="center"/>
                     </LinearLayout>
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/list_following"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_margin="@dimen/_5sdp"/>
+                </LinearLayout>
 
-                </androidx.cardview.widget.CardView>
-            </RelativeLayout>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                style="@style/TitleText"
-                android:text="Trending"
-                tools:ignore="HardcodedText"
-                android:layout_margin="@dimen/_5sdp"/>
-
-            <androidx.viewpager2.widget.ViewPager2
-                android:id="@+id/slider"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/_150sdp"
-                android:paddingHorizontal="@dimen/_90sdp"/>
-
-            <LinearLayout
-                android:id="@+id/layout_following"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-                <TextView
+                <LinearLayout
+                    android:id="@+id/layout_suggest"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    style="@style/NormalText"
-                    android:text="@string/following"
-                    android:layout_marginHorizontal="@dimen/_15sdp"
-                    android:layout_marginVertical="@dimen/_5sdp"/>
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/list_following"
+                    android:orientation="vertical">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            style="@style/NormalText"
+                            android:text="@string/recommend"
+                            android:layout_marginHorizontal="@dimen/_15sdp"
+                            android:layout_marginVertical="@dimen/_5sdp"/>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/_1sdp"
+                            android:background="@color/foreground"
+                            android:layout_marginEnd="@dimen/_15sdp"
+                            android:layout_gravity="center"/>
+                    </LinearLayout>
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/list_suggest"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_margin="@dimen/_5sdp"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/layout_recent"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_margin="@dimen/_5sdp"/>
+                    android:orientation="vertical">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            style="@style/NormalText"
+                            android:text="@string/recent"
+                            android:layout_marginHorizontal="@dimen/_15sdp"
+                            android:layout_marginVertical="@dimen/_5sdp"/>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/_1sdp"
+                            android:background="@color/foreground"
+                            android:layout_marginEnd="@dimen/_15sdp"
+                            android:layout_gravity="center"/>
+                    </LinearLayout>
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/list_recent"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_margin="@dimen/_5sdp"/>
+                </LinearLayout>
+
             </LinearLayout>
 
-            <LinearLayout
-                android:id="@+id/layout_suggest"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    style="@style/NormalText"
-                    android:text="@string/recommend"
-                    android:layout_marginHorizontal="@dimen/_15sdp"
-                    android:layout_marginVertical="@dimen/_5sdp"/>
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/list_suggest"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_margin="@dimen/_5sdp"/>
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/layout_recent"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    style="@style/NormalText"
-                    android:text="@string/recent"
-                    android:layout_marginHorizontal="@dimen/_15sdp"
-                    android:layout_marginVertical="@dimen/_5sdp"/>
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/list_recent"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_margin="@dimen/_5sdp"/>
-            </LinearLayout>
-
-        </LinearLayout>
-
-    </androidx.core.widget.NestedScrollView>
+        </androidx.core.widget.NestedScrollView>
+    </LinearLayout>
 
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/navigation_view"

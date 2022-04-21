@@ -53,6 +53,9 @@ public class MainPresenter<V extends MainContract.View> extends BasePresenter<V>
     @Override
     public void onUserLoggedIn() {
         getView().updateUserProfile(getDataManager().getCurrentUser());
+        getFollowing();
+        getSuggest();
+        getRecent();
     }
 
     @Override
@@ -109,6 +112,7 @@ public class MainPresenter<V extends MainContract.View> extends BasePresenter<V>
     public void getSuggest() {
         User user = getDataManager().getCurrentUser();
         if (user == null || user.getUsername().equals("")) {
+            getView().setSuggest(null);
             return;
         }
         if (getView().isNetworkConnected()) {
@@ -147,6 +151,7 @@ public class MainPresenter<V extends MainContract.View> extends BasePresenter<V>
     public void getFollowing() {
         User user = getDataManager().getCurrentUser();
         if (user == null || user.getUsername().equals("")) {
+            getView().setFollowing(null);
             return;
         }
         if (getView().isNetworkConnected()) {
@@ -156,6 +161,39 @@ public class MainPresenter<V extends MainContract.View> extends BasePresenter<V>
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(response -> {
                             getView().setFollowing(response.getData());
+                        }, err -> {
+                            if (err instanceof HttpException) {
+                                HttpException response = (HttpException) err;
+                                String message = String.valueOf(JsonParser.parseString(response.response().errorBody().string()).getAsJsonObject().get("message"));
+                                getView().onError(message);
+                            } else {
+                                Log.e(TAG, err.getMessage());
+                                err.printStackTrace();
+                                getView().onError(err.getMessage());
+                            }
+                        }));
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+                Log.e(TAG, e.getMessage());
+                e.printStackTrace();
+            }
+        }
+    }
+
+    @Override
+    public void getRecent() {
+        User user = getDataManager().getCurrentUser();
+        if (user == null || user.getUsername().equals("")) {
+            getView().setRecent(null);
+            return;
+        }
+        if (getView().isNetworkConnected()) {
+            try {
+                getCompositeDisposable().add(getDataManager().requestAllHistoryRead(user.getAuthorizeToken())
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(response -> {
+                            getView().setRecent(response.getData());
                         }, err -> {
                             if (err instanceof HttpException) {
                                 HttpException response = (HttpException) err;

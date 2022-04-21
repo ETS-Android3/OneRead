@@ -25,7 +25,8 @@
         <RelativeLayout
             android:id="@+id/top_layout"
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize">
+            android:layout_height="wrap_content"
+            android:minHeight="?attr/actionBarSize">
 
             <ImageView
                 android:id="@+id/btn_back"
@@ -38,8 +39,9 @@
             <TextView
                 android:id="@+id/title"
                 style="@style/TitleText"
+                android:layout_marginTop="@dimen/_5sdp"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_toStartOf="@id/btn"
                 android:layout_toEndOf="@+id/btn_back"
                 android:text="@string/app_name" />

@@ -1,6 +1,7 @@
 package com.example.oneread.ui.main;
 
 import com.example.oneread.data.network.model.Book;
+import com.example.oneread.data.network.model.HistoryRead;
 import com.example.oneread.data.network.model.User;
 import com.example.oneread.ui.base.BaseContract;
 
@@ -30,6 +31,8 @@ public interface MainContract {
         void setSuggest(List<Book> books);
 
         void setFollowing(List<Book> books);
+
+        void setRecent(List<HistoryRead> historyReads);
     }
 
     interface Presenter <V extends View> extends BaseContract.Presenter<V> {
@@ -55,6 +58,8 @@ public interface MainContract {
         void getSuggest();
 
         void getFollowing();
+
+        void getRecent();
 
     }
 }

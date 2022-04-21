@@ -63,6 +63,10 @@ public class RectBookAdapter extends RecyclerView.Adapter<RectBookAdapter.ViewHo
         return books.size();
     }
 
+    public List<Book> getBooks() {
+        return books;
+    }
+
     public class ViewHolder extends RecyclerView.ViewHolder{
         ImageView thumb;
         TextView title;

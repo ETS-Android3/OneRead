@@ -7,6 +7,7 @@ import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.Switch;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
@@ -16,6 +17,8 @@ import android.os.Bundle;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.cardview.widget.CardView;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.CompositePageTransformer;
 import androidx.viewpager2.widget.MarginPageTransformer;
@@ -25,9 +28,11 @@ import butterknife.ButterKnife;
 import com.bumptech.glide.Glide;
 import com.example.oneread.R;
 import com.example.oneread.data.network.model.Book;
+import com.example.oneread.data.network.model.HistoryRead;
 import com.example.oneread.data.network.model.User;
 import com.example.oneread.ui.base.BaseActivity;
 import com.example.oneread.ui.base.RectBookAdapter;
+import com.example.oneread.ui.base.RoundBookAdapter;
 import com.example.oneread.ui.bookcase.BookCaseActivity;
 import com.example.oneread.ui.listbook.ListBookActivity;
 import com.example.oneread.ui.login.LoginActivity;
@@ -37,7 +42,9 @@ import com.google.android.material.navigation.NavigationView;
 import com.makeramen.roundedimageview.RoundedImageView;
 
 import javax.inject.Inject;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @SuppressLint("NonConstantResourceId")
 public class MainActivity  extends BaseActivity implements MainContract.View, View.OnClickListener {
@@ -59,6 +66,18 @@ public class MainActivity  extends BaseActivity implements MainContract.View, Vi
     CardView cardSearch;
     @BindView(R.id.slider)
     ViewPager2 sliderView;
+    @BindView(R.id.layout_following)
+    LinearLayout layoutFollowing;
+    @BindView(R.id.list_following)
+    RecyclerView listFollowing;
+    @BindView(R.id.layout_suggest)
+    LinearLayout layoutSuggest;
+    @BindView(R.id.list_suggest)
+    RecyclerView listSuggest;
+    @BindView(R.id.layout_recent)
+    LinearLayout layoutRecent;
+    @BindView(R.id.list_recent)
+    RecyclerView listRecent;
 
     private RoundedImageView navAvatar;
     private TextView navUsername;
@@ -87,6 +106,16 @@ public class MainActivity  extends BaseActivity implements MainContract.View, Vi
         setupNavMenu();
         presenter.onNavMenuCreated();
         presenter.getTrending();
+        presenter.getFollowing();
+        presenter.getSuggest();
+        presenter.getRecent();
+
+        listFollowing.setLayoutManager(new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false));
+        listFollowing.setAdapter(new RoundBookAdapter(this, new ArrayList<>()));
+        listSuggest.setLayoutManager(new GridLayoutManager(this, 3));
+        listSuggest.setAdapter(new RectBookAdapter(this, new ArrayList<>()));
+        listRecent.setLayoutManager(new GridLayoutManager(this, 3));
+        listRecent.setAdapter(new RectBookAdapter(this, new ArrayList<>()));
     }
 
     private void setupView() {
@@ -208,12 +237,13 @@ public class MainActivity  extends BaseActivity implements MainContract.View, Vi
         SliderAdapter adapter = new SliderAdapter(this, books);
 
         sliderView.setAdapter(adapter);
-
+        sliderView.setNestedScrollingEnabled(false);
         sliderView.setClipToPadding(false);
         sliderView.setClipChildren(false);
         sliderView.setOffscreenPageLimit(2);
         sliderView.getChildAt(0).setOverScrollMode(View.OVER_SCROLL_NEVER);
         sliderView.setCurrentItem(1);
+        autoSlideViewPager();
 
         CompositePageTransformer compositePageTransformer = new CompositePageTransformer();
         compositePageTransformer.addTransformer(new MarginPageTransformer(60));
@@ -240,14 +270,55 @@ public class MainActivity  extends BaseActivity implements MainContract.View, Vi
         sliderView.setPageTransformer(compositePageTransformer);
     }
 
-    @Override
-    public void setSuggest(List<Book> books) {
-
+    private void autoSlideViewPager() {
+        int c = sliderView.getAdapter().getItemCount();
+        int i = sliderView.getCurrentItem() + 1;
+        if (i == c) i = 0;
+        sliderView.setCurrentItem(i);
+        sliderView.postDelayed(this::autoSlideViewPager, 4000);
     }
 
+    @SuppressLint("NotifyDataSetChanged")
+    @Override
+    public void setSuggest(List<Book> books) {
+        if (books == null) {
+            layoutSuggest.setVisibility(View.GONE);
+        } else {
+            layoutSuggest.setVisibility(View.VISIBLE);
+            ((RectBookAdapter) Objects.requireNonNull(listSuggest.getAdapter())).getBooks().clear();
+            ((RectBookAdapter) Objects.requireNonNull(listSuggest.getAdapter())).getBooks().addAll(books);
+            ((RectBookAdapter) Objects.requireNonNull(listSuggest.getAdapter())).notifyDataSetChanged();
+        }
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
     @Override
     public void setFollowing(List<Book> books) {
+        if (books == null) {
+            layoutFollowing.setVisibility(View.GONE);
+        } else {
+            layoutFollowing.setVisibility(View.VISIBLE);
+            ((RoundBookAdapter) Objects.requireNonNull(listFollowing.getAdapter())).getBooks().clear();
+            ((RoundBookAdapter) Objects.requireNonNull(listFollowing.getAdapter())).getBooks().addAll(books);
+            ((RoundBookAdapter) Objects.requireNonNull(listFollowing.getAdapter())).notifyDataSetChanged();
+        }
+    }
 
+    @SuppressLint("NotifyDataSetChanged")
+    @Override
+    public void setRecent(List<HistoryRead> historyReads) {
+        if (historyReads == null) {
+            layoutRecent.setVisibility(View.GONE);
+        } else {
+            List<Book> books = new ArrayList<>();
+            for (HistoryRead historyRead : historyReads) {
+                books.add(historyRead.getBook());
+            }
+            layoutRecent.setVisibility(View.VISIBLE);
+            ((RectBookAdapter) Objects.requireNonNull(listRecent.getAdapter())).getBooks().clear();
+            ((RectBookAdapter) Objects.requireNonNull(listRecent.getAdapter())).getBooks().addAll(books);
+            ((RectBookAdapter) Objects.requireNonNull(listRecent.getAdapter())).notifyDataSetChanged();
+        }
     }
 
     @Override
