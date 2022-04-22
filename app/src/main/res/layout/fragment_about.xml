@@ -225,15 +225,38 @@
             android:layout_marginHorizontal="@dimen/_5sdp"
             android:text="Đọc từ đầu"
             tools:ignore="HardcodedText" />
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btn_continue_read"
+        <RelativeLayout
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="3"
             style="@style/HighLightButton"
-            android:layout_marginHorizontal="@dimen/_5sdp"
-            android:text="Đọc tiếp"
-            tools:ignore="HardcodedText" />
+            android:layout_marginHorizontal="@dimen/_5sdp">
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/NormalText"
+                    android:text="Đọc tiếp "
+                    tools:ignore="HardcodedText"/>
+                <TextView
+                    android:id="@+id/recent_chapter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/SmallText"
+                    android:text=""
+                    android:layout_gravity="center_vertical"
+                    tools:ignore="HardcodedText"/>
+            </LinearLayout>
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_continue_read"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/transparent" />
+        </RelativeLayout>
     </LinearLayout>
 
 </RelativeLayout>

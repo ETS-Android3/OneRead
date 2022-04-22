@@ -19,10 +19,12 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.example.oneread.R;
 import com.example.oneread.data.network.model.Book;
+import com.example.oneread.data.network.model.Chapter;
 import com.example.oneread.data.network.model.HistoryRead;
 import com.example.oneread.ui.base.BaseFragment;
 import com.example.oneread.ui.base.RectBookAdapter;
 import com.example.oneread.ui.base.RoundBookAdapter;
+import com.example.oneread.ui.detail.DetailActivity;
 import com.example.oneread.ui.detail.rating.RateDialog;
 import com.nex3z.flowlayout.FlowLayout;
 
@@ -61,6 +63,8 @@ public class AboutFragment extends BaseFragment implements AboutContract.View, V
     AppCompatButton btnContinueRead;
     @BindView(R.id.list_relate_book)
     RecyclerView listRelateBook;
+    @BindView(R.id.recent_chapter)
+    TextView recentChapter;
 
     private Book book;
     private HistoryRead historyRead;
@@ -167,6 +171,7 @@ public class AboutFragment extends BaseFragment implements AboutContract.View, V
     @Override
     public void setHistoryRead(HistoryRead historyRead) {
         this.historyRead = historyRead;
+        if (historyRead != null) recentChapter.setText(historyRead.getChapter().getTitle());
     }
 
     @Override
@@ -199,8 +204,18 @@ public class AboutFragment extends BaseFragment implements AboutContract.View, V
                 openRateDialog();
                 break;
             case R.id.btn_read:
+                ((DetailActivity) getBaseActivity()).openChapter(0);
                 break;
             case R.id.btn_continue_read:
+                if (historyRead != null) {
+                    for(int i=0; i<book.getChapters().size(); i++) {
+                        if (book.getChapters().get(i).getChapterEndpoint()
+                                .equals(historyRead.getChapter().getChapterEndpoint())) {
+                            ((DetailActivity) getBaseActivity()).openChapter(i);
+                            break;
+                        }
+                    }
+                } else ((DetailActivity) getBaseActivity()).openChapter(0);
                 break;
             default:
                 break;

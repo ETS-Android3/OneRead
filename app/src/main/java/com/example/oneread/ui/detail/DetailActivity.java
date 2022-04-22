@@ -231,4 +231,10 @@ public class DetailActivity extends BaseActivity implements DetailContract.View,
         intent.putExtra("mode", MODE.ONLINE);
         startActivity(intent);
     }
+
+    public void openChapter(int position) {
+        if (mode == MODE.ONLINE) {
+            onOnlineChapterClick(position);
+        } else onOfflineChapterClick(position);
+    }
 }
