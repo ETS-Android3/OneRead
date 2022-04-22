@@ -112,7 +112,8 @@ public interface IServiceAPI {
     Observable<Response<Notify>> notifications(@Header("Authorization") String auth);
 
     @GET("notify/{endpoint}")
-    Observable<Response<Notify>> detailNotification(@Header("Authorization") String auth, @Path("comment_id") String endpoint);
+    Observable<Response<Notify>> detailNotification(@Header("Authorization") String auth, @Path("endpoint") String endpoint);
 
-
+    @DELETE("notify/all-read")
+    Observable<Response<Notify>> deleteAllReadNotification(String auth);
 }

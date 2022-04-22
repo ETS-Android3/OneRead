@@ -4,6 +4,11 @@
         <item name="behavior_draggable">false</item>
     </style>
 
+    <style name="NotificationDialogAnimation">
+        <item name="android:windowEnterAnimation">@anim/anim_notification_dialog_show</item>
+        <item name="android:windowExitAnimation">@anim/anim_notification_dialog_dismiss</item>
+    </style>
+
     <style name="NullEditText" parent="Widget.AppCompat.EditText">
         <item name="backgroundTint">@color/card</item>
         <item name="android:maxLines">1</item>

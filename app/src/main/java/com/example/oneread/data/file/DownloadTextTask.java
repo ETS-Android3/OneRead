@@ -73,7 +73,7 @@ public class DownloadTextTask implements Callable<List<String>> {
 
     private List<String> downloadToAppStorage() {
         List<String> downloadUri = new ArrayList<>();
-        File path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS + filePath);
+        File path = context.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS + filePath);
         if (!path.exists()) path.mkdirs();
         for (int i=0; i<texts.size(); i++) {
             try {

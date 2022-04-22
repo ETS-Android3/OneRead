@@ -34,6 +34,7 @@ import com.example.oneread.ui.listbook.ListBookActivity;
 import com.example.oneread.ui.login.LoginActivity;
 import com.example.oneread.ui.main.adapter.HistoryReadAdapter;
 import com.example.oneread.ui.main.adapter.SliderAdapter;
+import com.example.oneread.ui.main.notify.NotificationDialog;
 import com.example.oneread.utils.AppConstants;
 import com.google.android.material.navigation.NavigationView;
 import com.makeramen.roundedimageview.RoundedImageView;
@@ -75,10 +76,13 @@ public class MainActivity  extends BaseActivity implements MainContract.View, Vi
     LinearLayout layoutRecent;
     @BindView(R.id.list_recent)
     RecyclerView listRecent;
+    @BindView(R.id.notification)
+    CardView cardNotification;
 
     private RoundedImageView navAvatar;
     private TextView navUsername;
     private Switch btnSwitchThemeMode;
+    private NotificationDialog notificationDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -113,6 +117,8 @@ public class MainActivity  extends BaseActivity implements MainContract.View, Vi
         listSuggest.setAdapter(new RectBookAdapter(this, new ArrayList<>()));
         listRecent.setLayoutManager(new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false));
         listRecent.setAdapter(new HistoryReadAdapter(this, new ArrayList<>()));
+
+        notificationDialog = new NotificationDialog();
     }
 
     private void setupView() {
@@ -120,6 +126,7 @@ public class MainActivity  extends BaseActivity implements MainContract.View, Vi
         btnLogin.setOnClickListener(this);
         btnLogout.setOnClickListener(this);
         cardSearch.setOnClickListener(this);
+        cardNotification.setOnClickListener(this);
     }
 
     @Override
@@ -140,6 +147,8 @@ public class MainActivity  extends BaseActivity implements MainContract.View, Vi
             case R.id.search:
                 openSearchActivity();
                 break;
+            case R.id.notification:
+                notificationDialog.show(getSupportFragmentManager());
             default:
                 break;
         }
@@ -239,7 +248,6 @@ public class MainActivity  extends BaseActivity implements MainContract.View, Vi
         sliderView.setClipChildren(false);
         sliderView.setOffscreenPageLimit(2);
         sliderView.getChildAt(0).setOverScrollMode(View.OVER_SCROLL_NEVER);
-        sliderView.setCurrentItem(1);
         autoSlideViewPager();
 
         CompositePageTransformer compositePageTransformer = new CompositePageTransformer();

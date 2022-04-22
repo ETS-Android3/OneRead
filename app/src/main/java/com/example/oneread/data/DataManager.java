@@ -173,6 +173,8 @@ public class DataManager {
 
     public Observable<Response<Notify>> requestSingleNotification(String auth, String notifyEndpoint) {return apiHelper.readNotification(auth, notifyEndpoint);}
 
+    public Observable<Response<Notify>> deleteAllReadNotification(String auth) {return apiHelper.deleteAllReadNotification(auth);}
+
 
 
     /*===============================================*/

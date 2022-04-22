@@ -34,7 +34,7 @@
                 android:id="@+id/search"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
+                android:layout_toStartOf="@+id/notification"
                 android:layout_marginHorizontal="@dimen/_15sdp"
                 android:layout_centerInParent="true"
                 android:layout_marginVertical="@dimen/_15sdp"
@@ -61,6 +61,25 @@
                         tools:ignore="HardcodedText" />
 
                 </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/notification"
+                style="@style/MyCard"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@+id/search"
+                android:layout_alignBottom="@+id/search"
+                android:layout_marginEnd="@dimen/_15sdp"
+                android:layout_alignParentEnd="true"
+                android:layout_centerInParent="true">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_notification"
+                    android:layout_margin="@dimen/_10sdp"/>
 
             </androidx.cardview.widget.CardView>
         </RelativeLayout>

@@ -107,4 +107,8 @@ public class ApiHelper {
     public Observable<Response<Notify>> notifications(String auth) {return iServiceAPI.notifications(auth);}
 
     public Observable<Response<Notify>> readNotification(String auth, String notifyEndpoint) {return iServiceAPI.detailNotification(auth, notifyEndpoint);}
+
+    public Observable<Response<Notify>> deleteAllReadNotification(String auth) {
+        return iServiceAPI.deleteAllReadNotification(auth);
+    }
 }

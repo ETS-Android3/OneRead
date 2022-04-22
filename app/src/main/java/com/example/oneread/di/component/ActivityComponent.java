@@ -16,6 +16,7 @@ import com.example.oneread.ui.login.LoginActivity;
 import com.example.oneread.ui.login.fragment.signin.SignInFragment;
 import com.example.oneread.ui.login.fragment.signup.SignUpFragment;
 import com.example.oneread.ui.main.MainActivity;
+import com.example.oneread.ui.main.notify.NotificationDialog;
 import com.example.oneread.ui.read.ChapterActivity;
 import dagger.Component;
 
@@ -52,4 +53,6 @@ public interface ActivityComponent {
     void inject(ChapterActivity chapterActivity);
 
     void inject(BookCaseActivity bookCaseActivity);
+
+    void inject(NotificationDialog notificationDialog);
 }
