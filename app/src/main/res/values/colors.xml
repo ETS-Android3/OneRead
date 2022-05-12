@@ -9,13 +9,13 @@
     <color name="white">#FFFFFFFF</color>
     
     
-    <color name="primary">#151729</color>
-    <color name="background">#151729</color>
-    <color name="card">#1E2237</color>
-    <color name="foreground">#5A58A1</color>
-    <color name="icon">#FFFFFF</color>
-    <color name="normal_text">#FFFFFF</color>
-    <color name="small_text">#B7B3B3</color>
+    <color name="primary">#FFFFFF</color>
+    <color name="background">#FFFFFF</color>
+    <color name="card">#CCCCCC</color>
+    <color name="foreground">#FFBF00</color>
+    <color name="icon">#000000</color>
+    <color name="normal_text">#000000</color>
+    <color name="small_text">#353535</color>
     <color name="line">#8D5F5959</color>
     <color name="transparent">#00FFFFFF</color>
     <color name="novel_page_color">#DCD7C6</color>

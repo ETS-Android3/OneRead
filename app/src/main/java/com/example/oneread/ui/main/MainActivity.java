@@ -276,9 +276,10 @@ public class MainActivity  extends BaseActivity implements MainContract.View, Vi
     }
 
     private void autoSlideViewPager() {
+        if (sliderView == null) return;
         int c = sliderView.getAdapter().getItemCount();
         int i = sliderView.getCurrentItem() + 1;
-        if (i == c) i = 0;
+        if (i >= c) i = 0;
         sliderView.setCurrentItem(i);
         sliderView.postDelayed(this::autoSlideViewPager, 4000);
     }

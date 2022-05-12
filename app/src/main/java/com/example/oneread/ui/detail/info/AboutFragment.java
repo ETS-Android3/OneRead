@@ -96,6 +96,7 @@ public class AboutFragment extends BaseFragment implements AboutContract.View, V
         setBook(book);
 
         relateBooks = new ArrayList<>();
+        listRelateBook.setNestedScrollingEnabled(false);
         listRelateBook.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.HORIZONTAL, false));
         listRelateBook.setNestedScrollingEnabled(false);
         listRelateBook.setAdapter(new RectBookAdapter(getContext(), relateBooks));

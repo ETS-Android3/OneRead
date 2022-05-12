@@ -38,9 +38,7 @@ public class SliderAdapter extends RecyclerView.Adapter<SliderAdapter.ViewHolder
     public void onBindViewHolder(ViewHolder viewHolder, final int position) {
         viewHolder.title.setText(books.get(position).getTitle());
         viewHolder.rating.setText(String.valueOf(books.get(position).getRating()));
-        Glide.with(context).asBitmap().load(books.get(position).getThumb())
-                .override((int) context.getResources().getDimension(R.dimen._70sdp),
-                        (int) context.getResources().getDimension(R.dimen._90sdp))
+        Glide.with(context).load(books.get(position).getThumb())
                 .placeholder(R.drawable.image_loading)
                 .error(R.drawable.image_err)
                 .into(viewHolder.thumb);
