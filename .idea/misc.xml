@@ -3,8 +3,16 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Intellij-workspace/AndroidStudioProjects/OneRead/app/src/main/res/drawable/bottom_sheet.xml" value="0.2385" />
+        <entry key="..\:/Intellij-workspace/AndroidStudioProjects/OneRead/app/src/main/res/drawable/ic_edit.xml" value="0.2385" />
+        <entry key="..\:/Intellij-workspace/AndroidStudioProjects/OneRead/app/src/main/res/drawable/ic_image.xml" value="0.2385" />
+        <entry key="..\:/Intellij-workspace/AndroidStudioProjects/OneRead/app/src/main/res/layout/activity_detail.xml" value="0.29322916666666665" />
+        <entry key="..\:/Intellij-workspace/AndroidStudioProjects/OneRead/app/src/main/res/layout/activity_login.xml" value="0.29322916666666665" />
+        <entry key="..\:/Intellij-workspace/AndroidStudioProjects/OneRead/app/src/main/res/layout/activity_profile.xml" value="0.33" />
         <entry key="..\:/Intellij-workspace/AndroidStudioProjects/OneRead/app/src/main/res/layout/book_item_rect.xml" value="0.29322916666666665" />
         <entry key="..\:/Intellij-workspace/AndroidStudioProjects/OneRead/app/src/main/res/layout/fragment_about.xml" value="0.29322916666666665" />
+        <entry key="..\:/Intellij-workspace/AndroidStudioProjects/OneRead/app/src/main/res/layout/fragment_signin.xml" value="0.29322916666666665" />
+        <entry key="..\:/Intellij-workspace/AndroidStudioProjects/OneRead/app/src/main/res/layout/fragment_signup.xml" value="0.29322916666666665" />
         <entry key="..\:/Intellij-workspace/OneRead/app/src/main/res/drawable-v24/background.xml" value="0.30833333333333335" />
         <entry key="..\:/Intellij-workspace/OneRead/app/src/main/res/drawable-v24/bottom_sheet.xml" value="0.309375" />
         <entry key="..\:/Intellij-workspace/OneRead/app/src/main/res/drawable-v24/tab_selector.xml" value="0.30833333333333335" />

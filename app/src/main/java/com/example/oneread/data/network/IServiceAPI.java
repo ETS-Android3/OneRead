@@ -15,6 +15,16 @@ public interface IServiceAPI {
     @GET("user/info/{username}")
     Observable<Response<User>> userInfo(@Path("username") String username);
 
+    @Multipart
+    @PATCH("user")
+    Observable<Response<User>> updateUserInfo(@Header("Authorization") String auth, @Part MultipartBody.Part[] body);
+
+    @PATCH("user/change-password")
+    Observable<Response<User>> updatePassword(@Header("Authorization") String auth, @Body JsonObject password);
+
+    @POST("user/verify-email")
+    Observable<Response<User>> verifyEmail(@Header("Authorization") String auth);
+
     @GET("user/book-following")
     Observable<Response<Book>> listBookFollowing(@Header("Authorization") String auth);
 
@@ -115,5 +125,5 @@ public interface IServiceAPI {
     Observable<Response<Notify>> detailNotification(@Header("Authorization") String auth, @Path("endpoint") String endpoint);
 
     @DELETE("notify/all-read")
-    Observable<Response<Notify>> deleteAllReadNotification(String auth);
+    Observable<Response<Notify>> deleteAllReadNotification(@Header("Authorization") String auth);
 }

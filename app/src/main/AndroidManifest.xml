@@ -23,6 +23,9 @@
         tools:ignore="UnusedAttribute"
         tools:replace="android:allowBackup">
         <activity
+            android:name=".ui.profile.ProfileActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.bookcase.BookCaseActivity"
             android:exported="true" />
         <activity

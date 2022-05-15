@@ -69,9 +69,10 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseCont
         Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content),
                 message, Snackbar.LENGTH_SHORT);
         View sbView = snackbar.getView();
+        sbView.setBackground(getResources().getDrawable(R.drawable.highlight_button_background));
         TextView textView = (TextView) sbView
                 .findViewById(R.id.snackbar_text);
-        textView.setTextColor(ContextCompat.getColor(this, R.color.white));
+        textView.setTextColor(ContextCompat.getColor(this, R.color.normal_text));
         snackbar.show();
     }
 

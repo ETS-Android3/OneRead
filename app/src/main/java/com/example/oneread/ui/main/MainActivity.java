@@ -35,6 +35,7 @@ import com.example.oneread.ui.login.LoginActivity;
 import com.example.oneread.ui.main.adapter.HistoryReadAdapter;
 import com.example.oneread.ui.main.adapter.SliderAdapter;
 import com.example.oneread.ui.main.notify.NotificationDialog;
+import com.example.oneread.ui.profile.ProfileActivity;
 import com.example.oneread.utils.AppConstants;
 import com.google.android.material.navigation.NavigationView;
 import com.makeramen.roundedimageview.RoundedImageView;
@@ -99,6 +100,12 @@ public class MainActivity  extends BaseActivity implements MainContract.View, Vi
     protected void onDestroy() {
         presenter.onDetach();
         super.onDestroy();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        presenter.onUserLoggedIn();
     }
 
     @Override
@@ -201,7 +208,7 @@ public class MainActivity  extends BaseActivity implements MainContract.View, Vi
 
     @Override
     public void showAboutFragment() {
-
+        startActivity(new Intent(this, ProfileActivity.class));
     }
 
     @Override

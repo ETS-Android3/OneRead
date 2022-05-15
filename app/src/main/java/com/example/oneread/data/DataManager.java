@@ -11,6 +11,8 @@ import com.example.oneread.data.network.ApiHelper;
 import com.example.oneread.data.network.model.*;
 import com.example.oneread.data.prefs.PrefsHelper;
 import com.example.oneread.utils.AppConstants;
+import com.google.gson.JsonObject;
+
 import io.reactivex.Observable;
 import okhttp3.MultipartBody;
 
@@ -36,13 +38,7 @@ public class DataManager {
         this.fileHelper = fileHelper;
     }
 
-    public List<String> downloadImages(List<String> imageURLs, String path) {
-         return fileHelper.downloadImages(imageURLs, path);
-    }
 
-    public List<String> downloadTexts(List<String> texts, String path) {
-        return fileHelper.downloadTexts(texts, path);
-    }
 
 
 
@@ -95,6 +91,18 @@ public class DataManager {
 
     public Observable<Response<User>> requestInfoUser(String username) {
         return apiHelper.getInfoUser(username);
+    }
+
+    public Observable<Response<User>> updateUserInfo(String auth, MultipartBody.Part[] body) {
+        return apiHelper.updateUserInfo(auth, body);
+    }
+
+    public Observable<Response<User>> updatePassword(String auth, JsonObject password) {
+        return apiHelper.updatePassword(auth, password);
+    }
+
+    public Observable<Response<User>> verifyEmail(String auth) {
+        return apiHelper.verifyEmail(auth);
     }
 
     public Observable<Response<Book>> requestListBookFollowing(String auth) {
@@ -178,6 +186,14 @@ public class DataManager {
 
 
     /*===============================================*/
+
+    public List<String> downloadImages(List<String> imageURLs, String path) {
+        return fileHelper.downloadImages(imageURLs, path);
+    }
+
+    public List<String> downloadTexts(List<String> texts, String path) {
+        return fileHelper.downloadTexts(texts, path);
+    }
 
     public LiveData<List<HistorySearch>> getHistorySearch() {
         return dbHelper.getHistorySearch();

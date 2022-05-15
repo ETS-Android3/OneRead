@@ -29,6 +29,7 @@ public class MainPresenter<V extends MainContract.View> extends BasePresenter<V>
 
     @Override
     public void onOptionAboutClick() {
+        if (getDataManager().getCurrentUser() == null) return;
         getView().showAboutFragment();
         new Handler().postDelayed(() -> getView().closeNavigationDrawer(), 200);
     }

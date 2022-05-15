@@ -103,4 +103,7 @@
     <string name="about">About</string>
     <string name="chapter">Chapter</string>
     <string name="recent">Sách mới đọc gần đây</string>
+    <string name="profile">Thông tin cá nhân</string>
+    <string name="save">Lưu thông tin</string>
+    <string name="retype_password">Retype password</string>
 </resources>

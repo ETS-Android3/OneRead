@@ -23,6 +23,18 @@ public class ApiHelper {
         return iServiceAPI.userInfo(username);
     }
 
+    public Observable<Response<User>> updateUserInfo(String auth, MultipartBody.Part[] body) {
+        return iServiceAPI.updateUserInfo(auth, body);
+    }
+
+    public Observable<Response<User>> updatePassword(String auth, JsonObject password) {
+        return iServiceAPI.updatePassword(auth, password);
+    }
+
+    public Observable<Response<User>> verifyEmail(String auth) {
+        return iServiceAPI.verifyEmail(auth);
+    }
+
     public Observable<Response<Book>> getListBookFollowing(String auth) {
         return iServiceAPI.listBookFollowing(auth);
     }
