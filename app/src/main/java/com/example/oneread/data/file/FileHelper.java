@@ -1,8 +1,15 @@
 package com.example.oneread.data.file;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.os.Handler;
+import android.os.Message;
+
 import com.example.oneread.di.anotation.ApplicationContext;
 import com.example.oneread.di.anotation.CachedThreadPool;
+import com.example.oneread.di.anotation.FixedThreadPool;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -12,6 +19,10 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Future;
+
+import io.reactivex.Observable;
+import io.reactivex.ObservableEmitter;
+import io.reactivex.ObservableOnSubscribe;
 
 @Singleton
 public class FileHelper {
@@ -25,15 +36,35 @@ public class FileHelper {
         this.executor = executor;
     }
 
-    public List<String> downloadImages(List<String> images, String startPath) {
+    @SuppressLint("HandlerLeak")
+    public Observable<List<String>> downloadImages(List<String> images, String startPath) {
         try {
-            List<DownloadImageTask> tasks = new ArrayList<>(images.size());
-            tasks.add(new DownloadImageTask(context, images, startPath));
-            List<Future<List<String>>> results = executor.invokeAll(tasks);
-            for (Future<List<String>> ff : results) {
-                if (ff.get() != null && ff.get().size() > 0) return ff.get();
-            }
-            return null;
+            DownloadImageTask task = new DownloadImageTask(context, images, startPath);
+            return Observable.fromFuture(executor.submit(task));
+
+
+
+//            Handler imageHandler = new Handler(){
+//                public void handleMessage( Message msg) {
+//                    if(msg.obj!=null){
+//                        return Observable.just(msg);
+//                    } else return Observable.just(null);
+//                };
+//            };
+//            new Thread() {
+//                public void run() {
+//                    try {
+//                        List<DownloadImageTask> tasks = new ArrayList<>(images.size());
+//                        tasks.add(new DownloadImageTask(context, images, startPath));
+//                        List<Future<List<String>>> results = executor.invokeAll(tasks);
+//                        Message msg = new Message();
+//                        msg.obj = results.get(0).get();
+//                        imageHandler.sendMessage(msg);
+//                    } catch (Exception e) {
+//                        e.printStackTrace();
+//                    }
+//                }
+//            }.start();
         } catch (Exception e) {
             return null;
         }

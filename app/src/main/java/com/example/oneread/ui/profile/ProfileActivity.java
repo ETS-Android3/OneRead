@@ -181,6 +181,7 @@ public class ProfileActivity extends BaseActivity implements ProfileContract.Vie
                             .openInputStream(uriAvatar);
                     Bitmap selectedImage = BitmapFactory.decodeStream(inputStream);
                     avatar.setImageBitmap(selectedImage);
+                    avatarBack.setImageBitmap(selectedImage);
                 }catch(Exception e){
                     showMessage("[ERROR]: " + e.getMessage());
                 }

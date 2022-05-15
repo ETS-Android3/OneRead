@@ -2,7 +2,9 @@ package com.example.oneread.ui.main.notify;
 
 import android.annotation.SuppressLint;
 import android.app.Dialog;
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.*;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -16,8 +18,10 @@ import butterknife.ButterKnife;
 import com.example.oneread.R;
 import com.example.oneread.data.network.model.Notify;
 import com.example.oneread.ui.base.BaseDialog;
+import com.example.oneread.ui.detail.DetailActivity;
 import com.example.oneread.ui.detail.rating.RateDialog;
 import com.example.oneread.ui.main.adapter.HistoryReadAdapter;
+import com.example.oneread.utils.MODE;
 
 import javax.inject.Inject;
 import java.util.ArrayList;
@@ -66,8 +70,8 @@ public class NotificationDialog extends BaseDialog implements NotificationContra
         Window window = dialog.getWindow();
         WindowManager.LayoutParams params = window.getAttributes();
         params.gravity = Gravity.TOP | Gravity.RIGHT;
-        params.y = 200;
-        params.x = 50;
+        params.y = getBaseActivity().getResources().getDimensionPixelSize(R.dimen._55sdp);
+        params.x = getBaseActivity().getResources().getDimensionPixelSize(R.dimen._10sdp);
         params.width = getBaseActivity().getResources().getDisplayMetrics().widthPixels * 2 / 3;
         params.height = getBaseActivity().getResources().getDisplayMetrics().heightPixels / 2;
         dialog.getWindow().setAttributes(params);
@@ -141,6 +145,15 @@ public class NotificationDialog extends BaseDialog implements NotificationContra
              }
          }
         ((NotificationAdapter) listNotify.getAdapter()).notifyDataSetChanged();
+        Log.e(TAG, notify.getEndpoint().split("[+]")[1] + notify.getEndpoint());
+        if (notify.getEndpoint().split("[+]")[1].equals("book") ||
+                notify.getEndpoint().split("[+]")[1].equals("chapter")) {
+            Intent intent = new Intent(getBaseActivity(), DetailActivity.class);
+            intent.putExtra("endpoint", notify.getEndpoint().split("[+]")[2]);
+            intent.putExtra("mode", MODE.ONLINE);
+            startActivity(intent);
+            dismissDialog(TAG);
+        }
     }
 
     @Override

@@ -90,6 +90,9 @@ public class DeleteChapterActivity extends BaseActivity implements DeleteChapter
     public void setDownloadChapter(LiveData<List<DownloadChapter>> downloadChapter) {
         downloadChapter.observe(this, downloadChapters -> {
             book.getChapters().clear();
+            listChecked.clear();
+            btnCheckAll.setImageResource(R.drawable.ic_uncheck);
+            btnCheckAll.setTag(R.drawable.ic_uncheck);
             for (DownloadChapter value : downloadChapters) {
                 Chapter chapter = new Chapter();
                 chapter.setChapterEndpoint(value.chapter_endpoint);

@@ -187,7 +187,7 @@ public class DataManager {
 
     /*===============================================*/
 
-    public List<String> downloadImages(List<String> imageURLs, String path) {
+    public Observable<List<String>> downloadImages(List<String> imageURLs, String path) {
         return fileHelper.downloadImages(imageURLs, path);
     }
 

@@ -95,18 +95,17 @@ public class DownloadChapterActivity extends BaseActivity implements DownloadCha
     @Override
     public void setDownloadChapter(LiveData<List<DownloadChapter>> downloadChapter) {
         downloadChapter.observe(this, downloadChapters -> {
-            listChapterDownloaded.clear();
-            listChecked.clear();
-            int pos = 0;
-            for(int i=0; i<book.getChapters().size(); i++) {
-                if (pos < downloadChapters.size() &&
-                        book.getChapters().get(i).getChapterEndpoint().equals(downloadChapters.get(pos).chapter_endpoint)) {
-                    listChapterDownloaded.add(true);
-                    pos += 1;
-                } else {
-                    listChapterDownloaded.add(false);
+            btnCheckAll.setImageResource(R.drawable.ic_uncheck);
+            btnCheckAll.setTag(R.drawable.ic_uncheck);
+            for (int i=0; i<listChapterDownloaded.size(); i++) {
+                listChapterDownloaded.set(i, false);
+                listChecked.set(i, false);
+                for (int j=0; j<downloadChapters.size(); j++) {
+                    if (book.getChapters().get(i).getChapterEndpoint().equals(downloadChapters.get(j).chapter_endpoint)) {
+                        listChapterDownloaded.set(i, true);
+                        break;
+                    }
                 }
-                listChecked.add(false);
             }
             if (recyclerView.getAdapter() != null) recyclerView.getAdapter().notifyDataSetChanged();
         });
@@ -155,7 +154,7 @@ public class DownloadChapterActivity extends BaseActivity implements DownloadCha
             if (listChecked.get(i)) listChapterSelected.add(book.getChapters().get(i));
         }
         if (listChapterSelected.size() > 0) {
-            presenter.downloadBookInfo(book.clone());
+            presenter.downloadBookInfo(book);
             if (book.getType().equals("Comic")) presenter.downloadChapterImage(listChapterSelected);
             else presenter.downloadChapterText(listChapterSelected);
         }

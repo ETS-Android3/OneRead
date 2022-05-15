@@ -68,10 +68,10 @@
         </RelativeLayout>
 
         <RelativeLayout
+            android:id="@+id/thumbnail"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/_100sdp"
             android:background="@color/transparent"
-            android:layout_above="@+id/tab"
             android:layout_below="@id/top_layout"
             android:layout_margin="@dimen/_10sdp">
 
@@ -83,68 +83,82 @@
                 android:src="@drawable/background" />
         </RelativeLayout>
 
-        <androidx.cardview.widget.CardView
-            android:id="@+id/tab"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/_30sdp"
-            android:layout_marginVertical="@dimen/_10sdp"
-            app:cardBackgroundColor="@color/transparent"
-            app:cardCornerRadius="@dimen/rect_corner"
-            app:cardElevation="0dp"
-            android:layout_above="@+id/layout_content">
-            <eightbitlab.com.blurview.BlurView
-                android:id="@+id/tab_background"
+            android:layout_height="match_parent"
+            android:layout_below="@id/thumbnail"
+            android:orientation="vertical">
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/tab"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/transparent">
-                <com.google.android.material.tabs.TabLayout
+                android:layout_above="@+id/layout_content"
+                android:layout_marginHorizontal="@dimen/_30sdp"
+                android:layout_marginVertical="@dimen/_10sdp"
+                app:cardBackgroundColor="@color/transparent"
+                app:cardCornerRadius="@dimen/rect_corner"
+                app:cardElevation="0dp">
+
+                <eightbitlab.com.blurview.BlurView
+                    android:id="@+id/tab_background"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/tab_layout"
-                    android:background="@color/transparent"
-                    app:tabIndicatorColor="@color/normal_text"
-                    app:tabSelectedTextColor="@color/normal_text"
-                    app:tabTextColor="@color/small_text"
-                    app:tabBackground="@drawable/tab_selector">
-                    <com.google.android.material.tabs.TabItem
-                        android:id="@+id/tab_about"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:text="@string/about"/>
-                    <com.google.android.material.tabs.TabItem
-                        android:id="@+id/tab_chapter"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:text="@string/chapter"/>
-                    <com.google.android.material.tabs.TabItem
-                        android:id="@+id/tab_comment"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:text="comment"
-                        tools:ignore="HardcodedText" />
+                    android:background="@color/transparent">
 
-                </com.google.android.material.tabs.TabLayout>
-            </eightbitlab.com.blurview.BlurView>
-        </androidx.cardview.widget.CardView>
-        <LinearLayout
-            android:id="@+id/layout_content"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/_350sdp"
-            android:layout_alignParentBottom="true"
-            android:background="@color/transparent">
-            <eightbitlab.com.blurview.BlurView
-                android:id="@+id/content_background"
+                    <com.google.android.material.tabs.TabLayout
+                        android:id="@+id/tab_layout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/transparent"
+                        app:tabBackground="@drawable/tab_selector"
+                        app:tabIndicatorColor="@color/normal_text"
+                        app:tabSelectedTextColor="@color/normal_text"
+                        app:tabTextColor="@color/small_text">
+
+                        <com.google.android.material.tabs.TabItem
+                            android:id="@+id/tab_about"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:text="@string/about" />
+
+                        <com.google.android.material.tabs.TabItem
+                            android:id="@+id/tab_chapter"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:text="@string/chapter" />
+
+                        <com.google.android.material.tabs.TabItem
+                            android:id="@+id/tab_comment"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:text="comment"
+                            tools:ignore="HardcodedText" />
+
+                    </com.google.android.material.tabs.TabLayout>
+                </eightbitlab.com.blurview.BlurView>
+            </androidx.cardview.widget.CardView>
+
+            <LinearLayout
+                android:id="@+id/layout_content"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@drawable/bottom_sheet">
-                <androidx.viewpager2.widget.ViewPager2
-                    android:id="@+id/frm_content"
+                android:background="@color/transparent">
+
+                <eightbitlab.com.blurview.BlurView
+                    android:id="@+id/content_background"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
-                    android:background="@color/transparent"/>
-            </eightbitlab.com.blurview.BlurView>
+                    android:layout_height="match_parent"
+                    android:background="@drawable/bottom_sheet">
+
+                    <androidx.viewpager2.widget.ViewPager2
+                        android:id="@+id/frm_content"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:background="@color/transparent" />
+                </eightbitlab.com.blurview.BlurView>
+            </LinearLayout>
         </LinearLayout>
     </RelativeLayout>
 
